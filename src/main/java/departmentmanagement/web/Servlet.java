@@ -18,11 +18,6 @@ import java.sql.Date;
 import java.util.List;
 
 
-/**
- * ControllerServlet.java
- * This servlet acts as a page controller for the application, handling all
- * requests from the user.
- */
 
 @WebServlet("/")
 public class Servlet extends HttpServlet {
@@ -46,19 +41,19 @@ public class Servlet extends HttpServlet {
 		System.out.println(action);
 		switch (action) {
 
-		case "/new":
+		case "/newDepartment":
 			showNewForm(request, response);
 			break;
-		case "/edit":
+		case "/editDepartment":
 			showEditForm(request, response);
 			break;
-		case "/insert":
+		case "/insertDepartment":
 			insertDepartment(request, response);
 			break;
-		case "/delete":
+		case "/deleteDepartment":
 			deleteDepartment(request, response);
 			break;
-		case "/update":
+		case "/updateDepartment":
 			updateDepartment(request, response);
 			break;
 		case "/listEmployee":
@@ -162,9 +157,9 @@ public class Servlet extends HttpServlet {
 		Date dateOfBirthday = Date.valueOf(reverseDate(request.getParameter("dateOfBirthday")));
 		String mail = request.getParameter("mail");
 		int salary = Integer.parseInt(request.getParameter("salary"));
-		int idDepartment = Integer.parseInt(request.getParameter("id_department"));//request.getParameter("id_department")
+		int idDepartment = Integer.parseInt(request.getParameter("id_department"));
 		employeeDAO.create(name,dateOfBirthday,mail,salary,idDepartment);
-		response.sendRedirect("listEmployee");
+		response.sendRedirect("listEmployee" +"?id_department="+ idDepartment);
 	}
 
 	private String reverseDate(String date){
@@ -195,7 +190,7 @@ public class Servlet extends HttpServlet {
 		int salary = Integer.parseInt(request.getParameter("salary"));
 		int idDepartment = Integer.parseInt(request.getParameter("id_department"));
 		employeeDAO.update(id,name,dateOfBirthday,mail,salary,idDepartment);
-		response.sendRedirect("listEmployee");
+		response.sendRedirect("listEmployee" +"?id_department="+ idDepartment);
 	}
 
 
@@ -209,9 +204,9 @@ public class Servlet extends HttpServlet {
 	//Employee
 	private void deleteEmployee(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
-		employeeDAO.delete(id);
-		response.sendRedirect("listEmployee");
+		int idEmployee = Integer.parseInt(request.getParameter("id_employee"));
+		employeeDAO.delete(idEmployee);
+		response.sendRedirect("list");
 	}
 
 

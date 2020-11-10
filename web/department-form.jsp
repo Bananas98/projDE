@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-<title>User Management Application</title>
+<title>Department Management Application</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -15,7 +15,7 @@
 		<nav class="navbar navbar-expand-md navbar-dark"
 			style="background-color: tomato">
 			<div>
-				<a href="https://www.javaguides.net" class="navbar-brand"> User Management App </a>
+				<a href="https://www.javaguides.net" class="navbar-brand"> Department Management App </a>
 			</div>
 
 			<ul class="navbar-nav">
@@ -29,19 +29,19 @@
 		<div class="card">
 			<div class="card-body">
 				<c:if test="${department != null}">
-					<form action="update" method="post">
+					<form action="updateDepartment" method="post">
 				</c:if>
 				<c:if test="${department == null}">
-					<form action="insert" method="post">
+					<form action="insertDepartment" method="post">
 				</c:if>
 
 				<caption>
 					<h2>
 						<c:if test="${department != null}">
-            			Edit User
+            			Edit Department
             		</c:if>
 						<c:if test="${department == null}">
-            			Add New User
+            			Add New Department
             		</c:if>
 					</h2>
 				</caption>
@@ -51,7 +51,7 @@
 				</c:if>
 
 				<fieldset class="form-group">
-					<label>User Name</label> <input type="text"
+					<label>Department Name</label> <input type="text"
 						value="<c:out value='${department.name}' />" class="form-control"
 						name="name" required="required">
 				</fieldset>

@@ -15,7 +15,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     static final String DELETE_EMPLOYEE = "DELETE FROM employee WHERE id = ?";
     static final String UPDATE_EMPLOYEE = "UPDATE employee  set name = (?), dateOfBirthday = (?), mail = (?), salary = (?),id_department = (?) WHERE id = ?";
-    static final String CREATE_EMPLOYEE = "INSERT INTO employee (id, name, dateOfBirthday, mail, salary, id_department) VALUES (?,?,?,?,?,?)";
+    static final String CREATE_EMPLOYEE = "INSERT INTO employee (name, dateOfBirthday, mail, salary, id_department) VALUES (?,?,?,?,?)";
 //    static final String GET_ALL_EMPLOYEE = "SELECT e.id, e.name, e.dateOfBirthday, e.mail, e.salary, d.id AS departmentId, d.name FROM employee AS e " +
 //            "JOIN department AS d ON (e.id_department = d.id) WHERE id_department = ?";
     static final String GET_EMPLOYEE = "SELECT id, name, dateOfBirthday, mail, salary, id_department FROM employee WHERE id = ?";
@@ -76,7 +76,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(DELETE_EMPLOYEE)) {
             pStatement.setInt(1, employeeId);
-            pStatement.execute();
+            pStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,7 +107,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             pStatement.setInt(4,salary);
             pStatement.setInt(5,departmentId);
             pStatement.setInt(6,departmentId);
-            pStatement.execute();
+            pStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
