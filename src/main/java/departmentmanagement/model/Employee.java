@@ -1,15 +1,43 @@
 package departmentmanagement.model;
 
-import java.sql.Date;
+import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionSupport;
 
-public class Employee {
-    int id;
-    String name;
-    Date dateOfBirthday;
-    String mail;
-    int salary;
-    int idDepartment;
-// private
+import java.sql.Date;
+import java.util.regex.Pattern;
+
+public class Employee{
+    private int id;
+    private String name;
+    private Date dateOfBirthday;
+    private String mail;
+    private int salary;
+    private int idDepartment;
+
+//    @Override
+//    public String execute()
+//    {
+//        if ((getName().trim().length() > 0)) {
+//            return Action.SUCCESS;
+//        }
+//        return Action.INPUT;
+//    }
+//    @Override
+//    public void validate()
+//    {
+//        if (isEmptyString(name))
+//            addFieldError("name","Name is empty");
+//        if (Pattern.matches("[a-zA-Z]+",name))
+//            addFieldError("name","Name can contains only characters");
+//        if (name.length() > 30) {
+//            addFieldError ("name","Name is very long" );
+//        }
+//    }
+
+    private boolean isEmptyString (String value) {
+        return value == null || "".equals (value.trim ());
+    }
+
     public int getId() {
         return id;
     }

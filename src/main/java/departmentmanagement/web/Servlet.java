@@ -6,6 +6,8 @@ import departmentmanagement.dao.interfaces.DepartmentDAO;
 import departmentmanagement.dao.interfaces.EmployeeDAO;
 import departmentmanagement.model.Department;
 import departmentmanagement.model.Employee;
+import departmentmanagement.validate.DepartmentValidate;
+import departmentmanagement.validate.EmployeeValidate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,10 +23,12 @@ import java.util.List;
 
 @WebServlet("/")
 public class Servlet extends HttpServlet {
+	EmployeeValidate employeeValidate = new EmployeeValidate();
+	DepartmentValidate departmentValidate = new DepartmentValidate();
 	private static final long serialVersionUID = 1L;
 	private DepartmentDAO departmentDAO;
 	private EmployeeDAO employeeDAO;
-	
+	boolean error=false;
 	public void init() {
 		departmentDAO = new DepartmentDAOImpl();
 		employeeDAO = new EmployeeDAOImpl();
@@ -42,10 +46,10 @@ public class Servlet extends HttpServlet {
 		switch (action) {
 
 		case "/newDepartment":
-			showNewForm(request, response);
+			showNewFormDepartment(request, response);
 			break;
 		case "/editDepartment":
-			showEditForm(request, response);
+			showEditFormDepartment(request, response);
 			break;
 		case "/insertDepartment":
 			insertDepartment(request, response);
@@ -90,24 +94,24 @@ public class Servlet extends HttpServlet {
 
 	private void getAllEmployee(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		int id_department = Integer.parseInt(request.getParameter("id_department"));
-		String nameDepartment = departmentDAO.get(id_department).getName();
-		List<Employee> listEmployee = employeeDAO.getAllEmployeeDepartments(id_department);
+		int idDepartment = Integer.parseInt(request.getParameter("id_department"));
+		String nameDepartment = departmentDAO.get(idDepartment).getName();
+		List<Employee> listEmployee = employeeDAO.getAllEmployeeDepartments(idDepartment);
 		request.setAttribute("listEmployee", listEmployee);
-		request.setAttribute("id_department", id_department);
+		request.setAttribute("id_department", idDepartment);
 		request.setAttribute("name_department", nameDepartment);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("employee-list.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
+	private void showNewFormDepartment(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("department-form.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	//Employee
+
 	private void showNewFormEmployee(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int id_department = Integer.parseInt(request.getParameter("id_department"));
@@ -120,7 +124,7 @@ public class Servlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+	private void showEditFormDepartment(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		Department existingDepartment = departmentDAO.get(id);
@@ -130,7 +134,7 @@ public class Servlet extends HttpServlet {
 
 	}
 
-	//Employee
+
 	private void showEditFormEmployee(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id_employee"));
