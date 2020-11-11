@@ -106,7 +106,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             pStatement.setString(3,mail);
             pStatement.setInt(4,salary);
             pStatement.setInt(5,departmentId);
-            pStatement.setInt(6,departmentId);
+            pStatement.setInt(6,id);
             pStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

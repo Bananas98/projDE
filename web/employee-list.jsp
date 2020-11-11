@@ -68,7 +68,7 @@
                     <td><calendar:formatDate value="${employee.dateOfBirthday}" pattern="yyyy-MM-dd"/></td>
                     <td><c:out value="${employee.mail}"/></td>
                     <td><c:out value="${employee.salary}"/></td>
-                    <td><a href="editEmployee?id_department=<c:out value='${employee.id}' />">Edit</a>
+                    <td><a href="editEmployee?id_department=${id_department}&id_employee=<c:out value='${employee.id}' />">Edit</a>
                         <a href="deleteEmployee?id_employee=<c:out value='${employee.id}' />">Delete</a>
                     </td>
                 </tr>

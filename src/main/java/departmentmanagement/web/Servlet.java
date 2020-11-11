@@ -133,7 +133,7 @@ public class Servlet extends HttpServlet {
 	//Employee
 	private void showEditFormEmployee(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
+		int id = Integer.parseInt(request.getParameter("id_employee"));
 		Employee existingEmployee = employeeDAO.get(id);
 		List<Department> listDepartment = departmentDAO.getAllDepartments();
 		request.setAttribute("listDepartment", listDepartment);
