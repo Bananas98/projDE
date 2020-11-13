@@ -1,4 +1,4 @@
-package departmentmanagement.command.formUpdate;
+package departmentmanagement.command.employeeCommand;
 
 import departmentmanagement.command.Command;
 import departmentmanagement.dao.impl.DepartmentDAOImpl;
@@ -27,7 +27,7 @@ public class FormEditEmployee implements Command {
         List<Department> listDepartment = departmentDAO.getAllDepartments();
         request.setAttribute("listDepartment", listDepartment);
         request.setAttribute("employee", existingEmployee);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("employee-form.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/employee-form.jsp");
         dispatcher.forward(request, response);
     }
 }

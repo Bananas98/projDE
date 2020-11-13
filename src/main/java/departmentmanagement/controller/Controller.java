@@ -3,18 +3,18 @@ package departmentmanagement.controller;
 
 
 import departmentmanagement.command.Command;
-import departmentmanagement.command.create.CreateDepartment;
-import departmentmanagement.command.create.CreateEmployee;
-import departmentmanagement.command.delete.DeleteDepartment;
-import departmentmanagement.command.delete.DeleteEmployee;
-import departmentmanagement.command.formCreate.FormCreateDepartment;
-import departmentmanagement.command.formCreate.FormCreateEmployee;
-import departmentmanagement.command.formUpdate.FormEditDepartment;
-import departmentmanagement.command.formUpdate.FormEditEmployee;
-import departmentmanagement.command.get.GetAllDepartment;
-import departmentmanagement.command.get.GetAllEmployeeDepartment;
-import departmentmanagement.command.update.UpdateDepartment;
-import departmentmanagement.command.update.UpdateEmployee;
+import departmentmanagement.command.departmentCommand.CreateDepartment;
+import departmentmanagement.command.employeeCommand.CreateEmployee;
+import departmentmanagement.command.departmentCommand.DeleteDepartment;
+import departmentmanagement.command.employeeCommand.DeleteEmployee;
+import departmentmanagement.command.departmentCommand.FormCreateDepartment;
+import departmentmanagement.command.employeeCommand.FormCreateEmployee;
+import departmentmanagement.command.departmentCommand.FormEditDepartment;
+import departmentmanagement.command.employeeCommand.FormEditEmployee;
+import departmentmanagement.command.departmentCommand.GetAllDepartment;
+import departmentmanagement.command.employeeCommand.GetAllEmployeeDepartment;
+import departmentmanagement.command.departmentCommand.UpdateDepartment;
+import departmentmanagement.command.employeeCommand.UpdateEmployee;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

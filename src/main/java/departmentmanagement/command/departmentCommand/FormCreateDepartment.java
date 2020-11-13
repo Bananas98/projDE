@@ -1,4 +1,4 @@
-package departmentmanagement.command.formCreate;
+package departmentmanagement.command.departmentCommand;
 
 import departmentmanagement.command.Command;
 
@@ -11,7 +11,7 @@ import java.io.IOException;
 public class FormCreateDepartment implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("department-form.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/department-form.jsp");
         dispatcher.forward(request, response);
     }
 }

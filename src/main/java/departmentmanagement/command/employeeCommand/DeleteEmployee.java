@@ -1,22 +1,26 @@
-package departmentmanagement.command.create;
+package departmentmanagement.command.employeeCommand;
+
 
 
 import departmentmanagement.command.Command;
 import departmentmanagement.dao.impl.DepartmentDAOImpl;
+import departmentmanagement.dao.impl.EmployeeDAOImpl;
 import departmentmanagement.dao.interfaces.DepartmentDAO;
-import departmentmanagement.service.DepartmentService;
+import departmentmanagement.dao.interfaces.EmployeeDAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class CreateDepartment implements Command {
-    private DepartmentDAO departmentDAO = new DepartmentDAOImpl();
+public class DeleteEmployee implements Command {
+
+    private EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String name = request.getParameter("name");
-        departmentDAO.create(name);
+        int idEmployee = Integer.parseInt(request.getParameter("id_employee"));
+        employeeDAO.delete(idEmployee);
         response.sendRedirect("listDepartment");
     }
 }
