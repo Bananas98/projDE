@@ -51,7 +51,7 @@
 				</c:if>
 
 				<fieldset class="form-group">
-					<label>Department Name</label> <input type="text" pattern="[A-Za-z]{3,30}"
+					<label>Department Name</label> <input type="text"
 						value="<c:out value='${department.name}' />" class="form-control"
 						name="name" required="required">
 				</fieldset>

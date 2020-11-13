@@ -28,33 +28,29 @@ import java.util.Map;
 @WebServlet("/")
 public class Controller extends HttpServlet {
 
-    private Map<String, Command> commandMap;
+    private final Map<String, Command> commandMap;
 
-
-    @Override
-    public void init() throws ServletException {
+    {
         commandMap = new HashMap<>();
 
-        commandMap.put("listDepartment", new GetAllDepartment());
-        commandMap.put("listEmployee", new GetAllEmployeeDepartment());
-        commandMap.put("newDepartment", new FormCreateDepartment());
-        commandMap.put("newEmployee", new FormCreateEmployee());
-        commandMap.put("editDepartment", new FormEditDepartment());
-        commandMap.put("editEmployee", new FormEditEmployee());
-        commandMap.put("insertDepartment", new CreateDepartment());
-        commandMap.put("insertEmployee", new CreateEmployee());
-        commandMap.put("deleteDepartment", new DeleteDepartment());
-        commandMap.put("deleteEmployee", new DeleteEmployee());
-        commandMap.put("updateDepartment", new UpdateDepartment());
-        commandMap.put("updateEmployee", new UpdateEmployee());
-        super.init();
+        commandMap.put("/listDepartment", new GetAllDepartment());
+        commandMap.put("/listEmployee", new GetAllEmployeeDepartment());
+        commandMap.put("/newDepartment", new FormCreateDepartment());
+        commandMap.put("/newEmployee", new FormCreateEmployee());
+        commandMap.put("/editDepartment", new FormEditDepartment());
+        commandMap.put("/editEmployee", new FormEditEmployee());
+        commandMap.put("/insertDepartment", new CreateDepartment());
+        commandMap.put("/insertEmployee", new CreateEmployee());
+        commandMap.put("/deleteDepartment", new DeleteDepartment());
+        commandMap.put("/deleteEmployee", new DeleteEmployee());
+        commandMap.put("/updateDepartment", new UpdateDepartment());
+        commandMap.put("/updateEmployee", new UpdateEmployee());
 
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String url = request.getRequestURI().replaceAll("/", "");
-        System.out.println(url);
-        Command command = commandMap.getOrDefault(url, commandMap.get("listDepartment"));
+        String url = request.getRequestURI();
+        Command command = commandMap.getOrDefault(url, commandMap.get("/listDepartment"));
         if (command != null){
             command.execute(request,response);
         }

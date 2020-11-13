@@ -8,20 +8,6 @@ import departmentmanagement.dao.interfaces.EmployeeDAO;
 
 public class MySQLDAO extends DAOFactory {
 
-   private static MySQLDAO mySQLDAO;
-
-   public static MySQLDAO getInstance() {
-      MySQLDAO localInstance = mySQLDAO;
-      if (localInstance == null) {
-         synchronized (MySQLDAO.class) {
-            localInstance = mySQLDAO;
-            if (localInstance == null) {
-               mySQLDAO = localInstance = new MySQLDAO();
-            }
-         }
-      }
-      return localInstance;
-   }
 
    @Override
    public DepartmentDAO getDepartmentDAO() {
