@@ -1,5 +1,6 @@
 package departmentmanagement.model;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Date;
@@ -9,9 +10,9 @@ public class Employee{
 
     private Integer id;
     @NotNull(message = "name cannot be null")
-    @Size(min = 3, max = 25)
+    @NotEmpty(message = "cannot be empty")
+    @Size(min = 3, max = 25, message = "enter a word between 3 and 25 characters long")
     private String name;
-
     private Date dateOfBirthday;
     private String mail;
     private Integer salary;

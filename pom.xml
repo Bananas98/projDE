@@ -48,6 +48,12 @@
             <version>2.0.0.Final</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/net.sf.oval/oval -->
+        <dependency>
+            <groupId>net.sf.oval</groupId>
+            <artifactId>oval</artifactId>
+            <version>1.90</version>
+        </dependency>
 
     </dependencies>
 </project>

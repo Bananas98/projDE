@@ -18,13 +18,12 @@ public class CreateUpdateDepartment implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Department department = new Department();
-        if (request.getParameter("id") == null){
-            department.setName(request.getParameter("name"));
-            departmentService.createNewDepartment(department);
-        }else {
+        department.setName(request.getParameter("name"));
+        if (request.getParameter("id") != null) {
             department.setId(Utils.parseInteger(request.getParameter("id")));
-            department.setName(request.getParameter("name"));
             departmentService.updateDepartment(department);
+        }else {
+            departmentService.createNewDepartment(department);
         }
         response.sendRedirect("listDepartment");
 

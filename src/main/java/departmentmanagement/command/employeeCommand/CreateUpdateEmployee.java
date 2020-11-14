@@ -1,7 +1,6 @@
 package departmentmanagement.command.employeeCommand;
 
 
-
 import departmentmanagement.command.Command;
 import departmentmanagement.model.Employee;
 import departmentmanagement.service.EmployeeService;
@@ -19,24 +18,19 @@ public class CreateUpdateEmployee implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Employee employee = new Employee();
-        if (request.getParameter("id") == null){
-            employee.setName(request.getParameter("name"));
-            employee.setDateOfBirthday(Date.valueOf(request.getParameter("dateOfBirthday")));
-            employee.setMail(request.getParameter("mail"));
-            employee.setSalary(Utils.parseInteger(request.getParameter("salary")));
-            employee.setIdDepartment(Utils.parseInteger(request.getParameter("id_department")));
-            employeeService.createNewEmployee(employee);
-            response.sendRedirect("listEmployee" + "?id_department=" + employee.getIdDepartment());
-        }
-        else {
+        employee.setName(request.getParameter("name"));
+        employee.setDateOfBirthday(Date.valueOf(request.getParameter("dateOfBirthday")));
+        employee.setMail(request.getParameter("mail"));
+        employee.setSalary(Utils.parseInteger(request.getParameter("salary")));
+        employee.setIdDepartment(Utils.parseInteger(request.getParameter("id_department")));
+
+        if (request.getParameter("id") != null) {
             employee.setId(Integer.parseInt(request.getParameter("id")));
-            employee.setName(request.getParameter("name"));
-            employee.setDateOfBirthday(Date.valueOf(request.getParameter("dateOfBirthday")));
-            employee.setMail(request.getParameter("mail"));
-            employee.setSalary(Utils.parseInteger(request.getParameter("salary")));
-            employee.setIdDepartment(Utils.parseInteger(request.getParameter("id_department")));
             employeeService.updateEmployee(employee);
-            response.sendRedirect("listEmployee" + "?id_department=" + employee.getIdDepartment());
+        } else {
+            employeeService.createNewEmployee(employee);
         }
+        response.sendRedirect("listEmployee" + "?id_department=" + employee.getIdDepartment());
+
     }
 }
