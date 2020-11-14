@@ -83,14 +83,14 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public void create(String employeeName, Date dateOfBirthday, String mail, int salary, int idDepartment) {
+    public void create(Employee employee) {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(CREATE_EMPLOYEE, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            pStatement.setString(1, employeeName);
-            pStatement.setDate(2, dateOfBirthday);
-            pStatement.setString(3, mail);
-            pStatement.setInt(4, salary);
-            pStatement.setInt(5, idDepartment);
+            pStatement.setString(1, employee.getName());
+            pStatement.setDate(2, employee.getDateOfBirthday());
+            pStatement.setString(3, employee.getMail());
+            pStatement.setInt(4, employee.getSalary());
+            pStatement.setInt(5, employee.getIdDepartment());
             pStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -98,15 +98,15 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public void update(int id, String nameEmployee, Date dateOfBirthday, String mail, int salary, int departmentId) {
+    public void update(Employee employee) {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(UPDATE_EMPLOYEE);) {
-            pStatement.setString(1,nameEmployee);
-            pStatement.setDate(2,dateOfBirthday);
-            pStatement.setString(3,mail);
-            pStatement.setInt(4,salary);
-            pStatement.setInt(5,departmentId);
-            pStatement.setInt(6,id);
+            pStatement.setString(1,employee.getName());
+            pStatement.setDate(2,employee.getDateOfBirthday());
+            pStatement.setString(3,employee.getMail());
+            pStatement.setInt(4,employee.getSalary());
+            pStatement.setInt(5,employee.getIdDepartment());
+            pStatement.setInt(6,employee.getId());
             pStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

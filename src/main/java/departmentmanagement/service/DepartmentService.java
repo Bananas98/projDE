@@ -2,6 +2,7 @@ package departmentmanagement.service;
 
 import departmentmanagement.dao.DAOFactory;
 import departmentmanagement.model.Department;
+import departmentmanagement.model.Employee;
 
 import java.util.List;
 
@@ -10,19 +11,21 @@ public class DepartmentService {
 
     private DAOFactory mySQLDAO = DAOFactory.getDAOFactory();
 
-    private static DepartmentService departmentService;
 
+    public Department getByIdDepartment(Integer id){
+        return mySQLDAO.getDepartmentDAO().get(id);
+    }
 
-    public void createNewDepartment(String nameDepartment){
-        mySQLDAO.getDepartmentDAO().create(nameDepartment);
+    public void createNewDepartment(Department department){
+        mySQLDAO.getDepartmentDAO().create(department);
     }
 
     public void deleteDepartment(int idDepartment){
         mySQLDAO.getDepartmentDAO().delete(idDepartment);
     }
 
-    public void updateDepartment(int departmentId, String nameDepartment ){
-        mySQLDAO.getDepartmentDAO().update(departmentId, nameDepartment);
+    public void updateDepartment(Department department){
+        mySQLDAO.getDepartmentDAO().update(department);
     }
 
     public List<Department> getAllDepartment(){

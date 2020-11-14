@@ -12,12 +12,12 @@ import java.io.IOException;
 
 public class DeleteDepartment implements Command {
 
-    private DepartmentDAO departmentDAO = new DepartmentDAOImpl();
+    private DepartmentService departmentService = new DepartmentService();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        departmentDAO.delete(id);
+        departmentService.deleteDepartment(id);
         response.sendRedirect("listDepartment");
     }
 }

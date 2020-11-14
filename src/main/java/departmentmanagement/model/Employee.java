@@ -7,20 +7,21 @@ import java.sql.Date;
 
 public class Employee{
 
-    private int id;
+    private Integer id;
     @NotNull(message = "name cannot be null")
     @Size(min = 3, max = 25)
     private String name;
+
     private Date dateOfBirthday;
     private String mail;
-    private int salary;
-    private int idDepartment;
+    private Integer salary;
+    private Integer idDepartment;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -44,11 +45,11 @@ public class Employee{
         this.mail = mail;
     }
 
-    public int getSalary() {
+    public Integer getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(Integer salary) {
         this.salary = salary;
     }
 
@@ -56,23 +57,12 @@ public class Employee{
         this.name = name;
     }
 
-    public int getIdDepartment() {
+    public Integer getIdDepartment() {
         return idDepartment;
     }
 
-    public void setIdDepartment(int idDepartment) {
+    public void setIdDepartment(Integer idDepartment) {
         this.idDepartment = idDepartment;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", dateOfBirthday=" + dateOfBirthday +
-                ", mail='" + mail + '\'' +
-                ", salary=" + salary +
-                ", idDepartment=" + idDepartment +
-                '}';
-    }
 }

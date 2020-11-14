@@ -7,16 +7,16 @@ public class Department {
 
 
 
-    private int id;
+    private Integer id;
     @NotNull(message = "name cannot be null")
     @Size(min = 3, max = 25)
     private String name;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

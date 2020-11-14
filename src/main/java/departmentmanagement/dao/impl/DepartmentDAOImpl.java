@@ -60,10 +60,10 @@ public class DepartmentDAOImpl implements DepartmentDAO {
     }
 
     @Override
-    public void create(String nameDepartment) {//todo add identifier success
+    public void create(Department department) {//todo add identifier success
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(CREATE_DEPARTMENT, Statement.RETURN_GENERATED_KEYS)) {
-            pStatement.setString(1,nameDepartment);
+            pStatement.setString(1,department.getName());
             pStatement.execute();
         } catch ( SQLException e) {
             e.printStackTrace();
@@ -71,11 +71,11 @@ public class DepartmentDAOImpl implements DepartmentDAO {
     }
 
     @Override
-    public void update(int departmentId, String nameDepartment) {
+    public void update(Department department) {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(UPDATE_DEPARTMENT)) {
-            pStatement.setString(1, nameDepartment);
-            pStatement.setInt(2, departmentId);
+            pStatement.setString(1, department.getName());
+            pStatement.setInt(2, department.getId());
             pStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -2,12 +2,9 @@ package departmentmanagement.command.employeeCommand;
 
 
 
-import departmentmanagement.command.Command;
-import departmentmanagement.dao.impl.DepartmentDAOImpl;
-import departmentmanagement.dao.impl.EmployeeDAOImpl;
-import departmentmanagement.dao.interfaces.DepartmentDAO;
-import departmentmanagement.dao.interfaces.EmployeeDAO;
+import departmentmanagement.command.Command;;
 import departmentmanagement.model.Employee;
+import departmentmanagement.service.DepartmentService;
 import departmentmanagement.service.EmployeeService;
 
 import javax.servlet.RequestDispatcher;
@@ -19,14 +16,14 @@ import java.util.List;
 
 public class GetAllEmployeeDepartment implements Command {
 
-    private EmployeeDAO employeeDAO = new EmployeeDAOImpl();
-    private DepartmentDAO departmentDAO = new DepartmentDAOImpl();
+    private DepartmentService departmentService = new DepartmentService();
+    private EmployeeService employeeService = new EmployeeService();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int idDepartment = Integer.parseInt(request.getParameter("id_department"));
-        String nameDepartment = departmentDAO.get(idDepartment).getName();
-        List<Employee> listEmployee = employeeDAO.getAllEmployeeDepartments(idDepartment);
+        Integer idDepartment = Integer.parseInt(request.getParameter("id_department"));
+        String nameDepartment = departmentService.getByIdDepartment(idDepartment).getName();
+        List<Employee> listEmployee = employeeService.getAllEmployeesDepartment(idDepartment);
         request.setAttribute("listEmployee", listEmployee);
         request.setAttribute("id_department", idDepartment);
         request.setAttribute("name_department", nameDepartment);

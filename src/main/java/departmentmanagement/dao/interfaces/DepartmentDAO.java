@@ -10,8 +10,8 @@ public interface DepartmentDAO {
     Department get(int departmentId);
     List<Department> getAllDepartments();
     void delete(int departmentId);
-    void create(String nameDepartment);
-    void update(int departmentId, String nameDepartment);
+    void create(Department department);
+    void update(Department department);
 
 
 }
