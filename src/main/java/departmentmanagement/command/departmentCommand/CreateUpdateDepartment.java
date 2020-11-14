@@ -10,13 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class CreateDepartment implements Command {
+public class CreateUpdateDepartment implements Command {
     private DepartmentDAO departmentDAO = new DepartmentDAOImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String name = request.getParameter("name");
-        departmentDAO.create(name);
+        if (request.getParameter("id") == null){
+            String name = request.getParameter("name");
+            departmentDAO.create(name);
+        }else {
+            int id = Integer.parseInt(request.getParameter("id"));
+            String name = request.getParameter("name");
+            departmentDAO.update(id, name);
+        }
         response.sendRedirect("listDepartment");
+
     }
 }

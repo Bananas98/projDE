@@ -3,18 +3,8 @@ package departmentmanagement.controller;
 
 
 import departmentmanagement.command.Command;
-import departmentmanagement.command.departmentCommand.CreateDepartment;
-import departmentmanagement.command.employeeCommand.CreateEmployee;
-import departmentmanagement.command.departmentCommand.DeleteDepartment;
-import departmentmanagement.command.employeeCommand.DeleteEmployee;
-import departmentmanagement.command.departmentCommand.FormCreateDepartment;
-import departmentmanagement.command.employeeCommand.FormCreateEmployee;
-import departmentmanagement.command.departmentCommand.FormEditDepartment;
-import departmentmanagement.command.employeeCommand.FormEditEmployee;
-import departmentmanagement.command.departmentCommand.GetAllDepartment;
-import departmentmanagement.command.employeeCommand.GetAllEmployeeDepartment;
-import departmentmanagement.command.departmentCommand.UpdateDepartment;
-import departmentmanagement.command.employeeCommand.UpdateEmployee;
+import departmentmanagement.command.departmentCommand.*;
+import departmentmanagement.command.employeeCommand.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,12 +29,10 @@ public class Controller extends HttpServlet {
         commandMap.put("/newEmployee", new FormCreateEmployee());
         commandMap.put("/editDepartment", new FormEditDepartment());
         commandMap.put("/editEmployee", new FormEditEmployee());
-        commandMap.put("/insertDepartment", new CreateDepartment());
-        commandMap.put("/insertEmployee", new CreateEmployee());
+        commandMap.put("/insertUpdateDepartment", new CreateUpdateDepartment());
+        commandMap.put("/insertUpdateEmployee", new CreateUpdateEmployee());
         commandMap.put("/deleteDepartment", new DeleteDepartment());
         commandMap.put("/deleteEmployee", new DeleteEmployee());
-        commandMap.put("/updateDepartment", new UpdateDepartment());
-        commandMap.put("/updateEmployee", new UpdateEmployee());
 
     }
 

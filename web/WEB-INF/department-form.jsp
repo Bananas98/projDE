@@ -29,10 +29,10 @@
 		<div class="card">
 			<div class="card-body">
 				<c:if test="${department != null}">
-					<form action="updateDepartment" method="post">
+					<form action="insertUpdateDepartment" method="post">
 				</c:if>
 				<c:if test="${department == null}">
-					<form action="insertDepartment" method="post">
+					<form action="insertUpdateDepartment" method="post">
 				</c:if>
 
 				<caption>

@@ -38,10 +38,10 @@
     <div class="card">
         <div class="card-body">
             <c:if test="${employee != null}">
-            <form action="updateEmployee" method="post">
+            <form action="insertUpdateEmployee" method="post">
                 </c:if>
                 <c:if test="${employee == null}">
-                <form action="insertEmployee" method="post">
+                <form action="insertUpdateEmployee" method="post">
                     </c:if>
 
                     <caption>
