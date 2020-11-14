@@ -11,16 +11,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class FormEditDepartment implements Command {
+public class FormCreateUpdateDepartment implements Command {
 
     private DepartmentDAO departmentDAO = new DepartmentDAOImpl();
 
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Department existingDepartment = departmentDAO.get(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/department-form.jsp");
-        request.setAttribute("department", existingDepartment);
-        dispatcher.forward(request, response);
+        if (request.getParameter("id") == null) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/department-form.jsp");
+            dispatcher.forward(request, response);
+
+        } else {
+            int id = Integer.parseInt(request.getParameter("id"));
+            Department existingDepartment = departmentDAO.get(id);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/department-form.jsp");
+            request.setAttribute("department", existingDepartment);
+            dispatcher.forward(request, response);
+        }
     }
+
 }

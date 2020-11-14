@@ -12,10 +12,6 @@ public class DepartmentService {
 
     private static DepartmentService departmentService;
 
-    private DepartmentService() {
-
-    }
-
 
     public void createNewDepartment(String nameDepartment){
         mySQLDAO.getDepartmentDAO().create(nameDepartment);

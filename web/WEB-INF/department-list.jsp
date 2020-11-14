@@ -35,7 +35,7 @@
         <hr>
         <div class="container text-left">
 
-            <a href="<%=request.getContextPath()%>/newDepartment" class="btn btn-success">Add New Department</a>
+            <a href="<%=request.getContextPath()%>/createUpdateFormDepartment" class="btn btn-success">Add New Department</a>
         </div>
         <br>
         <table class="table table-bordered">
@@ -54,7 +54,7 @@
                     <td><c:out value="${department.id}"/></td>
                     <td><c:out value="${department.name}"/></td>
 
-                    <td><a href="editDepartment?id=<c:out value='${department.id}' />">Edit</a>
+                    <td><a href="createUpdateFormDepartment?id=<c:out value='${department.id}' />">Edit</a>
                         <a href="deleteDepartment?id=<c:out value='${department.id}' />">Delete</a>
                         <a href="listEmployee?id_department=<c:out value='${department.id}' />">List Employee</a>
                     </td>

@@ -25,10 +25,8 @@ public class Controller extends HttpServlet {
 
         commandMap.put("/listDepartment", new GetAllDepartment());
         commandMap.put("/listEmployee", new GetAllEmployeeDepartment());
-        commandMap.put("/newDepartment", new FormCreateDepartment());
-        commandMap.put("/newEmployee", new FormCreateEmployee());
-        commandMap.put("/editDepartment", new FormEditDepartment());
-        commandMap.put("/editEmployee", new FormEditEmployee());
+        commandMap.put("/createUpdateFormDepartment", new FormCreateUpdateDepartment());
+        commandMap.put("/createUpdateFormEmployee", new FormCreateUpdateEmployee());
         commandMap.put("/insertUpdateDepartment", new CreateUpdateDepartment());
         commandMap.put("/insertUpdateEmployee", new CreateUpdateEmployee());
         commandMap.put("/deleteDepartment", new DeleteDepartment());
