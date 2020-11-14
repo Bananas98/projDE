@@ -5,6 +5,7 @@ import departmentmanagement.command.Command;
 import departmentmanagement.dao.impl.DepartmentDAOImpl;
 import departmentmanagement.dao.interfaces.DepartmentDAO;
 import departmentmanagement.service.DepartmentService;
+import departmentmanagement.util.Utils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +17,7 @@ public class DeleteDepartment implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        Integer id = Utils.parseInteger(request.getParameter("id"));
         departmentService.deleteDepartment(id);
         response.sendRedirect("listDepartment");
     }

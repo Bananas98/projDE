@@ -6,6 +6,7 @@ import departmentmanagement.command.Command;;
 import departmentmanagement.model.Employee;
 import departmentmanagement.service.DepartmentService;
 import departmentmanagement.service.EmployeeService;
+import departmentmanagement.util.Utils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,7 +22,7 @@ public class GetAllEmployeeDepartment implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Integer idDepartment = Integer.parseInt(request.getParameter("id_department"));
+        Integer idDepartment = Utils.parseInteger(request.getParameter("id_department"));
         String nameDepartment = departmentService.getByIdDepartment(idDepartment).getName();
         List<Employee> listEmployee = employeeService.getAllEmployeesDepartment(idDepartment);
         request.setAttribute("listEmployee", listEmployee);

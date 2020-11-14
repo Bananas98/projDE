@@ -4,6 +4,7 @@ import departmentmanagement.command.Command;
 import departmentmanagement.dao.impl.DepartmentDAOImpl;
 import departmentmanagement.dao.interfaces.DepartmentDAO;
 import departmentmanagement.model.Department;
+import departmentmanagement.util.Utils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,7 +24,7 @@ public class FormCreateUpdateDepartment implements Command {
             dispatcher.forward(request, response);
 
         } else {
-            int id = Integer.parseInt(request.getParameter("id"));
+            Integer id = Utils.parseInteger(request.getParameter("id"));
             Department existingDepartment = departmentDAO.get(id);
             RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/department-form.jsp");
             request.setAttribute("department", existingDepartment);

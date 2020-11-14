@@ -3,6 +3,7 @@ package departmentmanagement.controller;
 
 
 import departmentmanagement.command.Command;
+import departmentmanagement.command.CommandError;
 import departmentmanagement.command.departmentCommand.*;
 import departmentmanagement.command.employeeCommand.*;
 
@@ -31,6 +32,7 @@ public class Controller extends HttpServlet {
         commandMap.put("/insertUpdateEmployee", new CreateUpdateEmployee());
         commandMap.put("/deleteDepartment", new DeleteDepartment());
         commandMap.put("/deleteEmployee", new DeleteEmployee());
+        commandMap.put("/error", new CommandError());
 
     }
 

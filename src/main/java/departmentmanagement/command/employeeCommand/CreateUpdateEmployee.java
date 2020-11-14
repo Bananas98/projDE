@@ -5,6 +5,7 @@ package departmentmanagement.command.employeeCommand;
 import departmentmanagement.command.Command;
 import departmentmanagement.model.Employee;
 import departmentmanagement.service.EmployeeService;
+import departmentmanagement.util.Utils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,8 +23,8 @@ public class CreateUpdateEmployee implements Command {
             employee.setName(request.getParameter("name"));
             employee.setDateOfBirthday(Date.valueOf(request.getParameter("dateOfBirthday")));
             employee.setMail(request.getParameter("mail"));
-            employee.setSalary(Integer.parseInt(request.getParameter("salary")));
-            employee.setIdDepartment(Integer.parseInt(request.getParameter("id_department")));
+            employee.setSalary(Utils.parseInteger(request.getParameter("salary")));
+            employee.setIdDepartment(Utils.parseInteger(request.getParameter("id_department")));
             employeeService.createNewEmployee(employee);
             response.sendRedirect("listEmployee" + "?id_department=" + employee.getIdDepartment());
         }
@@ -32,8 +33,8 @@ public class CreateUpdateEmployee implements Command {
             employee.setName(request.getParameter("name"));
             employee.setDateOfBirthday(Date.valueOf(request.getParameter("dateOfBirthday")));
             employee.setMail(request.getParameter("mail"));
-            employee.setSalary(Integer.parseInt(request.getParameter("salary")));
-            employee.setIdDepartment(Integer.parseInt(request.getParameter("id_department")));
+            employee.setSalary(Utils.parseInteger(request.getParameter("salary")));
+            employee.setIdDepartment(Utils.parseInteger(request.getParameter("id_department")));
             employeeService.updateEmployee(employee);
             response.sendRedirect("listEmployee" + "?id_department=" + employee.getIdDepartment());
         }

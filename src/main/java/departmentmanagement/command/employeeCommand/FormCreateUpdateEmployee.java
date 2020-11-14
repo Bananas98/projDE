@@ -9,6 +9,7 @@ import departmentmanagement.model.Department;
 import departmentmanagement.model.Employee;
 import departmentmanagement.service.DepartmentService;
 import departmentmanagement.service.EmployeeService;
+import departmentmanagement.util.Utils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,7 +26,7 @@ public class FormCreateUpdateEmployee implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         if (request.getParameter("id_employee") != null){
-            int id = Integer.parseInt(request.getParameter("id_employee"));
+            Integer id = Utils.parseInteger(request.getParameter("id_employee"));
             Employee existingEmployee = employeeService.getByIdEmployee(id);
             List<Department> listDepartment = departmentService.getAllDepartment();
             request.setAttribute("listDepartment", listDepartment);
@@ -34,7 +35,7 @@ public class FormCreateUpdateEmployee implements Command {
             dispatcher.forward(request, response);
         }
         else {
-            int idDepartment = Integer.parseInt(request.getParameter("id_department"));
+            Integer idDepartment = Utils.parseInteger(request.getParameter("id_department"));
             String nameDepartment = departmentService.getByIdDepartment(idDepartment).getName();
             List<Department> listDepartment = departmentService.getAllDepartment();
             request.setAttribute("listDepartment", listDepartment);

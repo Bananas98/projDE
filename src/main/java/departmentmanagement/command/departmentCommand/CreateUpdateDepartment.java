@@ -6,6 +6,7 @@ import departmentmanagement.dao.impl.DepartmentDAOImpl;
 import departmentmanagement.dao.interfaces.DepartmentDAO;
 import departmentmanagement.model.Department;
 import departmentmanagement.service.DepartmentService;
+import departmentmanagement.util.Utils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +22,7 @@ public class CreateUpdateDepartment implements Command {
             department.setName(request.getParameter("name"));
             departmentService.createNewDepartment(department);
         }else {
-            department.setId(Integer.parseInt(request.getParameter("id")));
+            department.setId(Utils.parseInteger(request.getParameter("id")));
             department.setName(request.getParameter("name"));
             departmentService.updateDepartment(department);
         }
