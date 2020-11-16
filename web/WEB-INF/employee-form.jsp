@@ -64,15 +64,18 @@
                         <label>Employee Name</label> <input type="text" <%--     pattern="[A-Za-z]{3,30}--%>
                                                         value="<c:out value='${employee.name}' />" class="form-control"
                                                         name="name" required="required">
+                        <div class="text-danger">${error['name']}</div>
                         <label>Date Of Birthday</label> <input type="date"
                                                         value="<c:out value='${employee.dateOfBirthday}' />" class="form-control"
                                                         name="dateOfBirthday" required="required">
                         <label>Mail</label> <input type="text" <%--  pattern= "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$"--%>
                                                         value="<c:out value='${employee.mail}' />" class="form-control"
                                                         name="mail" required="required">
+                        <div class="text-danger">${error['mail']}</div>
                         <label>Salary</label> <input type="text" <%--pattern="\\d+"--%>
                                                         value="<c:out value='${employee.salary}' />" class="form-control"
                                                         name="salary" required="required">
+                        <div class="text-danger">${error['salary']}</div>
                         <tr>
                             <th class="border">Name Department : </th>
                             <td class="border">
@@ -84,7 +87,7 @@
                                 </select>
                             </td>
                         </tr>
-
+                        <div class="text-danger">${error['id_department']}</div>
                     </fieldset>
 
 

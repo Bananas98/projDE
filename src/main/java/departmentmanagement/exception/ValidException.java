@@ -5,9 +5,10 @@ import java.util.Map;
 
 public class ValidException extends Exception {
 
-    private Map<String , String> mapError = new HashMap<>();
+    private Map<String , String> mapError;
 
-    public ValidException(Map<String,String> mapError){
+    public ValidException(String message, Map<String,String> mapError){
+        super(message);
         this.mapError = mapError;
     }
 

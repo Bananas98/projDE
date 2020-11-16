@@ -1,7 +1,6 @@
 package departmentmanagement.controller;
 
 
-
 import departmentmanagement.command.Command;
 import departmentmanagement.command.CommandError;
 import departmentmanagement.command.departmentCommand.*;
@@ -37,10 +36,15 @@ public class Controller extends HttpServlet {
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String url = request.getRequestURI();
-        Command command = commandMap.getOrDefault(url, commandMap.get("/listDepartment"));
-        if (command != null){
-            command.execute(request,response);
+        try {
+            String url = request.getRequestURI();
+            Command command = commandMap.getOrDefault(url, commandMap.get("/listDepartment"));
+            if (command != null) {
+                command.execute(request, response);
+            }
+        } catch (Exception e) {
+            request.setAttribute("error", e.getMessage());
+            response.sendRedirect("error");
         }
     }
 

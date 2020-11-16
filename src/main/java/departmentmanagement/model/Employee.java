@@ -1,10 +1,9 @@
 package departmentmanagement.model;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.sql.Date;
 
+import net.sf.oval.constraint.*;
+
+import java.sql.Date;
 
 public class Employee{
 
@@ -13,9 +12,24 @@ public class Employee{
     @NotEmpty(message = "cannot be empty")
     @Size(min = 3, max = 25, message = "enter a word between 3 and 25 characters long")
     private String name;
+
+    @NotNull(message = "Enter date!")
+    @NotEmpty(message = "Enter date!")
     private Date dateOfBirthday;
+
+    @NotNull
+    @NotEmpty
+    @Email(message = "incorrect email")
     private String mail;
+
+    @NotNull(message = "Enter salary!")
+    @NotEmpty(message = "Enter salary!")
+    @Min(value = 0, message = "Salary is incorrect!")
+    @Digits(message = "only digits")
     private Integer salary;
+
+    @NotNull(message = "department cannot be null")
+    @NotEmpty(message = "cannot be empty")
     private Integer idDepartment;
 
     public Integer getId() {

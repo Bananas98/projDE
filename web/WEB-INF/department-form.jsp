@@ -55,7 +55,7 @@
 						value="<c:out value='${department.name}' />" class="form-control"
 						name="name" required="required">
 				</fieldset>
-
+					<div class="text-danger">${error['name']}</div>
 
 				<button type="submit" class="btn btn-success">Save</button>
 				</form>
