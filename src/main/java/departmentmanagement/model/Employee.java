@@ -1,6 +1,7 @@
 package departmentmanagement.model;
 
 
+import departmentmanagement.validate.UniqueEmployeeEmail;
 import net.sf.oval.constraint.*;
 
 import java.sql.Date;
@@ -20,6 +21,7 @@ public class Employee{
     @NotNull
     @NotEmpty
     @Email(message = "incorrect email")
+    @CheckWith(value = UniqueEmployeeEmail.class, message = "This e-mail has used, put other e-mail")
     private String mail;
 
     @NotNull(message = "Enter salary!")

@@ -16,6 +16,7 @@ public class DepartmentDAOImpl implements Dao<Department> {
     static final String CREATE_DEPARTMENT = "INSERT INTO department (name) VALUES (?)";
     static final String GET_ALL_DEPARTMENT = "SELECT * FROM department";
     static final String GET_DEPARTMENT = "SELECT id, name FROM department WHERE id = ?";
+    private static final String GET_DEPARTMENT_BY_NAME = "SELECT * FROM department WHERE name=?";
 
     private static DepartmentDAOImpl departmentDAOImpl;
 
@@ -46,9 +47,9 @@ public class DepartmentDAOImpl implements Dao<Department> {
         Department department = null;
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(GET_DEPARTMENT)) {
-            pStatement.setInt(1,departmentId);
+            pStatement.setInt(1, departmentId);
             ResultSet resultSet = pStatement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 department = getDepartment(resultSet);
             }
         }
@@ -58,7 +59,7 @@ public class DepartmentDAOImpl implements Dao<Department> {
     private void create(Department department) throws SQLException {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(CREATE_DEPARTMENT)) {
-            pStatement.setString(1,department.getName());
+            pStatement.setString(1, department.getName());
             pStatement.execute();
         }
     }
@@ -79,10 +80,25 @@ public class DepartmentDAOImpl implements Dao<Department> {
 
         if (id == null) {
             create(entity);
-        }else {
+        } else {
             update(entity);
         }
     }
+
+    @Override
+    public boolean isUnique(Department department) throws SQLException {
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_DEPARTMENT_BY_NAME)) {
+             statement.setString(1, department.getName());
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                if (department.getId() == null || (department.getId() != rs.getInt("id"))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+}
 
     public List<Department> getAll() throws SQLException {
         List<Department> department = new ArrayList<>();

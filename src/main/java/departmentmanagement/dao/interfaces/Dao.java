@@ -8,4 +8,5 @@ public interface Dao<T> {
     T getById(int id) throws SQLException;
     void delete(int id) throws SQLException;
     void createOrUpdate(T t) throws SQLException;
+    boolean isUnique(T t) throws SQLException;
 }
