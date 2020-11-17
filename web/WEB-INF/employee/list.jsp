@@ -29,7 +29,7 @@
         </div>
 
         <ul class="navbar-nav">
-            <li><a href="<%=request.getContextPath()%>/listDepartment"
+            <li><a href="<c:url value="/listDepartment"/>"
                    class="nav-link">Departments</a></li>
         </ul>
     </nav>
@@ -37,14 +37,13 @@
 <br>
 
 <div class="row">
-    <!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
 
     <div class="container">
         <h3 class="text-center">List of Employees ${department_name}</h3>
         <hr>
         <div class="container text-left">
 
-            <a href="<%=request.getContextPath()%>/createUpdateFormEmployee?id_department=${id_department}" class="btn btn-success">Add New Employees to ${name_department}</a>
+            <a href="/createUpdateFormEmployee?id_department=${id_department}" class="btn btn-success">Add New Employees to ${name_department}</a>
         </div>
         <br>
         <table class="table table-bordered">
@@ -59,7 +58,6 @@
             </tr>
             </thead>
             <tbody>
-            <!--   for (Todo todo: todos) {  -->
             <c:forEach var="employee" items="${listEmployee}">
 
                 <tr>

@@ -26,7 +26,7 @@
         </div>
 
         <ul class="navbar-nav">
-            <li><a href="<%=request.getContextPath()%>/listEmployee?id_department${id_department}"
+            <li><a href="/listEmployee?id_department${id_department}"
                    class="nav-link">Employee</a></li>
         </ul>
     </nav>
@@ -59,7 +59,7 @@
 
                     <fieldset class="form-group">
 
-                        <label>Employee Name</label> <input type="text" <%--     pattern="[A-Za-z]{3,30}--%>
+                        <label>Employee Name</label> <input type="text"
                                                             value="<c:out value='${employee.name}' />"
                                                             class="form-control"
                                                             name="name" required="required">
@@ -68,15 +68,17 @@
                                                                value="<c:out value='${employee.dateOfBirthday}' />"
                                                                class="form-control"
                                                                name="dateOfBirthday" required="required">
-                        <label>Mail</label> <input
-                            type="text" <%--  pattern= "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$"--%>
-                            value="<c:out value='${employee.mail}' />" class="form-control"
-                            name="mail" required="required">
+                        <label>Mail</label><input type="text"
+                                value="<c:out value='${employee.mail}' />" class="form-control"
+                                name="mail" required="required">
+
                         <div class="text-danger">${error['mail']}</div>
-                        <label>Salary</label> <input type="text" <%--pattern="\\d+"--%>
+
+                        <label>Salary</label> <input type="text"
                                                      value="<c:out value='${employee.salary}' />" class="form-control"
                                                      name="salary" required="required">
                         <div class="text-danger">${error['salary']}</div>
+
                         <tr>
                             <th class="border">Name Department :</th>
                             <td class="border">
