@@ -3,8 +3,8 @@ package departmentmanagement.controller;
 
 import departmentmanagement.command.Command;
 import departmentmanagement.command.CommandError;
-import departmentmanagement.command.departmentCommand.*;
-import departmentmanagement.command.employeeCommand.*;
+import departmentmanagement.command.department.*;
+import departmentmanagement.command.employee.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

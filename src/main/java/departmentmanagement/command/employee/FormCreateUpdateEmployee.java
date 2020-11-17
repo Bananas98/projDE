@@ -1,10 +1,6 @@
-package departmentmanagement.command.employeeCommand;
+package departmentmanagement.command.employee;
 
 import departmentmanagement.command.Command;
-import departmentmanagement.dao.impl.DepartmentDAOImpl;
-import departmentmanagement.dao.impl.EmployeeDAOImpl;
-import departmentmanagement.dao.interfaces.DepartmentDAO;
-import departmentmanagement.dao.interfaces.EmployeeDAO;
 import departmentmanagement.model.Department;
 import departmentmanagement.model.Employee;
 import departmentmanagement.service.DepartmentService;
@@ -33,7 +29,7 @@ public class FormCreateUpdateEmployee implements Command {
                 List<Department> listDepartment = departmentService.getAllDepartment();
                 request.setAttribute("listDepartment", listDepartment);
                 request.setAttribute("employee", existingEmployee);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/employee-form.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/employee/form.jsp");
                 dispatcher.forward(request, response);
             } else {
                 Integer idDepartment = Utils.parseInteger(request.getParameter("id_department"));
@@ -42,7 +38,7 @@ public class FormCreateUpdateEmployee implements Command {
                 request.setAttribute("listDepartment", listDepartment);
                 request.setAttribute("id_department", idDepartment);
                 request.setAttribute("name_department", nameDepartment);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/employee-form.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/employee/form.jsp");
                 dispatcher.forward(request, response);
             }
         } catch (SQLException e){

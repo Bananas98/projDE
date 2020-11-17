@@ -6,8 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+         pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>User Management Application</title>
@@ -26,10 +26,8 @@
         </div>
 
         <ul class="navbar-nav">
-            <%--            todo returne to list Employee on id_drpartment--%>
-
-                <li><a href="<%=request.getContextPath()%>/listEmployee{id_department}"
-                       class="nav-link">Employee</a></li>
+            <li><a href="<%=request.getContextPath()%>/listEmployee{id_department}"
+                   class="nav-link">Employee</a></li>
         </ul>
     </nav>
 </header>
@@ -56,31 +54,35 @@
                     </caption>
 
                     <c:if test="${employee != null}">
-                        <input type="hidden" name="id" value="<c:out value='${employee.id}' />" />
+                        <input type="hidden" name="id" value="<c:out value='${employee.id}' />"/>
                     </c:if>
 
                     <fieldset class="form-group">
 
                         <label>Employee Name</label> <input type="text" <%--     pattern="[A-Za-z]{3,30}--%>
-                                                        value="<c:out value='${employee.name}' />" class="form-control"
-                                                        name="name" required="required">
+                                                            value="<c:out value='${employee.name}' />"
+                                                            class="form-control"
+                                                            name="name" required="required">
                         <div class="text-danger">${error['name']}</div>
                         <label>Date Of Birthday</label> <input type="date"
-                                                        value="<c:out value='${employee.dateOfBirthday}' />" class="form-control"
-                                                        name="dateOfBirthday" required="required">
-                        <label>Mail</label> <input type="text" <%--  pattern= "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$"--%>
-                                                        value="<c:out value='${employee.mail}' />" class="form-control"
-                                                        name="mail" required="required">
+                                                               value="<c:out value='${employee.dateOfBirthday}' />"
+                                                               class="form-control"
+                                                               name="dateOfBirthday" required="required">
+                        <label>Mail</label> <input
+                            type="text" <%--  pattern= "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$"--%>
+                            value="<c:out value='${employee.mail}' />" class="form-control"
+                            name="mail" required="required">
                         <div class="text-danger">${error['mail']}</div>
                         <label>Salary</label> <input type="text" <%--pattern="\\d+"--%>
-                                                        value="<c:out value='${employee.salary}' />" class="form-control"
-                                                        name="salary" required="required">
+                                                     value="<c:out value='${employee.salary}' />" class="form-control"
+                                                     name="salary" required="required">
                         <div class="text-danger">${error['salary']}</div>
                         <tr>
-                            <th class="border">Name Department : </th>
+                            <th class="border">Name Department :</th>
                             <td class="border">
                                 <select name="id_department">
-                                    <option value="${id_department}" selected="${id_department}">${nameDepartment}</option>
+                                    <option value="${id_department}"
+                                            selected="${id_department}">${nameDepartment}</option>
                                     <c:forEach var="department" items="${listDepartment}">
                                         <option value="${department.id}" ${department.id == selected ? 'selected="selected"' : ''}>${department.name}</option>
                                     </c:forEach>

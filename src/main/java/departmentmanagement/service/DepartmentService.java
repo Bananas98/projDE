@@ -1,6 +1,7 @@
 package departmentmanagement.service;
 
 import departmentmanagement.dao.DAOFactory;
+import departmentmanagement.dao.impl.DepartmentDAOImpl;
 import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Department;
 import departmentmanagement.validate.OvalValidator;
@@ -18,25 +19,20 @@ public class DepartmentService {
 
 
     public Department getByIdDepartment(Integer id) throws SQLException {
-        return mySQLDAO.getDepartmentDAO().get(id);
+        return mySQLDAO.getDepartmentDAO().getById(id);
     }
 
-    public void createNewDepartment(Department department) throws ValidException, SQLException {
+    public void createOrUpdateDepartment(Department department) throws ValidException, SQLException {
         validate(department);
-        mySQLDAO.getDepartmentDAO().create(department);
+        mySQLDAO.getDepartmentDAO().createOrUpdate(department);
     }
 
     public void deleteDepartment(int idDepartment) throws SQLException {
         mySQLDAO.getDepartmentDAO().delete(idDepartment);
     }
 
-    public void updateDepartment(Department department) throws ValidException, SQLException {
-        validate(department);
-        mySQLDAO.getDepartmentDAO().update(department);
-    }
-
     public List<Department> getAllDepartment() throws SQLException {
-        return mySQLDAO.getDepartmentDAO().getAllDepartments();
+        return DepartmentDAOImpl.getInstance().getAll();
     }
 
     private void validate(Object o) throws ValidException{

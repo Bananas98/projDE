@@ -2,14 +2,15 @@ package departmentmanagement.dao.impl;
 
 
 import departmentmanagement.dao.DBConnection;
-import departmentmanagement.dao.interfaces.EmployeeDAO;
+import departmentmanagement.dao.interfaces.Dao;
+import departmentmanagement.model.Department;
 import departmentmanagement.model.Employee;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeDAOImpl implements EmployeeDAO {
+public class EmployeeDAOImpl implements Dao<Employee> {
 
     DepartmentDAOImpl departmentDAO = new DepartmentDAOImpl();
 
@@ -37,7 +38,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public Employee get(int idEmployee) throws SQLException {
+    public Employee getById(int idEmployee) throws SQLException {
         Employee employee = null;
         try (Connection connection =  DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(GET_EMPLOYEE)){
@@ -51,9 +52,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
 
-
-    @Override
-    public List<Employee> getAllEmployeeDepartments(int departmentId) throws SQLException {
+    public List<Employee> getAll(int departmentId) throws SQLException {
         List<Employee> employeelist = new ArrayList<>();
         try(Connection con = DBConnection.getConnection();
             PreparedStatement pStatement = con.prepareStatement(GET_ALL_EMPLOYEE)){
@@ -76,10 +75,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         }
     }
 
-    @Override
-    public void create(Employee employee) throws SQLException {
+
+    private void create(Employee employee) throws SQLException {
         try (Connection connection = DBConnection.getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(CREATE_EMPLOYEE, PreparedStatement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement pStatement = connection.prepareStatement(CREATE_EMPLOYEE)) {
             pStatement.setString(1, employee.getName());
             pStatement.setDate(2, employee.getDateOfBirthday());
             pStatement.setString(3, employee.getMail());
@@ -89,8 +88,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         }
     }
 
-    @Override
-    public void update(Employee employee) throws SQLException {
+    private void update(Employee employee) throws SQLException {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(UPDATE_EMPLOYEE);) {
             pStatement.setString(1,employee.getName());
@@ -103,6 +101,17 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         }
     }
 
+    @Override
+    public void createOrUpdate(Employee employee) throws SQLException {
+        Integer id = employee.getId();
+
+        if (id == null) {
+            create(employee);
+        }else {
+            update(employee);
+        }
+    }
+
     private Employee getEmployee(ResultSet resultSet) throws SQLException {
         Employee employee = new Employee();
         employee.setId(resultSet.getInt("id"));
@@ -112,13 +121,5 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         employee.setSalary(resultSet.getInt("salary"));
         employee.setIdDepartment(resultSet.getInt("id_department"));
         return employee;
-    }
-
-    private void setEmployee(PreparedStatement pStatement, Employee emp) throws SQLException{
-        pStatement.setString(1, emp.getName());
-        pStatement.setDate(2, emp.getDateOfBirthday());
-        pStatement.setString(3, emp.getMail());
-        pStatement.setDouble(4, emp.getSalary());
-        pStatement.setInt(5, emp.getIdDepartment());
     }
 }

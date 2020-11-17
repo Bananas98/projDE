@@ -1,4 +1,4 @@
-package departmentmanagement.command.departmentCommand;
+package departmentmanagement.command.department;
 
 
 import departmentmanagement.command.Command;
@@ -23,19 +23,15 @@ public class CreateUpdateDepartment implements Command {
         department.setName(request.getParameter("name"));
 
         try {
-            if (request.getParameter("id") != null) {
-                department.setId(Utils.parseInteger(request.getParameter("id")));
-                departmentService.updateDepartment(department);
-            } else {
-                departmentService.createNewDepartment(department);
-            }
+            department.setId(Utils.parseInteger(request.getParameter("id")));
+            departmentService.createOrUpdateDepartment(department);
             response.sendRedirect("listDepartment");
         } catch (ValidException e) {
             Map<String, String> map = e.getMapError();
             request.setAttribute("error", map);
             request.setAttribute("department", department);
-            request.getRequestDispatcher("/WEB-INF/department-form.jsp").forward(request, response);
-        }catch (SQLException e){
+            request.getRequestDispatcher("/WEB-INF/department/form.jsp").forward(request, response);
+        } catch (SQLException e) {
             response.sendRedirect("/error");
         }
 

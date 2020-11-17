@@ -1,9 +1,7 @@
-package departmentmanagement.command.departmentCommand;
+package departmentmanagement.command.department;
 
 
 import departmentmanagement.command.Command;
-import departmentmanagement.dao.impl.DepartmentDAOImpl;
-import departmentmanagement.dao.interfaces.DepartmentDAO;
 import departmentmanagement.service.DepartmentService;
 import departmentmanagement.util.Utils;
 

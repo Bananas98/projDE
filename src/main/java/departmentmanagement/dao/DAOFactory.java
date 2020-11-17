@@ -1,8 +1,9 @@
 package departmentmanagement.dao;
 
 
-import departmentmanagement.dao.interfaces.DepartmentDAO;
-import departmentmanagement.dao.interfaces.EmployeeDAO;
+import departmentmanagement.dao.interfaces.Dao;
+import departmentmanagement.model.Department;
+import departmentmanagement.model.Employee;
 
 public abstract class DAOFactory {
 
@@ -10,7 +11,7 @@ public abstract class DAOFactory {
         return new MySQLDAO();
     }
 
-    public abstract DepartmentDAO getDepartmentDAO();
+    public abstract Dao<Department> getDepartmentDAO();
 
-    public abstract EmployeeDAO getEmployeeDAO();
+    public abstract Dao<Employee> getEmployeeDAO();
 }

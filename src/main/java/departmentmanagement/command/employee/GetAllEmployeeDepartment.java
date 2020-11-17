@@ -1,4 +1,4 @@
-package departmentmanagement.command.employeeCommand;
+package departmentmanagement.command.employee;
 
 
 import departmentmanagement.command.Command;;
@@ -32,7 +32,7 @@ public class GetAllEmployeeDepartment implements Command {
         } catch (SQLException e) {
             response.sendRedirect("/error");
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/employee-list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/employee/list.jsp");
         dispatcher.forward(request, response);
     }
 }

@@ -1,4 +1,4 @@
-package departmentmanagement.command.departmentCommand;
+package departmentmanagement.command.department;
 
 
 
@@ -27,7 +27,7 @@ public class GetAllDepartment implements Command {
             response.sendRedirect("/error");
         }
         request.setAttribute("listDepartment", listDepartment);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/department-list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/department/list.jsp");
         dispatcher.forward(request, response);
     }
 }

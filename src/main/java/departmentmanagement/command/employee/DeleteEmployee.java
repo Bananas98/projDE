@@ -1,4 +1,4 @@
-package departmentmanagement.command.employeeCommand;
+package departmentmanagement.command.employee;
 
 
 

@@ -3,6 +3,7 @@ package departmentmanagement.service;
 
 
 import departmentmanagement.dao.DAOFactory;
+import departmentmanagement.dao.impl.EmployeeDAOImpl;
 import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Employee;
 import departmentmanagement.validate.OvalValidator;
@@ -18,27 +19,23 @@ public class EmployeeService {
     private DAOFactory mySQLDAO = DAOFactory.getDAOFactory();
     private OvalValidator ovalValidator = new OvalValidator();
 
-    public void createNewEmployee(Employee employee) throws ValidException, SQLException {
+    public void createOrUpdate(Employee employee) throws ValidException, SQLException {
         validate(employee);
-        mySQLDAO.getEmployeeDAO().create(employee);
+        mySQLDAO.getEmployeeDAO().createOrUpdate(employee);
     }
 
     public void deleteEmployee(int employeeId) throws SQLException {
         mySQLDAO.getEmployeeDAO().delete(employeeId);
     }
 
-    public void updateEmployee(Employee employee) throws ValidException, SQLException {
-        validate(employee);
-        mySQLDAO.getEmployeeDAO().update(employee);
-    }
 
     public Employee getByIdEmployee(Integer id) throws SQLException {
-        return mySQLDAO.getEmployeeDAO().get(id);
+        return mySQLDAO.getEmployeeDAO().getById(id);
     }
 
 
     public List<Employee> getAllEmployeesDepartment(int idDepartment) throws SQLException {
-        return mySQLDAO.getEmployeeDAO().getAllEmployeeDepartments(idDepartment);
+        return EmployeeDAOImpl.getInstance().getAll(idDepartment);
     }
 
     private void validate(Object o) throws ValidException {

@@ -1,4 +1,4 @@
-package departmentmanagement.command.employeeCommand;
+package departmentmanagement.command.employee;
 
 
 import departmentmanagement.command.Command;
@@ -23,7 +23,7 @@ public class CreateUpdateEmployee implements Command {
 
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
         Employee employee = new Employee();
         employee.setName(request.getParameter("name"));
         employee.setDateOfBirthday(Date.valueOf(request.getParameter("dateOfBirthday")));
@@ -32,25 +32,18 @@ public class CreateUpdateEmployee implements Command {
         employee.setIdDepartment(Utils.parseInteger(request.getParameter("id_department")));
 
         try {
-            if (request.getParameter("id") != null) {
-                employee.setId(Integer.parseInt(request.getParameter("id")));
-                employeeService.updateEmployee(employee);
-            } else {
-                employeeService.createNewEmployee(employee);
-            }
+            employee.setId(Utils.parseInteger(request.getParameter("id_employee")));
+            employeeService.createOrUpdate(employee);
             response.sendRedirect("listEmployee" + "?id_department=" + employee.getIdDepartment());
-        }catch (ValidException e){
-            Map<String,String> mapErr = e.getMapError();
-            request.setAttribute("error", mapErr);
-            try {
-                request.setAttribute("listDepartment",departmentService.getAllDepartment());
-            } catch (SQLException ex) {
-                response.sendRedirect("/error");
-            }
-            request.setAttribute("employee", employee);
-            request.getRequestDispatcher("/WEB-INF/employee-form.jsp").forward(request, response);
-        }catch (SQLException e){
+        } catch (ValidException e) {
+            Map<String,String> map =  e.getMapError();
+            request.setAttribute("employee",employee);
+            request.setAttribute("error", map);
+            request.setAttribute("listDepartment",departmentService.getAllDepartment());
+            request.getRequestDispatcher("WEB-INF/employee/form.jsp").forward(request,response);
+        } catch (SQLException e) {
             response.sendRedirect("/error");
         }
+
     }
 }

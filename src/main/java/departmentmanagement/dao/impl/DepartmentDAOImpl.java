@@ -2,14 +2,14 @@ package departmentmanagement.dao.impl;
 
 
 import departmentmanagement.dao.DBConnection;
-import departmentmanagement.dao.interfaces.DepartmentDAO;
+import departmentmanagement.dao.interfaces.Dao;
 import departmentmanagement.model.Department;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DepartmentDAOImpl implements DepartmentDAO {
+public class DepartmentDAOImpl implements Dao<Department> {
 
     static final String DELETE_DEPARTMENT = "DELETE FROM department WHERE id = ?";
     static final String UPDATE_DEPARTMENT = "UPDATE department set name = ? WHERE id = ?";
@@ -42,7 +42,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
         }
     }
 
-    public Department get(int departmentId) throws SQLException {
+    public Department getById(int departmentId) throws SQLException {
         Department department = null;
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(GET_DEPARTMENT)) {
@@ -55,17 +55,15 @@ public class DepartmentDAOImpl implements DepartmentDAO {
         return department;
     }
 
-    @Override
-    public void create(Department department) throws SQLException {//todo add identifier success
+    private void create(Department department) throws SQLException {
         try (Connection connection = DBConnection.getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(CREATE_DEPARTMENT, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement pStatement = connection.prepareStatement(CREATE_DEPARTMENT)) {
             pStatement.setString(1,department.getName());
             pStatement.execute();
         }
     }
 
-    @Override
-    public void update(Department department) throws SQLException {
+    private void update(Department department) throws SQLException {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(UPDATE_DEPARTMENT)) {
             pStatement.setString(1, department.getName());
@@ -75,7 +73,18 @@ public class DepartmentDAOImpl implements DepartmentDAO {
     }
 
     @Override
-    public List<Department> getAllDepartments() throws SQLException {
+    public void createOrUpdate(Department entity) throws SQLException {
+        Department department = entity;
+        Integer id = department.getId();
+
+        if (id == null) {
+            create(entity);
+        }else {
+            update(entity);
+        }
+    }
+
+    public List<Department> getAll() throws SQLException {
         List<Department> department = new ArrayList<>();
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(GET_ALL_DEPARTMENT);
