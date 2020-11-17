@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class FormCreateUpdateDepartment implements Command {
 
@@ -25,7 +26,12 @@ public class FormCreateUpdateDepartment implements Command {
 
         } else {
             Integer id = Utils.parseInteger(request.getParameter("id"));
-            Department existingDepartment = departmentDAO.get(id);
+            Department existingDepartment = null;
+            try {
+                existingDepartment = departmentDAO.get(id);
+            } catch (SQLException e){
+                response.sendRedirect("/error");
+            }
             RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/department-form.jsp");
             request.setAttribute("department", existingDepartment);
             dispatcher.forward(request, response);

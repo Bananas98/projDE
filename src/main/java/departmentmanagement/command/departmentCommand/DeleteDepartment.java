@@ -10,6 +10,7 @@ import departmentmanagement.util.Utils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class DeleteDepartment implements Command {
 
@@ -18,7 +19,11 @@ public class DeleteDepartment implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Integer id = Utils.parseInteger(request.getParameter("id"));
-        departmentService.deleteDepartment(id);
+        try {
+            departmentService.deleteDepartment(id);
+        } catch (SQLException e){
+            response.sendRedirect("/error");
+        }
         response.sendRedirect("listDepartment");
     }
 }

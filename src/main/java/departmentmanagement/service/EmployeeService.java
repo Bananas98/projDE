@@ -8,6 +8,7 @@ import departmentmanagement.model.Employee;
 import departmentmanagement.validate.OvalValidator;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,26 +18,26 @@ public class EmployeeService {
     private DAOFactory mySQLDAO = DAOFactory.getDAOFactory();
     private OvalValidator ovalValidator = new OvalValidator();
 
-    public void createNewEmployee(Employee employee) throws ValidException {
+    public void createNewEmployee(Employee employee) throws ValidException, SQLException {
         validate(employee);
         mySQLDAO.getEmployeeDAO().create(employee);
     }
 
-    public void deleteEmployee(int employeeId){
+    public void deleteEmployee(int employeeId) throws SQLException {
         mySQLDAO.getEmployeeDAO().delete(employeeId);
     }
 
-    public void updateEmployee(Employee employee) throws ValidException {
+    public void updateEmployee(Employee employee) throws ValidException, SQLException {
         validate(employee);
         mySQLDAO.getEmployeeDAO().update(employee);
     }
 
-    public Employee getByIdEmployee(Integer id){
+    public Employee getByIdEmployee(Integer id) throws SQLException {
         return mySQLDAO.getEmployeeDAO().get(id);
     }
 
 
-    public List<Employee> getAllEmployeesDepartment(int idDepartment){
+    public List<Employee> getAllEmployeesDepartment(int idDepartment) throws SQLException {
         return mySQLDAO.getEmployeeDAO().getAllEmployeeDepartments(idDepartment);
     }
 

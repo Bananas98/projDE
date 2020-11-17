@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class FormCreateUpdateEmployee implements Command {
@@ -25,24 +26,27 @@ public class FormCreateUpdateEmployee implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        if (request.getParameter("id_employee") != null){
-            Integer id = Utils.parseInteger(request.getParameter("id_employee"));
-            Employee existingEmployee = employeeService.getByIdEmployee(id);
-            List<Department> listDepartment = departmentService.getAllDepartment();
-            request.setAttribute("listDepartment", listDepartment);
-            request.setAttribute("employee", existingEmployee);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/employee-form.jsp");
-            dispatcher.forward(request, response);
-        }
-        else {
-            Integer idDepartment = Utils.parseInteger(request.getParameter("id_department"));
-            String nameDepartment = departmentService.getByIdDepartment(idDepartment).getName();
-            List<Department> listDepartment = departmentService.getAllDepartment();
-            request.setAttribute("listDepartment", listDepartment);
-            request.setAttribute("id_department", idDepartment);
-            request.setAttribute("name_department", nameDepartment);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/employee-form.jsp");
-            dispatcher.forward(request, response);
+        try {
+            if (request.getParameter("id_employee") != null) {
+                Integer id = Utils.parseInteger(request.getParameter("id_employee"));
+                Employee existingEmployee = employeeService.getByIdEmployee(id);
+                List<Department> listDepartment = departmentService.getAllDepartment();
+                request.setAttribute("listDepartment", listDepartment);
+                request.setAttribute("employee", existingEmployee);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/employee-form.jsp");
+                dispatcher.forward(request, response);
+            } else {
+                Integer idDepartment = Utils.parseInteger(request.getParameter("id_department"));
+                String nameDepartment = departmentService.getByIdDepartment(idDepartment).getName();
+                List<Department> listDepartment = departmentService.getAllDepartment();
+                request.setAttribute("listDepartment", listDepartment);
+                request.setAttribute("id_department", idDepartment);
+                request.setAttribute("name_department", nameDepartment);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/employee-form.jsp");
+                dispatcher.forward(request, response);
+            }
+        } catch (SQLException e){
+            response.sendRedirect("/error");
         }
 
     }

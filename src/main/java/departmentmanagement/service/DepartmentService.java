@@ -6,6 +6,7 @@ import departmentmanagement.model.Department;
 import departmentmanagement.validate.OvalValidator;
 
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,25 +17,25 @@ public class DepartmentService {
     private DAOFactory mySQLDAO = DAOFactory.getDAOFactory();
 
 
-    public Department getByIdDepartment(Integer id){
+    public Department getByIdDepartment(Integer id) throws SQLException {
         return mySQLDAO.getDepartmentDAO().get(id);
     }
 
-    public void createNewDepartment(Department department) throws ValidException {
+    public void createNewDepartment(Department department) throws ValidException, SQLException {
         validate(department);
         mySQLDAO.getDepartmentDAO().create(department);
     }
 
-    public void deleteDepartment(int idDepartment){
+    public void deleteDepartment(int idDepartment) throws SQLException {
         mySQLDAO.getDepartmentDAO().delete(idDepartment);
     }
 
-    public void updateDepartment(Department department) throws ValidException {
+    public void updateDepartment(Department department) throws ValidException, SQLException {
         validate(department);
         mySQLDAO.getDepartmentDAO().update(department);
     }
 
-    public List<Department> getAllDepartment(){
+    public List<Department> getAllDepartment() throws SQLException {
         return mySQLDAO.getDepartmentDAO().getAllDepartments();
     }
 

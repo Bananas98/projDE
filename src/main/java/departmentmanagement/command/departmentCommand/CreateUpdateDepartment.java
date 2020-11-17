@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Map;
 
 public class CreateUpdateDepartment implements Command {
@@ -34,6 +35,8 @@ public class CreateUpdateDepartment implements Command {
             request.setAttribute("error", map);
             request.setAttribute("department", department);
             request.getRequestDispatcher("/WEB-INF/department-form.jsp").forward(request, response);
+        }catch (SQLException e){
+            response.sendRedirect("/error");
         }
 
     }

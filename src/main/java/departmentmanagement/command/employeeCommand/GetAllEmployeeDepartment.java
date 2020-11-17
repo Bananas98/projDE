@@ -1,7 +1,6 @@
 package departmentmanagement.command.employeeCommand;
 
 
-
 import departmentmanagement.command.Command;;
 import departmentmanagement.model.Employee;
 import departmentmanagement.service.DepartmentService;
@@ -13,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class GetAllEmployeeDepartment implements Command {
@@ -23,12 +23,15 @@ public class GetAllEmployeeDepartment implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer idDepartment = Utils.parseInteger(request.getParameter("id_department"));
-        String nameDepartment = departmentService.getByIdDepartment(idDepartment).getName();
-        List<Employee> listEmployee = employeeService.getAllEmployeesDepartment(idDepartment);
-        request.setAttribute("listEmployee", listEmployee);
-        request.setAttribute("id_department", idDepartment);
-        request.setAttribute("name_department", nameDepartment);
-
+        try {
+            String nameDepartment = departmentService.getByIdDepartment(idDepartment).getName();
+            List<Employee> listEmployee = employeeService.getAllEmployeesDepartment(idDepartment);
+            request.setAttribute("listEmployee", listEmployee);
+            request.setAttribute("id_department", idDepartment);
+            request.setAttribute("name_department", nameDepartment);
+        } catch (SQLException e) {
+            response.sendRedirect("/error");
+        }
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/employee-list.jsp");
         dispatcher.forward(request, response);
     }

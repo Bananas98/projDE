@@ -44,7 +44,7 @@ public class Controller extends HttpServlet {
             }
         } catch (Exception e) {
             request.setAttribute("error", e.getMessage());
-            response.sendRedirect("error");
+            response.sendRedirect("/error");
         }
     }
 

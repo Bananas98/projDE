@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.Map;
 
 public class CreateUpdateEmployee implements Command {
@@ -41,9 +42,15 @@ public class CreateUpdateEmployee implements Command {
         }catch (ValidException e){
             Map<String,String> mapErr = e.getMapError();
             request.setAttribute("error", mapErr);
-            request.setAttribute("listDepartment",departmentService.getAllDepartment());
+            try {
+                request.setAttribute("listDepartment",departmentService.getAllDepartment());
+            } catch (SQLException ex) {
+                response.sendRedirect("/error");
+            }
             request.setAttribute("employee", employee);
             request.getRequestDispatcher("/WEB-INF/employee-form.jsp").forward(request, response);
+        }catch (SQLException e){
+            response.sendRedirect("/error");
         }
     }
 }

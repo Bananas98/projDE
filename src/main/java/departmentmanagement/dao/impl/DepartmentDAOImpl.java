@@ -34,17 +34,15 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 
 
     @Override
-    public void delete(int departmentId) {
+    public void delete(int departmentId) throws SQLException {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(DELETE_DEPARTMENT)) {
             pStatement.setInt(1, departmentId);
             pStatement.execute();
-        } catch ( SQLException e) {
-            e.printStackTrace();
         }
     }
 
-    public Department get(int departmentId) {
+    public Department get(int departmentId) throws SQLException {
         Department department = null;
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(GET_DEPARTMENT)) {
@@ -53,37 +51,31 @@ public class DepartmentDAOImpl implements DepartmentDAO {
             while (resultSet.next()){
                 department = getDepartment(resultSet);
             }
-        } catch ( SQLException e) {
-            e.printStackTrace();
         }
         return department;
     }
 
     @Override
-    public void create(Department department) {//todo add identifier success
+    public void create(Department department) throws SQLException {//todo add identifier success
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(CREATE_DEPARTMENT, Statement.RETURN_GENERATED_KEYS)) {
             pStatement.setString(1,department.getName());
             pStatement.execute();
-        } catch ( SQLException e) {
-            e.printStackTrace();
         }
     }
 
     @Override
-    public void update(Department department) {
+    public void update(Department department) throws SQLException {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(UPDATE_DEPARTMENT)) {
             pStatement.setString(1, department.getName());
             pStatement.setInt(2, department.getId());
             pStatement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
     @Override
-    public List<Department> getAllDepartments() {
+    public List<Department> getAllDepartments() throws SQLException {
         List<Department> department = new ArrayList<>();
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(GET_ALL_DEPARTMENT);
@@ -91,8 +83,6 @@ public class DepartmentDAOImpl implements DepartmentDAO {
             while (resultSet.next()) {
                 department.add(getDepartment(resultSet));
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
         return department;
     }

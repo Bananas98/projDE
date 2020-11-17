@@ -37,7 +37,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public Employee get(int idEmployee) {
+    public Employee get(int idEmployee) throws SQLException {
         Employee employee = null;
         try (Connection connection =  DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(GET_EMPLOYEE)){
@@ -46,8 +46,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             while (resultSet.next()){
                 employee = getEmployee(resultSet);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return employee;
     }
@@ -55,7 +53,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 
     @Override
-    public List<Employee> getAllEmployeeDepartments(int departmentId) {
+    public List<Employee> getAllEmployeeDepartments(int departmentId) throws SQLException {
         List<Employee> employeelist = new ArrayList<>();
         try(Connection con = DBConnection.getConnection();
             PreparedStatement pStatement = con.prepareStatement(GET_ALL_EMPLOYEE)){
@@ -65,25 +63,21 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                     employeelist.add(getEmployee(resultSet));
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return employeelist;
     }
 
     @Override
-    public void delete(int employeeId) {
+    public void delete(int employeeId) throws SQLException {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(DELETE_EMPLOYEE)) {
             pStatement.setInt(1, employeeId);
             pStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
     @Override
-    public void create(Employee employee) {
+    public void create(Employee employee) throws SQLException {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(CREATE_EMPLOYEE, PreparedStatement.RETURN_GENERATED_KEYS)) {
             pStatement.setString(1, employee.getName());
@@ -92,13 +86,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             pStatement.setInt(4, employee.getSalary());
             pStatement.setInt(5, employee.getIdDepartment());
             pStatement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
     @Override
-    public void update(Employee employee) {
+    public void update(Employee employee) throws SQLException {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(UPDATE_EMPLOYEE);) {
             pStatement.setString(1,employee.getName());
@@ -108,8 +100,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             pStatement.setInt(5,employee.getIdDepartment());
             pStatement.setInt(6,employee.getId());
             pStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
