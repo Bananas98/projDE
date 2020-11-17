@@ -5,14 +5,13 @@ import java.util.Map;
 
 public class ValidException extends Exception {
 
-    private Map<String , String> mapError;
+    private Map<String , String> errors;
 
-    public ValidException(String message, Map<String,String> mapError){
-        super(message);
-        this.mapError = mapError;
+    public ValidException(Map<String,String> errors){
+        this.errors = errors;
     }
 
     public Map<String, String> getMapError() {
-        return mapError;
+        return errors;
     }
 }

@@ -18,7 +18,7 @@ public class CreateUpdateDepartment implements Command {
     private DepartmentService departmentService = new DepartmentService();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
         Department department = new Department();
         department.setName(request.getParameter("name"));
 
@@ -31,8 +31,6 @@ public class CreateUpdateDepartment implements Command {
             request.setAttribute("error", map);
             request.setAttribute("department", department);
             request.getRequestDispatcher("/WEB-INF/department/form.jsp").forward(request, response);
-        } catch (SQLException e) {
-            response.sendRedirect("/error");
         }
 
     }

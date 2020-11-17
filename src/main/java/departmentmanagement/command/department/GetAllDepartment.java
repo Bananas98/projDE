@@ -1,7 +1,6 @@
 package departmentmanagement.command.department;
 
 
-
 import departmentmanagement.command.Command;
 import departmentmanagement.model.Department;
 import departmentmanagement.service.DepartmentService;
@@ -19,13 +18,11 @@ public class GetAllDepartment implements Command {
     private DepartmentService departmentService = new DepartmentService();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         List<Department> listDepartment = null;
-        try {
-            listDepartment = departmentService.getAllDepartment();
-        } catch (SQLException e){
-            response.sendRedirect("/error");
-        }
+
+        listDepartment = departmentService.getAllDepartment();
+
         request.setAttribute("listDepartment", listDepartment);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/department/list.jsp");
         dispatcher.forward(request, response);

@@ -20,9 +20,8 @@ public class FormCreateUpdateEmployee implements Command {
     private DepartmentService departmentService = new DepartmentService();
     private EmployeeService employeeService = new EmployeeService();
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
-        try {
             if (request.getParameter("id_employee") != null) {
                 Integer id = Utils.parseInteger(request.getParameter("id_employee"));
                 Employee existingEmployee = employeeService.getByIdEmployee(id);
@@ -41,9 +40,6 @@ public class FormCreateUpdateEmployee implements Command {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/employee/form.jsp");
                 dispatcher.forward(request, response);
             }
-        } catch (SQLException e){
-            response.sendRedirect("/error");
         }
 
-    }
 }

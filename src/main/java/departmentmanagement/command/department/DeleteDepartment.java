@@ -15,13 +15,9 @@ public class DeleteDepartment implements Command {
     private DepartmentService departmentService = new DepartmentService();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         Integer id = Utils.parseInteger(request.getParameter("id"));
-        try {
-            departmentService.deleteDepartment(id);
-        } catch (SQLException e){
-            response.sendRedirect("/error");
-        }
+        departmentService.deleteDepartment(id);
         response.sendRedirect("listDepartment");
     }
 }

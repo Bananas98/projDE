@@ -41,8 +41,6 @@ public class CreateUpdateEmployee implements Command {
             request.setAttribute("error", map);
             request.setAttribute("listDepartment",departmentService.getAllDepartment());
             request.getRequestDispatcher("WEB-INF/employee/form.jsp").forward(request,response);
-        } catch (SQLException e) {
-            response.sendRedirect("/error");
         }
 
     }

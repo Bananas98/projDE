@@ -23,11 +23,11 @@ public class DepartmentService {
     }
 
     public void createOrUpdateDepartment(Department department) throws ValidException, SQLException {
-        validate(department);
+        ovalValidator.setValidator(department);
         mySQLDAO.getDepartmentDAO().createOrUpdate(department);
     }
 
-    public void deleteDepartment(int idDepartment) throws SQLException {
+    public void deleteDepartment(Integer idDepartment) throws SQLException {
         mySQLDAO.getDepartmentDAO().delete(idDepartment);
     }
 
@@ -35,14 +35,5 @@ public class DepartmentService {
         return DepartmentDAOImpl.getInstance().getAll();
     }
 
-    private void validate(Object o) throws ValidException{
-
-        Map<String, String> valid = new HashMap<>();
-
-        this.ovalValidator.setValidator(o, valid);
-        if (valid.size() > 0) {
-            throw new ValidException("element not valid for department",valid);
-        }
-    }
 
 }

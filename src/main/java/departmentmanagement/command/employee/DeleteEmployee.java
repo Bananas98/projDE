@@ -17,13 +17,11 @@ public class DeleteEmployee implements Command {
 
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         Integer idEmployee = Utils.parseInteger(request.getParameter("id_employee"));
-        try {
+
             employeeService.deleteEmployee(idEmployee);
-        }  catch (SQLException e){
-            response.sendRedirect("/error");
-        }
+
         response.sendRedirect("listDepartment");
     }
 }

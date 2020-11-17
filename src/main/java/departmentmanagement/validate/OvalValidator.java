@@ -15,19 +15,22 @@ import java.util.Map;
 public class OvalValidator {
     private Validator validator = new Validator();
 
-    public void setValidator(Object o, Map<String, String> valid) throws ValidException {
-        List<ConstraintViolation> constraintViolations = validator.validate(o);
-        if (!constraintViolations.isEmpty()){
-            for (ConstraintViolation constraintViolation: constraintViolations){
+    public void setValidator(Object o) throws ValidException {
+        List<ConstraintViolation> violations = validator.validate(o);
+
+        Map<String,String> map = new HashMap<>();
+
+        if(!violations.isEmpty()){
+            for(ConstraintViolation constraintViolation : violations){
                 OValContext context = constraintViolation.getContext();
-                if (context instanceof FieldContext){
-                    Field fieldContext  = ((FieldContext) context).getField();
-                    valid.put(fieldContext.getName(), constraintViolation.getMessage());
+                if (context instanceof FieldContext) {
+                    Field fieldContext = ((FieldContext) context).getField();
+                    map.put(fieldContext.getName(), constraintViolation.getMessage());
                 }
             }
+            throw new ValidException(map);
         }
 
     }
-
 
 }

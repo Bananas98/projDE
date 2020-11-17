@@ -20,11 +20,11 @@ public class EmployeeService {
     private OvalValidator ovalValidator = new OvalValidator();
 
     public void createOrUpdate(Employee employee) throws ValidException, SQLException {
-        validate(employee);
+        ovalValidator.setValidator(employee);
         mySQLDAO.getEmployeeDAO().createOrUpdate(employee);
     }
 
-    public void deleteEmployee(int employeeId) throws SQLException {
+    public void deleteEmployee(Integer employeeId) throws SQLException {
         mySQLDAO.getEmployeeDAO().delete(employeeId);
     }
 
@@ -34,17 +34,8 @@ public class EmployeeService {
     }
 
 
-    public List<Employee> getAllEmployeesDepartment(int idDepartment) throws SQLException {
+    public List<Employee> getAllEmployeesDepartment(Integer idDepartment) throws SQLException {
         return EmployeeDAOImpl.getInstance().getAll(idDepartment);
     }
 
-    private void validate(Object o) throws ValidException {
-
-        Map<String, String> valid = new HashMap<>();
-
-        this.ovalValidator.setValidator(o, valid);
-        if (valid.size() > 0) {
-            throw new ValidException("element not valid for employee",valid);
-        }
-    }
 }
