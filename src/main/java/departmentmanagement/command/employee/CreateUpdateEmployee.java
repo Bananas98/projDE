@@ -32,7 +32,7 @@ public class CreateUpdateEmployee implements Command {
         employee.setIdDepartment(Utils.parseInteger(request.getParameter("id_department")));
 
         try {
-            employee.setId(Utils.parseInteger(request.getParameter("id_employee")));
+            employee.setId(Utils.parseInteger(request.getParameter("id")));
             employeeService.createOrUpdate(employee);
             response.sendRedirect("listEmployee" + "?id_department=" + employee.getIdDepartment());
         } catch (ValidException e) {

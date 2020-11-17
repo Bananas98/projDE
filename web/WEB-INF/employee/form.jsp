@@ -26,7 +26,7 @@
         </div>
 
         <ul class="navbar-nav">
-            <li><a href="<%=request.getContextPath()%>/listEmployee{id_department}"
+            <li><a href="<%=request.getContextPath()%>/listEmployee?id_department${id_department}"
                    class="nav-link">Employee</a></li>
         </ul>
     </nav>

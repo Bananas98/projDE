@@ -35,7 +35,7 @@ public class DepartmentDAOImpl implements Dao<Department> {
 
 
     @Override
-    public void delete(int departmentId) throws SQLException {
+    public void delete(Integer departmentId) throws SQLException {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(DELETE_DEPARTMENT)) {
             pStatement.setInt(1, departmentId);
@@ -43,7 +43,7 @@ public class DepartmentDAOImpl implements Dao<Department> {
         }
     }
 
-    public Department getById(int departmentId) throws SQLException {
+    public Department getById(Integer departmentId) throws SQLException {
         Department department = null;
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(GET_DEPARTMENT)) {

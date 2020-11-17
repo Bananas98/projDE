@@ -37,7 +37,7 @@ public class EmployeeDAOImpl implements Dao<Employee> {
     }
 
     @Override
-    public Employee getById(int idEmployee) throws SQLException {
+    public Employee getById(Integer idEmployee) throws SQLException {
         Employee employee = null;
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(GET_EMPLOYEE)) {
@@ -51,13 +51,13 @@ public class EmployeeDAOImpl implements Dao<Employee> {
     }
 
 
-    public List<Employee> getAll(int departmentId) throws SQLException {
+    public List<Employee> getAll(Integer departmentId) throws SQLException {
         List<Employee> employeelist = new ArrayList<>();
         try (Connection con = DBConnection.getConnection();
              PreparedStatement pStatement = con.prepareStatement(GET_ALL_EMPLOYEE)) {
             ResultSet resultSet = pStatement.executeQuery();
             while (resultSet.next()) {
-                if (getEmployee(resultSet).getIdDepartment() == departmentId) {
+                if (getEmployee(resultSet).getIdDepartment().equals(departmentId)) {
                     employeelist.add(getEmployee(resultSet));
                 }
             }
@@ -66,7 +66,7 @@ public class EmployeeDAOImpl implements Dao<Employee> {
     }
 
     @Override
-    public void delete(int employeeId) throws SQLException {
+    public void delete(Integer employeeId) throws SQLException {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement pStatement = connection.prepareStatement(DELETE_EMPLOYEE)) {
             pStatement.setInt(1, employeeId);
