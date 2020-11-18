@@ -1,7 +1,6 @@
 package departmentmanagement.command.employee;
 
 
-
 import departmentmanagement.command.Command;
 import departmentmanagement.service.EmployeeService;
 import departmentmanagement.util.Utils;
@@ -19,9 +18,7 @@ public class DeleteEmployee implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         Integer idEmployee = Utils.parseInteger(request.getParameter("id_employee"));
-
-            employeeService.deleteEmployee(idEmployee);
-
+        employeeService.deleteEmployee(idEmployee);
         response.sendRedirect("listDepartment");
     }
 }

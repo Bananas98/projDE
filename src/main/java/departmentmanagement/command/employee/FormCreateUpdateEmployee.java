@@ -22,24 +22,21 @@ public class FormCreateUpdateEmployee implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
-            if (request.getParameter("id_employee") != null) {
+        List<Department> listDepartment = departmentService.getAllDepartment();
+
+        if (request.getParameter("id_employee") != null) {
                 Integer id = Utils.parseInteger(request.getParameter("id_employee"));
                 Employee existingEmployee = employeeService.getByIdEmployee(id);
-                List<Department> listDepartment = departmentService.getAllDepartment();
-                request.setAttribute("listDepartment", listDepartment);
                 request.setAttribute("employee", existingEmployee);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/employee/form.jsp");
-                dispatcher.forward(request, response);
             } else {
                 Integer idDepartment = Utils.parseInteger(request.getParameter("id_department"));
                 String nameDepartment = departmentService.getByIdDepartment(idDepartment).getName();
-                List<Department> listDepartment = departmentService.getAllDepartment();
-                request.setAttribute("listDepartment", listDepartment);
                 request.setAttribute("id_department", idDepartment);
                 request.setAttribute("name_department", nameDepartment);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/employee/form.jsp");
-                dispatcher.forward(request, response);
-            }
         }
+        request.setAttribute("listDepartment", listDepartment);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/employee/form.jsp");
+        dispatcher.forward(request, response);
+    }
 
 }

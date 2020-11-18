@@ -19,18 +19,14 @@ public class FormCreateUpdateDepartment implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        if (request.getParameter("id") == null) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/department/form.jsp");
-            dispatcher.forward(request, response);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/department/form.jsp");
 
-        } else {
+        if (request.getParameter("id") != null) {
             Integer id = Utils.parseInteger(request.getParameter("id"));
-            Department existingDepartment = null;
-            existingDepartment = departmentService.getByIdDepartment(id);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/department/form.jsp");
-            request.setAttribute("department", existingDepartment);
-            dispatcher.forward(request, response);
+            Department department = departmentService.getByIdDepartment(id);
+            request.setAttribute("department", department);
         }
+        dispatcher.forward(request, response);
     }
 
 }
