@@ -1,5 +1,6 @@
 package departmentmanagement.command.department;
 
+import com.mysql.jdbc.StringUtils;
 import departmentmanagement.command.Command;
 import departmentmanagement.dao.impl.DepartmentDAOImpl;
 import departmentmanagement.model.Department;
@@ -21,7 +22,7 @@ public class FormCreateUpdateDepartment implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/department/form.jsp");
 
-        if (request.getParameter("id") != null) {
+        if (!Utils.isNullOrEmpty(request.getParameter("id"))) {
             Integer id = Utils.parseInteger(request.getParameter("id"));
             Department department = departmentService.getByIdDepartment(id);
             request.setAttribute("department", department);

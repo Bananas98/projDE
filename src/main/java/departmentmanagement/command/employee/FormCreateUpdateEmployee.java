@@ -19,20 +19,21 @@ public class FormCreateUpdateEmployee implements Command {
 
     private DepartmentService departmentService = new DepartmentService();
     private EmployeeService employeeService = new EmployeeService();
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
         List<Department> listDepartment = departmentService.getAllDepartment();
 
-        if (request.getParameter("id_employee") != null) {
-                Integer id = Utils.parseInteger(request.getParameter("id_employee"));
-                Employee existingEmployee = employeeService.getByIdEmployee(id);
-                request.setAttribute("employee", existingEmployee);
-            } else {
-                Integer idDepartment = Utils.parseInteger(request.getParameter("id_department"));
-                String nameDepartment = departmentService.getByIdDepartment(idDepartment).getName();
-                request.setAttribute("id_department", idDepartment);
-                request.setAttribute("name_department", nameDepartment);
+        if (!Utils.isNullOrEmpty(request.getParameter("id_employee"))) {
+            Integer id = Utils.parseInteger(request.getParameter("id_employee"));
+            Employee existingEmployee = employeeService.getByIdEmployee(id);
+            request.setAttribute("employee", existingEmployee);
+        } else {
+            Integer idDepartment = Utils.parseInteger(request.getParameter("id_department"));
+            String nameDepartment = departmentService.getByIdDepartment(idDepartment).getName();
+            request.setAttribute("id_department", idDepartment);
+            request.setAttribute("name_department", nameDepartment);
         }
         request.setAttribute("listDepartment", listDepartment);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/employee/form.jsp");

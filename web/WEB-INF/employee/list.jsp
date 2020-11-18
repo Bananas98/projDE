@@ -24,8 +24,7 @@
     <nav class="navbar navbar-expand-md navbar-dark"
          style="background-color: #ff6d4c">
         <div>
-            <a class="navbar-brand"> Department
-                Management App </a>
+            <a class="navbar-brand"> Department Management App </a>
         </div>
 
         <ul class="navbar-nav">
