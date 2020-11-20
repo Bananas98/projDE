@@ -26,7 +26,7 @@ public class CreateUpdateEmployee implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
         Employee employee = new Employee();
         employee.setName(request.getParameter("name"));
-        employee.setDateOfBirthday(Date.valueOf(request.getParameter("dateOfBirthday")));
+        employee.setDateOfBirthday(Utils.parseDate(request.getParameter("dateOfBirthday")));
         employee.setMail(request.getParameter("mail"));
         employee.setSalary(Utils.parseInteger(request.getParameter("salary")));
         employee.setIdDepartment(Utils.parseInteger(request.getParameter("id_department")));

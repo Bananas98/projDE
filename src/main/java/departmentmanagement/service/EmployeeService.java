@@ -1,7 +1,6 @@
 package departmentmanagement.service;
 
 
-
 import departmentmanagement.dao.impl.EmployeeDAOImpl;
 import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Employee;
@@ -22,11 +21,14 @@ public class EmployeeService {
     }
 
     public void deleteEmployee(Integer employeeId) throws SQLException {
-        employeeDAO.delete(employeeId);
+        if (employeeId != null) {
+            employeeDAO.delete(employeeId);
+        }
     }
 
 
     public Employee getByIdEmployee(Integer id) throws SQLException {
+        if (id == null) return null;
         return employeeDAO.getById(id);
     }
 

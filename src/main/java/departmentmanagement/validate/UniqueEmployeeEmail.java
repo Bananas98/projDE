@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class UniqueEmployeeEmail implements CheckWithCheck.SimpleCheck{
 
-    EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
+    private final EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
 
     @Override
     public boolean isSatisfied(Object o, Object o1) {

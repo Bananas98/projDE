@@ -20,10 +20,8 @@ public class FormCreateUpdateDepartment implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/department/form.jsp");
         Integer id = Utils.parseInteger(request.getParameter("id"));
-        if (id!=null) {
-            Department department = departmentService.getByIdDepartment(id);
-            request.setAttribute("department", department);
-        }
+        Department department = departmentService.getByIdDepartment(id);
+        request.setAttribute("department", department);
         dispatcher.forward(request, response);
     }
 

@@ -24,7 +24,10 @@ public class DepartmentService {
     }
 
     public void deleteDepartment(Integer idDepartment) throws SQLException {
-        departmentDAO.delete(idDepartment);
+        if (idDepartment!=null) {
+            departmentDAO.delete(idDepartment);
+        }
+
     }
 
     public List<Department> getAllDepartment() throws SQLException {
