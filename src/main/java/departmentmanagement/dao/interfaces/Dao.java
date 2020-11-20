@@ -1,7 +1,5 @@
 package departmentmanagement.dao.interfaces;
 
-import departmentmanagement.model.Department;
-
 import java.sql.SQLException;
 
 public interface Dao<T> {

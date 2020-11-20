@@ -18,21 +18,6 @@ public class DepartmentDAOImpl implements Dao<Department> {
     static final String GET_DEPARTMENT = "SELECT id, name FROM department WHERE id = ?";
     private static final String GET_DEPARTMENT_BY_NAME = "SELECT * FROM department WHERE name=?";
 
-    private static DepartmentDAOImpl departmentDAOImpl;
-
-    public static DepartmentDAOImpl getInstance() {
-        DepartmentDAOImpl localInstance = departmentDAOImpl;
-        if (localInstance == null) {
-            synchronized (DepartmentDAOImpl.class) {
-                localInstance = departmentDAOImpl;
-                if (localInstance == null) {
-                    departmentDAOImpl = localInstance = new DepartmentDAOImpl();
-                }
-            }
-        }
-        return localInstance;
-    }
-
 
     @Override
     public void delete(Integer departmentId) throws SQLException {
@@ -58,10 +43,16 @@ public class DepartmentDAOImpl implements Dao<Department> {
 
     private void create(Department department) throws SQLException {
         try (Connection connection = DBConnection.getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(CREATE_DEPARTMENT)) {
+             PreparedStatement pStatement = connection.prepareStatement(CREATE_DEPARTMENT,Statement.RETURN_GENERATED_KEYS)) {
             pStatement.setString(1, department.getName());
             pStatement.execute();
+            try (ResultSet generatedKeys = pStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()){
+                    department.setId(generatedKeys.getInt(1));
+                }
+            }
         }
+
     }
 
     private void update(Department department) throws SQLException {

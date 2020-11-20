@@ -3,7 +3,6 @@ package departmentmanagement.dao.impl;
 
 import departmentmanagement.dao.DBConnection;
 import departmentmanagement.dao.interfaces.Dao;
-import departmentmanagement.model.Department;
 import departmentmanagement.model.Employee;
 
 import java.sql.*;
@@ -12,8 +11,6 @@ import java.util.List;
 
 public class EmployeeDAOImpl implements Dao<Employee> {
 
-    DepartmentDAOImpl departmentDAO = new DepartmentDAOImpl();
-
     static final String DELETE_EMPLOYEE = "DELETE FROM employee WHERE id = ?";
     static final String UPDATE_EMPLOYEE = "UPDATE employee  set name = (?), dateOfBirthday = (?), mail = (?), salary = (?),id_department = (?) WHERE id = ?";
     static final String CREATE_EMPLOYEE = "INSERT INTO employee (name, dateOfBirthday, mail, salary, id_department) VALUES (?,?,?,?,?)";
@@ -21,20 +18,6 @@ public class EmployeeDAOImpl implements Dao<Employee> {
     static final String GET_ALL_EMPLOYEE = "SELECT * FROM employee";
     private static final String GET_EMPLOYEE_BY_EMAIL = "SELECT * FROM employee WHERE mail=?";
 
-    private static EmployeeDAOImpl employeeDAOImpl;
-
-    public static EmployeeDAOImpl getInstance() {
-        EmployeeDAOImpl localInstance = employeeDAOImpl;
-        if (localInstance == null) {
-            synchronized (EmployeeDAOImpl.class) {
-                localInstance = employeeDAOImpl;
-                if (localInstance == null) {
-                    employeeDAOImpl = localInstance = new EmployeeDAOImpl();
-                }
-            }
-        }
-        return localInstance;
-    }
 
     @Override
     public Employee getById(Integer idEmployee) throws SQLException {
@@ -94,7 +77,7 @@ public class EmployeeDAOImpl implements Dao<Employee> {
 
     private void update(Employee employee) throws SQLException {
         try (Connection connection = DBConnection.getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(UPDATE_EMPLOYEE);) {
+             PreparedStatement pStatement = connection.prepareStatement(UPDATE_EMPLOYEE)) {
             pStatement.setString(1, employee.getName());
             pStatement.setDate(2, employee.getDateOfBirthday());
             pStatement.setString(3, employee.getMail());
