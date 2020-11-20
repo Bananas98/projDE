@@ -75,26 +75,25 @@ public class DepartmentDAOImpl implements Dao<Department> {
 
     @Override
     public void createOrUpdate(Department entity) throws SQLException {
-        Integer id = entity.getId();
-        if (id == null) {
+        if (entity.getId() == null) {
             create(entity);
         } else {
             update(entity);
         }
     }
 
-    @Override
-    public boolean isUnique(Department department) throws SQLException {
+
+    public Department findByName(String name) throws SQLException {
+        Department department = null;
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(GET_DEPARTMENT_BY_NAME)) {
-             statement.setString(1, department.getName());
+            statement.setString(1, name);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                if (department.getId() == null || (department.getId() != rs.getInt("id"))) {
-                    return true;
-                }
+                department = getDepartment(rs);
             }
-            return false;
+            return department;
+
         }
 }
 

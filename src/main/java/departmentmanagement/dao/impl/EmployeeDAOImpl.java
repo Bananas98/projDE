@@ -115,19 +115,18 @@ public class EmployeeDAOImpl implements Dao<Employee> {
         }
     }
 
-    @Override
-    public boolean isUnique(Employee employee) throws SQLException {
+
+    public Employee findByEmail(String email) throws SQLException {
+        Employee employee = null;
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(GET_EMPLOYEE_BY_EMAIL)) {
-            statement.setString(1, employee.getMail());
+            statement.setString(1, email);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                if (employee.getId() == null || employee.getId() != rs.getInt("id")) {
-                    return true;
-                }
+                employee = getEmployee(rs);
             }
         }
-        return false;
+       return employee;
     }
 
     private Employee getEmployee(ResultSet resultSet) throws SQLException {
