@@ -17,8 +17,8 @@ import java.util.List;
 
 public class FormCreateUpdateEmployee implements Command {
 
-    private DepartmentService departmentService = new DepartmentService();
-    private EmployeeService employeeService = new EmployeeService();
+    private final DepartmentService departmentService = new DepartmentService();
+    private final EmployeeService employeeService = new EmployeeService();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {

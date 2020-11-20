@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class DeleteDepartment implements Command {
 
-    private DepartmentService departmentService = new DepartmentService();
+    private final DepartmentService departmentService = new DepartmentService();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {

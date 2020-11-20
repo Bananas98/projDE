@@ -8,6 +8,7 @@ import net.sf.oval.constraint.CheckWithCheck;
 import java.sql.SQLException;
 
 public class UniqueDepartmentName implements CheckWithCheck.SimpleCheck {
+
     DepartmentDAOImpl departmentDAO = new DepartmentDAOImpl();
 
     @Override

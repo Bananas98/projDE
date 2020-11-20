@@ -5,12 +5,8 @@ import departmentmanagement.dao.impl.DepartmentDAOImpl;
 import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Department;
 import departmentmanagement.validate.OvalValidator;
-
-
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class DepartmentService {
 
@@ -19,6 +15,7 @@ public class DepartmentService {
 
 
     public Department getByIdDepartment(Integer id) throws SQLException {
+        if (id==null) return null;
         return mySQLDAO.getDepartmentDAO().getById(id);
     }
 

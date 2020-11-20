@@ -75,9 +75,7 @@ public class DepartmentDAOImpl implements Dao<Department> {
 
     @Override
     public void createOrUpdate(Department entity) throws SQLException {
-        Department department = entity;
-        Integer id = department.getId();
-
+        Integer id = entity.getId();
         if (id == null) {
             create(entity);
         } else {

@@ -18,8 +18,8 @@ import java.util.Map;
 
 public class CreateUpdateEmployee implements Command {
 
-    private EmployeeService employeeService = new EmployeeService();
-    private DepartmentService departmentService = new DepartmentService();
+    private final EmployeeService employeeService = new EmployeeService();
+    private final DepartmentService departmentService = new DepartmentService();
 
 
     @Override
@@ -30,9 +30,8 @@ public class CreateUpdateEmployee implements Command {
         employee.setMail(request.getParameter("mail"));
         employee.setSalary(Utils.parseInteger(request.getParameter("salary")));
         employee.setIdDepartment(Utils.parseInteger(request.getParameter("id_department")));
-
+        employee.setId(Utils.parseInteger(request.getParameter("id")));
         try {
-            employee.setId(Utils.parseInteger(request.getParameter("id")));
             employeeService.createOrUpdate(employee);
             response.sendRedirect("listEmployee" + "?id_department=" + employee.getIdDepartment());
         } catch (ValidException e) {

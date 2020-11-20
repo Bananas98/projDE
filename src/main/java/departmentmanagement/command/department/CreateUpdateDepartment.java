@@ -15,15 +15,14 @@ import java.sql.SQLException;
 import java.util.Map;
 
 public class CreateUpdateDepartment implements Command {
-    private DepartmentService departmentService = new DepartmentService();
+    private final DepartmentService departmentService = new DepartmentService();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
         Department department = new Department();
         department.setName(request.getParameter("name"));
-
+        department.setId(Utils.parseInteger(request.getParameter("id")));
         try {
-            department.setId(Utils.parseInteger(request.getParameter("id")));
             departmentService.createOrUpdateDepartment(department);
             response.sendRedirect("listDepartment");
         } catch (ValidException e) {

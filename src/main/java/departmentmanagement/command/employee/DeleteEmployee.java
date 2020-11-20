@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class DeleteEmployee implements Command {
 
-    private EmployeeService employeeService = new EmployeeService();
+    private final EmployeeService employeeService = new EmployeeService();
 
 
     @Override

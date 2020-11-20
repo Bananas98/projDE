@@ -2,9 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-<title>Error</title>
+    <title>Error</title>
 </head>
 <body>
-oooooooooooooooops
+<div style="text-align: center;"><h1>Oooooooooooops, something wrong</h1></div>
+
 </body>
 </html>
