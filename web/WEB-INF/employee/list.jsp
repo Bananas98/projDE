@@ -38,7 +38,7 @@
 <div class="row">
 
     <div class="container">
-        <h3 class="text-center">List of Employees ${department_name}</h3>
+        <h3 class="text-center">List of Employees ${name_department}</h3>
         <hr>
         <div class="container text-left">
 
@@ -70,7 +70,7 @@
                     </td>
                 </tr>
             </c:forEach>
-            <!-- } -->
+          
             </tbody>
 
         </table>

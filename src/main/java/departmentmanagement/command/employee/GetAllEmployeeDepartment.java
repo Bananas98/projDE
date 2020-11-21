@@ -1,7 +1,7 @@
 package departmentmanagement.command.employee;
 
 
-import departmentmanagement.command.Command;
+import departmentmanagement.command.Command;;
 import departmentmanagement.model.Employee;
 import departmentmanagement.service.DepartmentService;
 import departmentmanagement.service.EmployeeService;
@@ -17,13 +17,12 @@ import java.util.List;
 
 public class GetAllEmployeeDepartment implements Command {
 
-    private final DepartmentService departmentService = new DepartmentService();
-    private final EmployeeService employeeService = new EmployeeService();
+    private DepartmentService departmentService = new DepartmentService();
+    private EmployeeService employeeService = new EmployeeService();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         Integer idDepartment = Utils.parseInteger(request.getParameter("id_department"));
-
         String nameDepartment = departmentService.getByIdDepartment(idDepartment).getName();
         List<Employee> listEmployee = employeeService.getAllEmployeesDepartment(idDepartment);
         request.setAttribute("listEmployee", listEmployee);

@@ -26,7 +26,7 @@
         </div>
 
         <ul class="navbar-nav">
-            <li><a href="/listEmployee?id_department${id_department}"
+            <li><a href="/listEmployee?id_department=${id_department}"
                    class="nav-link">Employee</a></li>
         </ul>
     </nav>
@@ -35,68 +35,51 @@
 <div class="container col-md-5">
     <div class="card">
         <div class="card-body">
-            <c:if test="${employee != null}">
             <form action="insertUpdateEmployee" method="post">
-                </c:if>
-                <c:if test="${employee == null}">
-                <form action="insertUpdateEmployee" method="post">
-                    </c:if>
-
-                    <caption>
-                        <h2>
-                            <c:if test="${employee != null}">
-                                Edit Employee
-                            </c:if>
-                            <c:if test="${employee == null}">
-                                Add New Employee
-                            </c:if>
-                        </h2>
-                    </caption>
-
+            <caption>
+                <h2>
                     <c:if test="${employee != null}">
-                        <input type="hidden" name="id" value="<c:out value='${employee.id}' />"/>
+                        Edit Employee
                     </c:if>
+                    <c:if test="${employee == null}">
+                        Add New Employee
+                    </c:if>
+                </h2>
+            </caption>
+                <input type="hidden" name="id_department" value="<c:out value="${id_department}"/>"/>
+            <c:if test="${employee != null}">
+                <input type="hidden" name="id" value="<c:out value='${employee.id}' />"/>
+            </c:if>
 
-                    <fieldset class="form-group">
+            <fieldset class="form-group">
 
-                        <label>Employee Name</label> <input type="text"
-                                                            value="<c:out value='${employee.name}' />"
-                                                            class="form-control"
-                                                            name="name" required="required">
-                        <div class="text-danger">${error['name']}</div>
-                        <label>Date Of Birthday</label> <input type="date"
-                                                               value="<c:out value='${employee.dateOfBirthday}' />"
-                                                               class="form-control"
-                                                               name="dateOfBirthday" required="required">
-                        <label>Mail</label><input type="text"
-                                value="<c:out value='${employee.mail}' />" class="form-control"
-                                name="mail" required="required">
+                <label>Employee Name</label> <input type="text"
+                                                    value="<c:out value='${employee.name}' />"
+                                                    class="form-control"
+                                                    name="name" required="required">
+                <div class="text-danger">${error['name']}</div>
 
-                        <div class="text-danger">${error['mail']}</div>
+                <label>Date Of Birthday</label> <input type="date"
+                                                       value="<c:out value='${employee.dateOfBirthday}' />"
+                                                       class="form-control"
+                                                       name="dateOfBirthday" required="required">
 
-                        <label>Salary</label> <input type="text"
-                                                     value="<c:out value='${employee.salary}' />" class="form-control"
-                                                     name="salary" required="required">
-                        <div class="text-danger">${error['salary']}</div>
+                <label>Mail</label><input type="text"
+                                          value="<c:out value='${employee.mail}' />" class="form-control"
+                                          name="mail" required="required">
 
-                        <tr>
-                            <th class="border">Name Department :</th>
-                            <td class="border">
-                                <select name="id_department">
-                                    <option value="${id_department}"
-                                            selected="${id_department}">${nameDepartment}</option>
-                                    <c:forEach var="department" items="${listDepartment}">
-                                        <option value="${department.id}" ${department.id == selected ? 'selected="selected"' : ''}>${department.name}</option>
-                                    </c:forEach>
-                                </select>
-                            </td>
-                        </tr>
-                        <div class="text-danger">${error['id_department']}</div>
-                    </fieldset>
+                <div class="text-danger">${error['mail']}</div>
+
+                <label>Salary</label> <input type="text"
+                                             value="<c:out value='${employee.salary}' />" class="form-control"
+                                             name="salary" required="required">
+                <div class="text-danger">${error['salary']}</div>
+
+            </fieldset>
 
 
-                    <button type="submit" class="btn btn-success">Save</button>
-                </form>
+            <button type="submit" class="btn btn-success">Save</button>
+            </form>
         </div>
     </div>
 </div>

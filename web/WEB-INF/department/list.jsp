@@ -54,12 +54,13 @@
                     <td><c:out value="${department.name}"/></td>
 
                     <td><a href="createUpdateFormDepartment?id=<c:out value='${department.id}' />">Edit</a>
+                        &emsp;&emsp;
                         <a href="deleteDepartment?id=<c:out value='${department.id}' />">Delete</a>
+                        &emsp;&emsp;
                         <a href="listEmployee?id_department=<c:out value='${department.id}' />">List Employee</a>
                     </td>
                 </tr>
             </c:forEach>
-            <!-- } -->
             </tbody>
 
         </table>

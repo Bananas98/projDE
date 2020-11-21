@@ -28,12 +28,8 @@
 <div class="container col-md-5">
     <div class="card">
         <div class="card-body">
-            <c:if test="${department != null}">
+
             <form action="insertUpdateDepartment" method="post">
-                </c:if>
-                <c:if test="${department == null}">
-                <form action="insertUpdateDepartment" method="post">
-                    </c:if>
 
                     <caption>
                         <h2>

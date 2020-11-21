@@ -60,7 +60,7 @@ public class EmployeeDAOImpl implements Dao<Employee> {
 
     private void create(Employee employee) throws SQLException {
         try (Connection connection = DBConnection.getConnection();
-             PreparedStatement pStatement = connection.prepareStatement(CREATE_EMPLOYEE ,Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement pStatement = connection.prepareStatement(CREATE_EMPLOYEE, Statement.RETURN_GENERATED_KEYS)) {
             pStatement.setString(1, employee.getName());
             pStatement.setDate(2, employee.getDateOfBirthday());
             pStatement.setString(3, employee.getMail());
@@ -68,7 +68,7 @@ public class EmployeeDAOImpl implements Dao<Employee> {
             pStatement.setInt(5, employee.getIdDepartment());
             pStatement.execute();
             try (ResultSet generatedKeys = pStatement.getGeneratedKeys()) {
-                if (generatedKeys.next()){
+                if (generatedKeys.next()) {
                     employee.setId(generatedKeys.getInt(1));
                 }
             }
@@ -90,8 +90,7 @@ public class EmployeeDAOImpl implements Dao<Employee> {
 
     @Override
     public void createOrUpdate(Employee employee) throws SQLException {
-        Integer id = employee.getId();
-        if (id == null) {
+        if (employee.getId() == null) {
             create(employee);
         } else {
             update(employee);
@@ -109,7 +108,7 @@ public class EmployeeDAOImpl implements Dao<Employee> {
                 employee = getEmployee(rs);
             }
         }
-       return employee;
+        return employee;
     }
 
     private Employee getEmployee(ResultSet resultSet) throws SQLException {
