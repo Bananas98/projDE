@@ -12,7 +12,7 @@
 <head>
     <title>User Management Application</title>
     <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    <c:url value="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
 </head>
@@ -36,49 +36,50 @@
     <div class="card">
         <div class="card-body">
             <form action="insertUpdateEmployee" method="post">
-            <caption>
-                <h2>
-                    <c:if test="${employee != null}">
-                        Edit Employee
-                    </c:if>
-                    <c:if test="${employee == null}">
-                        Add New Employee
-                    </c:if>
-                </h2>
-            </caption>
+                <caption>
+                    <h2>
+                        <c:if test="${not empty employee}">
+                            Edit Employee
+                        </c:if>
+                        <c:if test="${empty employee}">
+                            Add New Employee
+                        </c:if>
+                    </h2>
+                </caption>
+
                 <input type="hidden" name="id_department" value="<c:out value="${id_department}"/>"/>
-            <c:if test="${employee != null}">
-                <input type="hidden" name="id" value="<c:out value='${employee.id}' />"/>
-            </c:if>
+                <c:if test="${not empty employee}">
+                    <input type="hidden" name="id" value="<c:out value='${employee.id}' />"/>
+                </c:if>
 
-            <fieldset class="form-group">
+                <fieldset class="form-group">
 
-                <label>Employee Name</label> <input type="text"
-                                                    value="<c:out value='${employee.name}' />"
-                                                    class="form-control"
-                                                    name="name" required="required">
-                <div class="text-danger">${error['name']}</div>
+                    <label>Employee Name</label> <input type="text"
+                                                        value="<c:out value='${employee.name}' />"
+                                                        class="form-control"
+                                                        name="name" required="required">
+                    <div class="text-danger">${error['name']}</div>
 
-                <label>Date Of Birthday</label> <input type="date"
-                                                       value="<c:out value='${employee.dateOfBirthday}' />"
-                                                       class="form-control"
-                                                       name="dateOfBirthday" required="required">
+                    <label>Date Of Birthday</label> <input type="date"
+                                                           value="<c:out value='${employee.dateOfBirthday}' />"
+                                                           class="form-control"
+                                                           name="dateOfBirthday" required="required">
 
-                <label>Mail</label><input type="text"
-                                          value="<c:out value='${employee.mail}' />" class="form-control"
-                                          name="mail" required="required">
+                    <label>Mail</label><input type="text"
+                                              value="<c:out value='${employee.mail}' />" class="form-control"
+                                              name="mail" required="required">
 
-                <div class="text-danger">${error['mail']}</div>
+                    <div class="text-danger">${error['mail']}</div>
 
-                <label>Salary</label> <input type="text"
-                                             value="<c:out value='${employee.salary}' />" class="form-control"
-                                             name="salary" required="required">
-                <div class="text-danger">${error['salary']}</div>
+                    <label>Salary</label> <input type="text"
+                                                 value="<c:out value='${employee.salary}' />" class="form-control"
+                                                 name="salary" required="required">
+                    <div class="text-danger">${error['salary']}</div>
 
-            </fieldset>
+                </fieldset>
 
 
-            <button type="submit" class="btn btn-success">Save</button>
+                <button type="submit" class="btn btn-success">Save</button>
             </form>
         </div>
     </div>

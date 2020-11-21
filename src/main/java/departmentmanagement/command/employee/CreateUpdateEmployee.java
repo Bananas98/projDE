@@ -37,6 +37,7 @@ public class CreateUpdateEmployee implements Command {
         } catch (ValidException e) {
             Map<String,String> map =  e.getMapError();
             request.setAttribute("employee",employee);
+            request.setAttribute("id_department",Utils.parseInteger(request.getParameter("id_department")));
             request.setAttribute("error", map);
             request.setAttribute("listDepartment",departmentService.getAllDepartment());
             request.getRequestDispatcher("WEB-INF/employee/form.jsp").forward(request,response);

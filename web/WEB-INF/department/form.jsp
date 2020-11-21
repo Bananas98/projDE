@@ -5,7 +5,7 @@
 <head>
     <title>Department Management Application</title>
     <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          <c:url value="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
 </head>
@@ -33,16 +33,16 @@
 
                     <caption>
                         <h2>
-                            <c:if test="${department != null}">
+                            <c:if test="${not empty department}">
                                 Edit Department
                             </c:if>
-                            <c:if test="${department == null}">
+                            <c:if test="${empty department}">
                                 Add New Department
                             </c:if>
                         </h2>
                     </caption>
 
-                    <c:if test="${department != null}">
+                    <c:if test="${not empty department}">
                         <input type="hidden" name="id" value="<c:out value='${department.id}' />"/>
                     </c:if>
 
