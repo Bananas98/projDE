@@ -20,15 +20,20 @@ public class GetAllEmployeeDepartment implements Command {
     private EmployeeService employeeService = new EmployeeService();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         Integer idDepartment = Utils.parseInteger(request.getParameter("id_department"));
-        String nameDepartment = departmentService.getByIdDepartment(idDepartment).getName();
-        List<Employee> listEmployee = employeeService.getAllEmployeesDepartment(idDepartment);
-        request.setAttribute("listEmployee", listEmployee);
-        request.setAttribute("id_department", idDepartment);
-        request.setAttribute("name_department", nameDepartment);
+        if (idDepartment == null){
+            response.sendRedirect("/listDepartment");
+        }
+        else {
+            String nameDepartment = departmentService.getByIdDepartment(idDepartment).getName();
+            List<Employee> listEmployee = employeeService.getAllEmployeesDepartment(idDepartment);
+            request.setAttribute("listEmployee", listEmployee);
+            request.setAttribute("id_department", idDepartment);
+            request.setAttribute("name_department", nameDepartment);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/employee/list.jsp");
-        dispatcher.forward(request, response);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/employee/list.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 }

@@ -20,6 +20,9 @@ public class FormCreateUpdateEmployee implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
         Integer idDepartment = Utils.parseInteger(request.getParameter("id_department"));
+        if (idDepartment == null){
+            response.sendRedirect("/listDepartment");
+        }
         Integer id = Utils.parseInteger(request.getParameter("id_employee"));//id
         Employee employee = employeeService.getByIdEmployee(id);
         request.setAttribute("employee",employee);

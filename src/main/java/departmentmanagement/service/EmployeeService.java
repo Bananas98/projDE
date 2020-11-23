@@ -16,11 +16,13 @@ public class EmployeeService {
     private final EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
 
     public void createOrUpdate(Employee employee) throws ValidException {
-        ovalValidator.setValidator(employee);
-        try {
-            employeeDAO.createOrUpdate(employee);
-        } catch (SQLException e) {
-            throw new RuntimeException();
+        if (!employee.getIdDepartment().toString().isEmpty()) {
+            ovalValidator.setValidator(employee);
+            try {
+                employeeDAO.createOrUpdate(employee);
+            } catch (SQLException e) {
+                throw new RuntimeException();
+            }
         }
     }
 
