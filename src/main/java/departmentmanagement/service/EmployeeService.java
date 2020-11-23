@@ -15,26 +15,42 @@ public class EmployeeService {
     private final OvalValidator ovalValidator = new OvalValidator();
     private final EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
 
-    public void createOrUpdate(Employee employee) throws ValidException, SQLException {
+    public void createOrUpdate(Employee employee) throws ValidException {
         ovalValidator.setValidator(employee);
-        employeeDAO.createOrUpdate(employee);
+        try {
+            employeeDAO.createOrUpdate(employee);
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
     }
 
-    public void deleteEmployee(Integer employeeId) throws SQLException {
+    public void deleteEmployee(Integer employeeId) {
         if (employeeId != null) {
-            employeeDAO.delete(employeeId);
+            try {
+                employeeDAO.delete(employeeId);
+            } catch (SQLException e) {
+                throw new RuntimeException();
+            }
         }
     }
 
 
-    public Employee getByIdEmployee(Integer id) throws SQLException {
+    public Employee getByIdEmployee(Integer id) {
         if (id == null) return null;
-        return employeeDAO.getById(id);
+        try {
+            return employeeDAO.getById(id);
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
     }
 
 
-    public List<Employee> getAllEmployeesDepartment(Integer idDepartment) throws SQLException {
-        return employeeDAO.getAll(idDepartment);
+    public List<Employee> getAllEmployeesDepartment(Integer idDepartment) {
+        try {
+            return employeeDAO.getAll(idDepartment);
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
     }
 
 }

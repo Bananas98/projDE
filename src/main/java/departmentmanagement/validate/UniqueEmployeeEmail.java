@@ -17,7 +17,7 @@ public class UniqueEmployeeEmail implements CheckWithCheck.SimpleCheck{
         try {
             employee = employeeDAO.findByEmail(((Employee) o).getMail());
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException();
         }
         return employee == null|| employee.getId().equals(validate.getId());
 

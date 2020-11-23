@@ -11,14 +11,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
+
 import java.util.Map;
 
 public class CreateUpdateDepartment implements Command {
     private final DepartmentService departmentService = new DepartmentService();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Department department = new Department();
         department.setName(request.getParameter("name"));
         department.setId(Utils.parseInteger(request.getParameter("id")));

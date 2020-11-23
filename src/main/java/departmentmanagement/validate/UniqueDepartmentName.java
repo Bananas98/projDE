@@ -17,10 +17,9 @@ public class UniqueDepartmentName implements CheckWithCheck.SimpleCheck {
         try {
             department = departmentDAO.findByName(((Department) o).getName());
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException();
         }
         return department == null|| department.getId().equals(validate.getId());
-
 
     }
 }

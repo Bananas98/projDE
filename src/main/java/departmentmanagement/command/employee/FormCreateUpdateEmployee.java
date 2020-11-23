@@ -10,14 +10,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
+
 
 public class FormCreateUpdateEmployee implements Command {
 
     private final EmployeeService employeeService = new EmployeeService();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
         Integer idDepartment = Utils.parseInteger(request.getParameter("id_department"));
         Integer id = Utils.parseInteger(request.getParameter("id_employee"));//id

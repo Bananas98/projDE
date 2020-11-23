@@ -1,6 +1,7 @@
 package departmentmanagement.util;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -25,7 +26,4 @@ public class Utils {
         return date;
     }
 
-    public static boolean isEmpty(String s){
-        return (s.length() == 0);
-    }
 }

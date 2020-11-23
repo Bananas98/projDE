@@ -13,25 +13,41 @@ public class DepartmentService {
     private final DepartmentDAOImpl departmentDAO = new DepartmentDAOImpl();
 
 
-    public Department getByIdDepartment(Integer id) throws SQLException {
+    public Department getByIdDepartment(Integer id) {
         if (id==null) return null;
-        return departmentDAO.getById(id);
+        try {
+            return departmentDAO.getById(id);
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
     }
 
-    public void createOrUpdateDepartment(Department department) throws ValidException, SQLException {
+    public void createOrUpdateDepartment(Department department) throws ValidException{
         ovalValidator.setValidator(department);
-        departmentDAO.createOrUpdate(department);
+        try {
+            departmentDAO.createOrUpdate(department);
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
     }
 
-    public void deleteDepartment(Integer idDepartment) throws SQLException {
+    public void deleteDepartment(Integer idDepartment) {
         if (idDepartment!=null) {
-            departmentDAO.delete(idDepartment);
+            try {
+                departmentDAO.delete(idDepartment);
+            } catch (SQLException e) {
+                throw new RuntimeException();
+            }
         }
 
     }
 
-    public List<Department> getAllDepartment() throws SQLException {
-        return departmentDAO.getAll();
+    public List<Department> getAllDepartment() {
+        try {
+            return departmentDAO.getAll();
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
     }
 
 

@@ -12,8 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Date;
-import java.sql.SQLException;
+
 import java.util.Map;
 
 public class CreateUpdateEmployee implements Command {
@@ -23,7 +22,7 @@ public class CreateUpdateEmployee implements Command {
 
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Employee employee = new Employee();
         employee.setName(request.getParameter("name"));
         employee.setDateOfBirthday(Utils.parseDate(request.getParameter("dateOfBirthday")));
