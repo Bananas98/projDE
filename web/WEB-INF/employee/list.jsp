@@ -67,8 +67,14 @@
                     <td><c:out value="${employee.mail}"/></td>
                     <td><c:out value="${employee.salary}"/></td>
                     <td>
-                        <a href="createUpdateFormEmployee?id_department=${id_department}&id_employee=<c:out value='${employee.id}' />">Edit</a>
-                        <a href="deleteEmployee?id_employee=<c:out value='${employee.id}' />">Delete</a>
+                        <div class="btn-group btn-group-justified">
+                            <a href="createUpdateFormEmployee?id_department=${id_department}&id_employee=<c:out value='${employee.id}' />"
+                               class="btn btn-primary">Edit</a>
+                        </div>
+                        <div class="btn-group btn-group-justified">
+                            <a href="deleteEmployee?id_employee=<c:out value='${employee.id}' />"
+                               class="btn btn-primary">Delete</a>
+                        </div>
                     </td>
                 </tr>
             </c:forEach>

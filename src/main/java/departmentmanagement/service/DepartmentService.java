@@ -4,7 +4,7 @@ import departmentmanagement.dao.impl.DepartmentDAOImpl;
 import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Department;
 import departmentmanagement.validate.OvalValidator;
-import java.sql.SQLException;
+
 import java.util.List;
 
 public class DepartmentService {
@@ -14,40 +14,25 @@ public class DepartmentService {
 
 
     public Department getByIdDepartment(Integer id) {
-        if (id==null) return null;
-        try {
-            return departmentDAO.getById(id);
-        } catch (SQLException e) {
-            throw new RuntimeException();
-        }
+        if (id == null) return null;
+        return departmentDAO.getById(id);
     }
 
-    public void createOrUpdateDepartment(Department department) throws ValidException{
+    public void createOrUpdateDepartment(Department department) throws ValidException {
         ovalValidator.setValidator(department);
-        try {
-            departmentDAO.createOrUpdate(department);
-        } catch (SQLException e) {
-            throw new RuntimeException();
-        }
+        departmentDAO.createOrUpdate(department);
+
     }
 
     public void deleteDepartment(Integer idDepartment) {
-        if (idDepartment!=null) {
-            try {
-                departmentDAO.delete(idDepartment);
-            } catch (SQLException e) {
-                throw new RuntimeException();
-            }
+        if (idDepartment != null) {
+            departmentDAO.delete(idDepartment);
         }
 
     }
 
     public List<Department> getAllDepartment() {
-        try {
-            return departmentDAO.getAll();
-        } catch (SQLException e) {
-            throw new RuntimeException();
-        }
+        return departmentDAO.getAll();
     }
 
 

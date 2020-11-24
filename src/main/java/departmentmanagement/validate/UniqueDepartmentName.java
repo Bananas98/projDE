@@ -13,12 +13,8 @@ public class UniqueDepartmentName implements CheckWithCheck.SimpleCheck {
     @Override
     public boolean isSatisfied(Object o, Object o1) {
        Department validate = (Department)o;
-        Department department = null;
-        try {
-            department = departmentDAO.findByName(((Department) o).getName());
-        } catch (SQLException e) {
-            throw new RuntimeException();
-        }
+        Department department = departmentDAO.findByName(((Department) o).getName());
+
         return department == null|| department.getId().equals(validate.getId());
 
     }

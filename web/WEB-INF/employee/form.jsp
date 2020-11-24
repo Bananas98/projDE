@@ -20,8 +20,7 @@
         </div>
 
         <ul class="navbar-nav">
-            <li><a href="/listEmployee?id_department=${id_department}"
-                   class="nav-link">Employee</a></li>
+            <li><a href="/listEmployee?id_department=${id_department}" class="nav-link">Employee</a></li>
         </ul>
     </nav>
 </header>
@@ -48,26 +47,26 @@
 
                 <fieldset class="form-group">
 
-                    <label>Employee Name</label> <input type="text"
-                                                        value="<c:out value='${employee.name}' />"
-                                                        class="form-control"
-                                                        name="name" required="required">
+                    <label for="name"> Employee Name</label>
+                    <input id="name" type="text" value="<c:out value='${employee.name}' />"
+                           class="form-control"
+                           name="name" required="required">
                     <div class="text-danger">${error['name']}</div>
 
-                    <label>Date Of Birthday</label> <input type="date"
-                                                           value="<c:out value='${employee.dateOfBirthday}' />"
-                                                           class="form-control"
-                                                           name="dateOfBirthday" required="required">
+                    <label for="dateOfBirthday">Date Of Birthday</label>
+                    <input id="dateOfBirthday" type="date" value="<c:out value='${employee.dateOfBirthday}' />"
+                           class="form-control"
+                           name="dateOfBirthday" required="required">
 
-                    <label>Mail</label><input type="text"
-                                              value="<c:out value='${employee.mail}' />" class="form-control"
-                                              name="mail" required="required">
+                    <label for="mail">Mail</label>
+                    <input id="mail" type="text" value="<c:out value='${employee.mail}' />" class="form-control"
+                           name="mail" required="required">
 
                     <div class="text-danger">${error['mail']}</div>
 
-                    <label>Salary</label> <input type="text"
-                                                 value="<c:out value='${employee.salary}' />" class="form-control"
-                                                 name="salary" required="required">
+                    <label for="salary">Salary</label>
+                    <input id="salary" type="text" value="<c:out value='${employee.salary}' />" class="form-control"
+                           name="salary" required="required">
                     <div class="text-danger">${error['salary']}</div>
 
                 </fieldset>

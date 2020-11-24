@@ -47,10 +47,10 @@
                     </c:if>
 
                     <fieldset class="form-group">
-                        <label>Department Name</label> <input type="text"
-                                                              value="<c:out value='${department.name}' />"
-                                                              class="form-control"
-                                                              name="name" required="required">
+                        <label for="name">Department Name</label>
+                        <input id="name" type="text" value="<c:out value='${department.name}' />"
+                                 class="form-control"
+                                 name="name" required="required">
                     </fieldset>
                     <div class="text-danger">${error['name']}</div>
 

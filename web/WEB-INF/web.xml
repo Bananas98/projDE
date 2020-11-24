@@ -7,13 +7,5 @@
         <exception-type>java.lang.RuntimeException</exception-type>
         <location>/error</location>
     </error-page>
-    <error-page>
-        <exception-type>javax.servlet.ServletException</exception-type>
-        <location>/error</location>
-    </error-page>
-    <error-page>
-        <exception-type>java.io.IOException</exception-type>
-        <location>/error</location>
-    </error-page>
 
 </web-app>

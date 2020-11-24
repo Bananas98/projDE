@@ -5,7 +5,7 @@
 <head>
     <title>Department Management Application</title>
     <link rel="stylesheet"
-       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
 </head>
@@ -53,11 +53,19 @@
                     <td><c:out value="${department.id}"/></td>
                     <td><c:out value="${department.name}"/></td>
 
-                    <td><a href="createUpdateFormDepartment?id=<c:out value='${department.id}' />">Edit</a>
-                        &emsp;&emsp;
-                        <a href="deleteDepartment?id=<c:out value='${department.id}' />">Delete</a>
-                        &emsp;&emsp;
-                        <a href="listEmployee?id_department=<c:out value='${department.id}' />">List Employee</a>
+                    <td>
+                        <div class="btn-group btn-group-justified">
+                            <a href="createUpdateFormDepartment?id=<c:out value='${department.id}' />"
+                               class="btn btn-primary">Edit</a>
+                        </div>
+                        <div class="btn-group btn-group-justified">
+                            <a href="deleteDepartment?id=<c:out value='${department.id}' />"
+                               class="btn btn-primary">Delete</a>
+                        </div>
+                        <div class="btn-group btn-group-justified">
+                            <a href="listEmployee?id_department=<c:out value='${department.id}' />"
+                               class="btn btn-primary">List Employee</a>
+                        </div>
                     </td>
                 </tr>
             </c:forEach>

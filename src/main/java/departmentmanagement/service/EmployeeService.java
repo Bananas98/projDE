@@ -2,6 +2,7 @@ package departmentmanagement.service;
 
 
 import departmentmanagement.dao.impl.EmployeeDAOImpl;
+import departmentmanagement.exception.UserSqlException;
 import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Employee;
 import departmentmanagement.validate.OvalValidator;
@@ -16,23 +17,20 @@ public class EmployeeService {
     private final EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
 
     public void createOrUpdate(Employee employee) throws ValidException {
+
         if (!employee.getIdDepartment().toString().isEmpty()) {
             ovalValidator.setValidator(employee);
-            try {
-                employeeDAO.createOrUpdate(employee);
-            } catch (SQLException e) {
-                throw new RuntimeException();
-            }
+            employeeDAO.createOrUpdate(employee);
         }
     }
 
     public void deleteEmployee(Integer employeeId) {
-        if (employeeId != null) {
-            try {
+        try {
+            if (employeeId != null) {
                 employeeDAO.delete(employeeId);
-            } catch (SQLException e) {
-                throw new RuntimeException();
             }
+        } catch (SQLException e) {
+            throw new UserSqlException(e);
         }
     }
 
@@ -42,7 +40,7 @@ public class EmployeeService {
         try {
             return employeeDAO.getById(id);
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new UserSqlException(e);
         }
     }
 
@@ -51,7 +49,7 @@ public class EmployeeService {
         try {
             return employeeDAO.getAll(idDepartment);
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new UserSqlException(e);
         }
     }
 

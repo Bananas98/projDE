@@ -3,6 +3,7 @@ package departmentmanagement.dao.impl;
 
 import departmentmanagement.dao.DBConnection;
 import departmentmanagement.dao.interfaces.Dao;
+import departmentmanagement.exception.UserSqlException;
 import departmentmanagement.model.Employee;
 
 import java.sql.*;
@@ -89,16 +90,20 @@ public class EmployeeDAOImpl implements Dao<Employee> {
     }
 
     @Override
-    public void createOrUpdate(Employee employee) throws SQLException {
-        if (employee.getId() == null) {
-            create(employee);
-        } else {
-            update(employee);
+    public void createOrUpdate(Employee employee){
+        try {
+            if (employee.getId() == null) {
+                create(employee);
+            } else {
+                update(employee);
+            }
+        }catch (SQLException e){
+            throw new UserSqlException(e);
         }
     }
 
 
-    public Employee findByEmail(String email) throws SQLException {
+    public Employee findByEmail(String email){
         Employee employee = null;
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(GET_EMPLOYEE_BY_EMAIL)) {
@@ -107,6 +112,8 @@ public class EmployeeDAOImpl implements Dao<Employee> {
             while (rs.next()) {
                 employee = getEmployee(rs);
             }
+        }catch (SQLException e){
+            throw new UserSqlException(e);
         }
         return employee;
     }

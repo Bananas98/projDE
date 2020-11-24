@@ -13,12 +13,8 @@ public class UniqueEmployeeEmail implements CheckWithCheck.SimpleCheck{
     @Override
     public boolean isSatisfied(Object o, Object o1) {
         Employee validate = (Employee)o;
-        Employee employee = null;
-        try {
-            employee = employeeDAO.findByEmail(((Employee) o).getMail());
-        } catch (SQLException e) {
-            throw new RuntimeException();
-        }
+        Employee employee = employeeDAO.findByEmail(((Employee) o).getMail());
+
         return employee == null|| employee.getId().equals(validate.getId());
 
     }
