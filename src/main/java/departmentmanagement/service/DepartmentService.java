@@ -1,5 +1,6 @@
 package departmentmanagement.service;
 
+import departmentmanagement.dao.hibernate.HibernateDepartmentImpl;
 import departmentmanagement.dao.impl.DepartmentDAOImpl;
 import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Department;
@@ -10,7 +11,7 @@ import java.util.List;
 public class DepartmentService {
 
     private final OvalValidator ovalValidator = new OvalValidator();
-    private final DepartmentDAOImpl departmentDAO = new DepartmentDAOImpl();
+    private final HibernateDepartmentImpl departmentDAO = new HibernateDepartmentImpl();
 
 
     public Department getByIdDepartment(Integer id) {

@@ -1,5 +1,6 @@
 package departmentmanagement.validate;
 
+import departmentmanagement.dao.hibernate.HibernateDepartmentImpl;
 import departmentmanagement.dao.impl.DepartmentDAOImpl;
 import departmentmanagement.model.Department;
 import net.sf.oval.constraint.CheckWithCheck;
@@ -8,7 +9,7 @@ import java.sql.SQLException;
 
 public class UniqueDepartmentName implements CheckWithCheck.SimpleCheck {
 
-    private final DepartmentDAOImpl departmentDAO = new DepartmentDAOImpl();
+    private final HibernateDepartmentImpl departmentDAO = new HibernateDepartmentImpl();
 
     @Override
     public boolean isSatisfied(Object o, Object o1) {

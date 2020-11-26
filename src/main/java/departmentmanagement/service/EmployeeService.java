@@ -1,6 +1,7 @@
 package departmentmanagement.service;
 
 
+import departmentmanagement.dao.hibernate.HibernateEmployeeImpl;
 import departmentmanagement.dao.impl.EmployeeDAOImpl;
 import departmentmanagement.exception.UserSqlException;
 import departmentmanagement.exception.ValidException;
@@ -14,7 +15,7 @@ public class EmployeeService {
 
 
     private final OvalValidator ovalValidator = new OvalValidator();
-    private final EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
+    private final HibernateEmployeeImpl employeeDAO = new HibernateEmployeeImpl();
 
     public void createOrUpdate(Employee employee) throws ValidException {
 
@@ -25,32 +26,26 @@ public class EmployeeService {
     }
 
     public void deleteEmployee(Integer employeeId) {
-        try {
+
             if (employeeId != null) {
                 employeeDAO.delete(employeeId);
             }
-        } catch (SQLException e) {
-            throw new UserSqlException(e);
-        }
+
     }
 
 
     public Employee getByIdEmployee(Integer id) {
         if (id == null) return null;
-        try {
+
             return employeeDAO.getById(id);
-        } catch (SQLException e) {
-            throw new UserSqlException(e);
-        }
+
     }
 
 
     public List<Employee> getAllEmployeesDepartment(Integer idDepartment) {
-        try {
+
             return employeeDAO.getAll(idDepartment);
-        } catch (SQLException e) {
-            throw new UserSqlException(e);
-        }
+
     }
 
 }
