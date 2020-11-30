@@ -3,6 +3,7 @@ package departmentmanagement.command.employee;
 
 import departmentmanagement.command.Command;
 import departmentmanagement.exception.ValidException;
+import departmentmanagement.model.Department;
 import departmentmanagement.model.Employee;
 import departmentmanagement.service.DepartmentService;
 import departmentmanagement.service.EmployeeService;
@@ -24,15 +25,17 @@ public class CreateUpdateEmployee implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Employee employee = new Employee();
+        Department department = new Department();
         employee.setName(request.getParameter("name"));
         employee.setDateOfBirthday(Utils.parseDate(request.getParameter("dateOfBirthday")));
         employee.setMail(request.getParameter("mail"));
         employee.setSalary(Utils.parseInteger(request.getParameter("salary")));
-        employee.setIdDepartment(Utils.parseInteger(request.getParameter("id_department")));
+        department.setId(Utils.parseInteger(request.getParameter("id_department")));
+        employee.setDepartment(department);
         employee.setId(Utils.parseInteger(request.getParameter("id")));
         try {
             employeeService.createOrUpdate(employee);
-            response.sendRedirect("listEmployee" + "?id_department=" + employee.getIdDepartment());
+            response.sendRedirect("listEmployee" + "?id_department=" + employee.getDepartment().getId());
         } catch (ValidException e) {
             Map<String,String> map =  e.getMapError();
             request.setAttribute("employee",employee);

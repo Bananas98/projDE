@@ -96,7 +96,7 @@ public class HibernateEmployeeImpl implements Dao<Employee> {
     public List<Employee> getAll(Integer departmentId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query<Employee> query  = session
-                .createQuery("from departmentmanagement.model.Employee where idDepartment=:departmentId", Employee.class);
+                .createQuery("from departmentmanagement.model.Employee where id_department=:departmentId", Employee.class);
         query.setParameter("departmentId",departmentId);
         return query.list();
     }

@@ -19,7 +19,7 @@ public class EmployeeService {
 
     public void createOrUpdate(Employee employee) throws ValidException {
 
-        if (!employee.getIdDepartment().toString().isEmpty()) {
+        if (!employee.getDepartment().getId().toString().isEmpty()) {
             ovalValidator.setValidator(employee);
             employeeDAO.createOrUpdate(employee);
         }
@@ -27,24 +27,22 @@ public class EmployeeService {
 
     public void deleteEmployee(Integer employeeId) {
 
-            if (employeeId != null) {
-                employeeDAO.delete(employeeId);
-            }
+        if (employeeId != null) {
+            employeeDAO.delete(employeeId);
+        }
 
     }
 
 
     public Employee getByIdEmployee(Integer id) {
         if (id == null) return null;
-
-            return employeeDAO.getById(id);
-
+        return employeeDAO.getById(id);
     }
 
 
     public List<Employee> getAllEmployeesDepartment(Integer idDepartment) {
 
-            return employeeDAO.getAll(idDepartment);
+        return employeeDAO.getAll(idDepartment);
 
     }
 

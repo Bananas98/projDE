@@ -4,6 +4,7 @@ package departmentmanagement.dao.impl;
 import departmentmanagement.dao.DBConnection;
 import departmentmanagement.dao.interfaces.Dao;
 import departmentmanagement.exception.UserSqlException;
+import departmentmanagement.model.Department;
 import departmentmanagement.model.Employee;
 
 import java.sql.*;
@@ -13,9 +14,9 @@ import java.util.List;
 public class EmployeeDAOImpl implements Dao<Employee> {
 
     static final String DELETE_EMPLOYEE = "DELETE FROM employee WHERE id = ?";
-    static final String UPDATE_EMPLOYEE = "UPDATE employee  set name = (?), dateOfBirthday = (?), mail = (?), salary = (?),id_department = (?) WHERE id = ?";
-    static final String CREATE_EMPLOYEE = "INSERT INTO employee (name, dateOfBirthday, mail, salary, id_department) VALUES (?,?,?,?,?)";
-    static final String GET_EMPLOYEE = "SELECT id, name, dateOfBirthday, mail, salary, id_department FROM employee WHERE id = ?";
+    static final String UPDATE_EMPLOYEE = "UPDATE employee  set name = (?), date_Of_Birthday = (?), mail = (?), salary = (?),id_department = (?) WHERE id = ?";
+    static final String CREATE_EMPLOYEE = "INSERT INTO employee (name, date_Of_Birthday, mail, salary, id_department) VALUES (?,?,?,?,?)";
+    static final String GET_EMPLOYEE = "SELECT id, name, date_Of_Birthday, mail, salary, id_department FROM employee WHERE id = ?";
     static final String GET_ALL_EMPLOYEE = "SELECT * FROM employee";
     private static final String GET_EMPLOYEE_BY_EMAIL = "SELECT * FROM employee WHERE mail=?";
 
@@ -41,7 +42,7 @@ public class EmployeeDAOImpl implements Dao<Employee> {
              PreparedStatement pStatement = con.prepareStatement(GET_ALL_EMPLOYEE)) {
             ResultSet resultSet = pStatement.executeQuery();
             while (resultSet.next()) {
-                if (getEmployee(resultSet).getIdDepartment().equals(departmentId)) {
+                if (getEmployee(resultSet).getDepartment().getId().equals(departmentId)) {
                     employeelist.add(getEmployee(resultSet));
                 }
             }
@@ -66,7 +67,7 @@ public class EmployeeDAOImpl implements Dao<Employee> {
             pStatement.setDate(2, employee.getDateOfBirthday());
             pStatement.setString(3, employee.getMail());
             pStatement.setInt(4, employee.getSalary());
-            pStatement.setInt(5, employee.getIdDepartment());
+            pStatement.setInt(5, employee.getDepartment().getId());
             pStatement.execute();
             try (ResultSet generatedKeys = pStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
@@ -83,7 +84,7 @@ public class EmployeeDAOImpl implements Dao<Employee> {
             pStatement.setDate(2, employee.getDateOfBirthday());
             pStatement.setString(3, employee.getMail());
             pStatement.setInt(4, employee.getSalary());
-            pStatement.setInt(5, employee.getIdDepartment());
+            pStatement.setInt(5, employee.getDepartment().getId());
             pStatement.setInt(6, employee.getId());
             pStatement.executeUpdate();
         }
@@ -120,12 +121,14 @@ public class EmployeeDAOImpl implements Dao<Employee> {
 
     private Employee getEmployee(ResultSet resultSet) throws SQLException {
         Employee employee = new Employee();
+        Department department = new Department();
         employee.setId(resultSet.getInt("id"));
         employee.setName(resultSet.getString("name"));
         employee.setDateOfBirthday(resultSet.getDate("dateOfBirthday"));
         employee.setMail(resultSet.getString("mail"));
         employee.setSalary(resultSet.getInt("salary"));
-        employee.setIdDepartment(resultSet.getInt("id_department"));
+        department.setId(resultSet.getInt("id_department"));
+        employee.setDepartment(department);
         return employee;
     }
 }
