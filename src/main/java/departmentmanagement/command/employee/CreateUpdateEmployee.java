@@ -8,6 +8,8 @@ import departmentmanagement.model.Employee;
 import departmentmanagement.service.DepartmentService;
 import departmentmanagement.service.EmployeeService;
 import departmentmanagement.util.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,10 +18,13 @@ import java.io.IOException;
 
 import java.util.Map;
 
+@Component(value = "/insertUpdateEmployee")
 public class CreateUpdateEmployee implements Command {
 
-    private final EmployeeService employeeService = new EmployeeService();
-    private final DepartmentService departmentService = new DepartmentService();
+    @Autowired
+    private EmployeeService employeeService ;
+    @Autowired
+    private DepartmentService departmentService;
 
 
     @Override

@@ -1,62 +1,52 @@
 package departmentmanagement.dao.hibernate;
 
 
-import departmentmanagement.dao.HibernateUtil;
 import departmentmanagement.dao.interfaces.Dao;
 import departmentmanagement.model.Department;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Repository
 public class HibernateDepartmentImpl implements Dao<Department> {
 
+    @Autowired
+    protected SessionFactory sessionFactory;
+
     @Override
+    @Transactional(readOnly = true)
     public Department getById(Integer id) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        try (Session session = sessionFactory.openSession()) {
-            return session.get(Department.class, id);
-        }
+        return sessionFactory.getCurrentSession().get(Department.class, id);
     }
 
+    @Transactional(readOnly = true)
     public Department findByName(String name) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        try (Session session = sessionFactory.openSession()) {
-            Query<Department> query = session.
-                    createQuery("from departmentmanagement.model.Department where name=:name");
-            query.setParameter("name", name);
-            return query.uniqueResult();
-        }
+        Query query = sessionFactory.getCurrentSession()
+                .createQuery("from departmentmanagement.model.Department where name=:name");
+        query.setParameter("name", name);
+        return (Department) query.uniqueResult();
     }
+
 
     @Override
+    @Transactional(readOnly = true)
     public void delete(Integer id) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        try (Session session = sessionFactory.openSession()){
-            session.beginTransaction();
-            Department department = session.get(Department.class,id);
-            if (department != null){
-                session.delete(department);
-            }
-            session.getTransaction().commit();
-        }
+        Department department = sessionFactory.getCurrentSession().get(Department.class, id);
+        sessionFactory.getCurrentSession().delete(department);
     }
 
+    @Transactional(readOnly = true)
     public List<Department> getAll() {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        try(Session session = sessionFactory.openSession()){
-            return session.createQuery("from departmentmanagement.model.Department", Department.class).list();
-        }
+        return sessionFactory.getCurrentSession()
+                .createQuery("from departmentmanagement.model.Department", Department.class).list();
     }
 
     @Override
     public void createOrUpdate(Department department) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        try (Session session = sessionFactory.openSession()){
-            session.beginTransaction();
-            session.saveOrUpdate(department);
-            session.getTransaction().commit();
-        }
+        sessionFactory.getCurrentSession().saveOrUpdate(department);
     }
 }

@@ -1,17 +1,24 @@
 package departmentmanagement.service;
 
 import departmentmanagement.dao.hibernate.HibernateDepartmentImpl;
-import departmentmanagement.dao.impl.DepartmentDAOImpl;
 import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Department;
 import departmentmanagement.validate.OvalValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Service
+@Transactional
 public class DepartmentService {
 
-    private final OvalValidator ovalValidator = new OvalValidator();
-    private final HibernateDepartmentImpl departmentDAO = new HibernateDepartmentImpl();
+    @Autowired
+    private OvalValidator ovalValidator;
+
+    @Autowired
+    private HibernateDepartmentImpl departmentDAO;
 
 
     public Department getByIdDepartment(Integer id) {

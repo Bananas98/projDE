@@ -2,6 +2,7 @@ package departmentmanagement.exception;
 
 import java.util.Map;
 
+
 public class ValidException extends Exception {
 
     private final Map<String , String> errors;

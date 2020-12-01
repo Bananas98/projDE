@@ -6,6 +6,8 @@ import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Department;
 import departmentmanagement.service.DepartmentService;
 import departmentmanagement.util.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +16,11 @@ import java.io.IOException;
 
 import java.util.Map;
 
+@Component(value = "/insertUpdateDepartment")
 public class CreateUpdateDepartment implements Command {
-    private final DepartmentService departmentService = new DepartmentService();
+
+    @Autowired
+    private DepartmentService departmentService;
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

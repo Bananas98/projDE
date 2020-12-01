@@ -2,20 +2,25 @@ package departmentmanagement.service;
 
 
 import departmentmanagement.dao.hibernate.HibernateEmployeeImpl;
-import departmentmanagement.dao.impl.EmployeeDAOImpl;
-import departmentmanagement.exception.UserSqlException;
 import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Employee;
 import departmentmanagement.validate.OvalValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Service
+@Transactional
 public class EmployeeService {
 
 
-    private final OvalValidator ovalValidator = new OvalValidator();
-    private final HibernateEmployeeImpl employeeDAO = new HibernateEmployeeImpl();
+    @Autowired
+    private OvalValidator ovalValidator;
+
+    @Autowired
+    private HibernateEmployeeImpl employeeDAO;
 
     public void createOrUpdate(Employee employee) throws ValidException {
 

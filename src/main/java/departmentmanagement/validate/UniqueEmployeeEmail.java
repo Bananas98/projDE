@@ -1,22 +1,22 @@
 package departmentmanagement.validate;
 
 import departmentmanagement.dao.hibernate.HibernateEmployeeImpl;
-import departmentmanagement.dao.impl.EmployeeDAOImpl;
 import departmentmanagement.model.Employee;
 import net.sf.oval.constraint.CheckWithCheck;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.sql.SQLException;
 
+@Component
 public class UniqueEmployeeEmail implements CheckWithCheck.SimpleCheck{
 
-    private final HibernateEmployeeImpl employeeDAO = new HibernateEmployeeImpl();
+    @Autowired
+    private HibernateEmployeeImpl employeeDAO;
 
     @Override
     public boolean isSatisfied(Object o, Object o1) {
         Employee validate = (Employee)o;
         Employee employee = employeeDAO.findByEmail(((Employee) o).getMail());
-
         return employee == null|| employee.getId().equals(validate.getId());
-
     }
 }
