@@ -10,7 +10,7 @@
         <property name="hibernate.connection.password">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="show_sql">true</property>
-        <mapping class="departmentmanagement.model.Department"/>
-        <mapping class="departmentmanagement.model.Employee"/>
+        <mapping class="departmentApp.model.Department"/>
+        <mapping class="departmentApp.model.Employee"/>
     </session-factory>
 </hibernate-configuration>
