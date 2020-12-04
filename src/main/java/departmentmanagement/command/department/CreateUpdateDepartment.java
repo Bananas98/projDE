@@ -16,11 +16,15 @@ import java.io.IOException;
 
 import java.util.Map;
 
-@Component
+@Component(value = "/insertUpdateDepartment")
 public class CreateUpdateDepartment implements Command {
 
+    private final DepartmentService departmentService;
+
     @Autowired
-    private DepartmentService departmentService;
+    public CreateUpdateDepartment(DepartmentService departmentService) {
+        this.departmentService = departmentService;
+    }
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

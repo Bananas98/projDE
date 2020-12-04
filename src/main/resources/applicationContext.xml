@@ -10,7 +10,7 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:component-scan base-package="departmentmanagement"/>
+    <context:component-scan base-package="departmentmanagement.*"/>
 
     <bean class="departmentmanagement.validate.OvalValidator">
         <property name="validator">
@@ -20,6 +20,7 @@
 
 
     <bean class="net.sf.oval.integration.spring.SpringInjector"/>
+
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="url"

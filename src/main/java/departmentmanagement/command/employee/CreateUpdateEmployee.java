@@ -23,12 +23,15 @@ import java.util.Map;
 @Component(value = "/insertUpdateEmployee")
 public class CreateUpdateEmployee implements Command {
 
-    @Autowired
-    private EmployeeService employeeService ;
+    private final EmployeeService employeeService ;
+
+    private final DepartmentService departmentService;
 
     @Autowired
-    private DepartmentService departmentService;
-
+    public CreateUpdateEmployee(EmployeeService employeeService, DepartmentService departmentService) {
+        this.employeeService = employeeService;
+        this.departmentService = departmentService;
+    }
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

@@ -15,14 +15,17 @@ import java.io.IOException;
 @Component(value = "/deleteEmployee")
 public class DeleteEmployee implements Command {
 
-    @Autowired
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
+    @Autowired
+    public DeleteEmployee(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Integer idEmployee = Utils.parseInteger(request.getParameter("id_employee"));
         employeeService.deleteEmployee(idEmployee);
-        response.sendRedirect("listDepartment");
+        response.sendRedirect("/");
     }
 }

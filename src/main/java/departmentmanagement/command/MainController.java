@@ -13,8 +13,12 @@ import java.util.Map;
 @Component(value = "MainController")
 public class MainController implements HttpRequestHandler{
 
+    private final Map<String,Command> controllerFactory;
+
     @Autowired
-    private Map<String,Command> controllerFactory;
+    public MainController(Map<String, Command> controllerFactory) {
+        this.controllerFactory = controllerFactory;
+    }
 
     @Override
     public void handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {

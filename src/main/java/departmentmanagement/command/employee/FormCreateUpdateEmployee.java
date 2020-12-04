@@ -17,8 +17,12 @@ import java.io.IOException;
 @Component(value = "/createUpdateFormEmployee")
 public class FormCreateUpdateEmployee implements Command {
 
+    private final EmployeeService employeeService;
+
     @Autowired
-    private EmployeeService employeeService;
+    public FormCreateUpdateEmployee(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{

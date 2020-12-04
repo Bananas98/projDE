@@ -21,16 +21,20 @@ import java.util.List;
 @Component(value = "/listEmployee")
 public class GetAllEmployeeDepartment implements Command {
 
+    private final DepartmentService departmentService;
+    private final EmployeeService employeeService;
+
     @Autowired
-    private DepartmentService departmentService;
-    @Autowired
-    private EmployeeService employeeService;
+    public GetAllEmployeeDepartment(DepartmentService departmentService, EmployeeService employeeService) {
+        this.departmentService = departmentService;
+        this.employeeService = employeeService;
+    }
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         Integer idDepartment = Utils.parseInteger(request.getParameter("id_department"));
         if (idDepartment == null){
-            response.sendRedirect("/listDepartment");
+            response.sendRedirect("/");
         }
         else {
             String nameDepartment = departmentService.getByIdDepartment(idDepartment).getName();

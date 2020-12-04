@@ -17,14 +17,12 @@ public class HibernateEmployeeImpl implements Dao<Employee> {
     protected SessionFactory sessionFactory;
 
     @Override
-    @Transactional(readOnly = true)
     public Employee getById(Integer id) {
         return sessionFactory.getCurrentSession().get(Employee.class, id);
 
     }
 
     @Override
-    @Transactional(readOnly = true)
     public void delete(Integer id) {
         Employee employee = sessionFactory.getCurrentSession().get(Employee.class, id);
         sessionFactory.getCurrentSession().delete(employee);
@@ -36,7 +34,6 @@ public class HibernateEmployeeImpl implements Dao<Employee> {
         sessionFactory.getCurrentSession().saveOrUpdate(employee);
     }
 
-    @Transactional(readOnly = true)
     public List<Employee> getAll(Integer departmentId) {
         Query<Employee> query = sessionFactory
                 .getCurrentSession()
@@ -46,7 +43,6 @@ public class HibernateEmployeeImpl implements Dao<Employee> {
     }
 
 
-    @Transactional(readOnly = true)
     public Employee findByEmail(String email) {
         Query query = sessionFactory.getCurrentSession().createQuery("from Employee where mail=:email");
         query.setParameter("email", email);
