@@ -7,6 +7,8 @@ import departmentmanagement.model.Department;
 import departmentmanagement.model.Employee;
 import departmentmanagement.service.DepartmentService;
 import departmentmanagement.service.EmployeeService;
+import departmentmanagement.service.impl.DepartmentServiceImpl;
+import departmentmanagement.service.impl.EmployeeServiceImpl;
 import departmentmanagement.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,6 +25,7 @@ public class CreateUpdateEmployee implements Command {
 
     @Autowired
     private EmployeeService employeeService ;
+
     @Autowired
     private DepartmentService departmentService;
 

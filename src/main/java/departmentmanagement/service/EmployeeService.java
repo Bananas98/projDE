@@ -1,54 +1,20 @@
 package departmentmanagement.service;
 
 
-import departmentmanagement.dao.hibernate.HibernateEmployeeImpl;
 import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Employee;
-import departmentmanagement.validate.OvalValidator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
-@Service
-@Transactional
-public class EmployeeService {
 
+public interface EmployeeService {
+    List<Employee> getAllEmployeesDepartment(Integer idDepartment) ;
 
-    @Autowired
-    private OvalValidator ovalValidator;
+    void createOrUpdate(Employee employee) throws  ValidException;
 
-    @Autowired
-    private HibernateEmployeeImpl employeeDAO;
+    void deleteEmployee(Integer id) ;
 
-    public void createOrUpdate(Employee employee) throws ValidException {
+    Employee getByIdEmployee(Integer id);
 
-        if (!employee.getDepartment().getId().toString().isEmpty()) {
-            ovalValidator.setValidator(employee);
-            employeeDAO.createOrUpdate(employee);
-        }
-    }
-
-    public void deleteEmployee(Integer employeeId) {
-
-        if (employeeId != null) {
-            employeeDAO.delete(employeeId);
-        }
-
-    }
-
-
-    public Employee getByIdEmployee(Integer id) {
-        if (id == null) return null;
-        return employeeDAO.getById(id);
-    }
-
-
-    public List<Employee> getAllEmployeesDepartment(Integer idDepartment) {
-
-        return employeeDAO.getAll(idDepartment);
-
-    }
-
+    Employee getByEmailEmployee(String email);
 }

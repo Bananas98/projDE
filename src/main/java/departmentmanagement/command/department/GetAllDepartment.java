@@ -3,6 +3,7 @@ package departmentmanagement.command.department;
 
 import departmentmanagement.command.Command;
 import departmentmanagement.service.DepartmentService;
+import departmentmanagement.service.impl.DepartmentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

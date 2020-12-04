@@ -16,7 +16,7 @@ import java.io.IOException;
 
 import java.util.Map;
 
-@Component(value = "/insertUpdateDepartment")
+@Component
 public class CreateUpdateDepartment implements Command {
 
     @Autowired

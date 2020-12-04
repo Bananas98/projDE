@@ -15,7 +15,11 @@ import java.util.Map;
 public class OvalValidator {
     private Validator validator = new Validator();
 
-    public void setValidator(Object o) throws ValidException {
+    public void setValidator(Validator validator) {
+        this.validator = validator;
+    }
+
+    public void validate(Object o) throws ValidException {
         List<ConstraintViolation> violations = validator.validate(o);
 
         Map<String,String> map = new HashMap<>();

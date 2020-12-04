@@ -1,47 +1,19 @@
 package departmentmanagement.service;
 
-import departmentmanagement.dao.hibernate.HibernateDepartmentImpl;
 import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Department;
-import departmentmanagement.validate.OvalValidator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
-@Service
-@Transactional
-public class DepartmentService {
 
-    @Autowired
-    private OvalValidator ovalValidator;
+public interface DepartmentService {
+    List<Department> getAllDepartment() ;
 
-    @Autowired
-    private HibernateDepartmentImpl departmentDAO;
+    void createOrUpdateDepartment(Department department) throws  ValidException;
 
+    void deleteDepartment(Integer id) ;
 
-    public Department getByIdDepartment(Integer id) {
-        if (id == null) return null;
-        return departmentDAO.getById(id);
-    }
+    Department getByIdDepartment(Integer id);
 
-    public void createOrUpdateDepartment(Department department) throws ValidException {
-        ovalValidator.setValidator(department);
-        departmentDAO.createOrUpdate(department);
-
-    }
-
-    public void deleteDepartment(Integer idDepartment) {
-        if (idDepartment != null) {
-            departmentDAO.delete(idDepartment);
-        }
-
-    }
-
-    public List<Department> getAllDepartment() {
-        return departmentDAO.getAll();
-    }
-
-
+    Department getByNameDepartment(String name);
 }
