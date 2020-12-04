@@ -4,7 +4,6 @@ package departmentmanagement.service.impl;
 import departmentmanagement.dao.hibernate.HibernateEmployeeImpl;
 import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Employee;
-import departmentmanagement.service.DepartmentService;
 import departmentmanagement.service.EmployeeService;
 import departmentmanagement.validate.OvalValidator;
 import org.springframework.beans.factory.annotation.Autowired;

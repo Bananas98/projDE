@@ -1,27 +1,23 @@
 package departmentmanagement.validate;
 
+import departmentmanagement.dao.hibernate.HibernateDepartmentImpl;
 import departmentmanagement.model.Department;
-import departmentmanagement.service.DepartmentService;
-import departmentmanagement.service.impl.DepartmentServiceImpl;
 import net.sf.oval.constraint.CheckWithCheck;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 
-@Component
+@Service
 public class UniqueDepartmentName implements CheckWithCheck.SimpleCheck {
 
-    private final DepartmentService service;
-
     @Autowired
-    public UniqueDepartmentName(DepartmentService service) {
-        this.service = service;
-    }
+    private HibernateDepartmentImpl departmentDao;
+
 
     @Override
     public boolean isSatisfied(Object o, Object o1) {
        Department validate = (Department)o;
-        Department department = service.getByNameDepartment(((Department) o).getName());
+        Department department = departmentDao.findByName(((Department) o).getName());
         return department == null|| department.getId().equals(validate.getId());
     }
 }

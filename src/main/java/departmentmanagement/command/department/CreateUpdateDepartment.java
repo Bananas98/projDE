@@ -33,7 +33,7 @@ public class CreateUpdateDepartment implements Command {
         department.setId(Utils.parseInteger(request.getParameter("id")));
         try {
             departmentService.createOrUpdateDepartment(department);
-            response.sendRedirect("listDepartment");
+            response.sendRedirect("/");
         } catch (ValidException e) {
             Map<String, String> map = e.getMapError();
             request.setAttribute("error", map);
