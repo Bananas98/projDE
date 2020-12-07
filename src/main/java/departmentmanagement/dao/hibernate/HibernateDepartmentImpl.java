@@ -22,10 +22,10 @@ public class HibernateDepartmentImpl implements Dao<Department> {
     }
 
     public Department findByName(String name) {
-        Query query = sessionFactory.getCurrentSession()
-                .createQuery("from departmentmanagement.model.Department where name=:name");
+        Query<Department> query = sessionFactory.getCurrentSession()
+                .createQuery("from departmentmanagement.model.Department where name=:name", Department.class);
         query.setParameter("name", name);
-        return (Department) query.uniqueResult();
+        return query.uniqueResult();
     }
 
 

@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
@@ -44,9 +44,11 @@ public class HibernateEmployeeImpl implements Dao<Employee> {
 
 
     public Employee findByEmail(String email) {
-        Query query = sessionFactory.getCurrentSession().createQuery("from Employee where mail=:email");
+        Query<Employee> query = sessionFactory
+                .getCurrentSession()
+                .createQuery("from Employee where mail=:email",Employee.class);
         query.setParameter("email", email);
-        return (Employee) query.uniqueResult();
+        return query.uniqueResult();
     }
 }
 
