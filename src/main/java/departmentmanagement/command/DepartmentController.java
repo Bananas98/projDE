@@ -49,7 +49,7 @@ public class DepartmentController {
     @GetMapping(value = "/deleteDepartment")
     public String deleteDepartment(@RequestParam Integer id) {
         departmentService.deleteDepartment(id);
-        return "redirect:/department/list";
+        return "redirect:/";
     }
 
 }

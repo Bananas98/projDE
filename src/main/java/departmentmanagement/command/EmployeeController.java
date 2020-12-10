@@ -17,7 +17,7 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping(value = "/showEmployees")
+    @GetMapping(value = "/listEmployees")
     public ModelAndView showDepartmentsEmployees(@RequestParam Integer id) {
         ModelAndView modelAndView = new ModelAndView("employee/list", "employee", employeeService.getAllEmployeesDepartment(id));
         modelAndView.addObject("id_department", id);
@@ -51,6 +51,6 @@ public class EmployeeController {
     @GetMapping(value = "/deleteEmployee")
     public String deleteEmployee(@RequestParam Integer id, Integer depId) {
         employeeService.deleteEmployee(id);
-        return "redirect:/employee/list" + depId;
+        return "redirect:/listEmployees" + depId;
     }
 }
