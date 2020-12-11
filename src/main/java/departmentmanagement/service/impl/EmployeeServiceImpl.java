@@ -8,8 +8,8 @@ import departmentmanagement.service.EmployeeService;
 import departmentmanagement.validate.OvalValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -22,14 +22,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private HibernateEmployeeImpl employeeDAO;
 
+    @Transactional
     public void createOrUpdate(Employee employee) throws ValidException {
-
         if (!employee.getDepartment().getId().toString().isEmpty()) {
             ovalValidator.validate(employee);
             employeeDAO.createOrUpdate(employee);
         }
     }
 
+    @Transactional
     public void deleteEmployee(Integer employeeId) {
 
         if (employeeId != null) {
