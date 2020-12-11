@@ -31,12 +31,14 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentDAO.findByName(name);
     }
 
+    @Transactional
     public void createOrUpdateDepartment(Department department) throws ValidException {
         ovalValidator.validate(department);
         departmentDAO.createOrUpdate(department);
 
     }
 
+    @Transactional
     public void deleteDepartment(Integer idDepartment) {
         if (idDepartment != null) {
             departmentDAO.delete(idDepartment);

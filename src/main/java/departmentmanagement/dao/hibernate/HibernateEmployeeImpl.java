@@ -6,7 +6,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
@@ -18,7 +17,6 @@ public class HibernateEmployeeImpl implements Dao<Employee> {
     protected SessionFactory sessionFactory;
 
     @Override
-    @Transactional(readOnly = true)
     public Employee getById(Integer id) {
         return sessionFactory.getCurrentSession().get(Employee.class, id);
 
@@ -45,7 +43,6 @@ public class HibernateEmployeeImpl implements Dao<Employee> {
     }
 
 
-    @Transactional(readOnly = true)
     public Employee findByEmail(String email) {
         Query<Employee> query = sessionFactory
                 .getCurrentSession()

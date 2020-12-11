@@ -22,6 +22,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private HibernateEmployeeImpl employeeDAO;
 
+    @Transactional
     public void createOrUpdate(Employee employee) throws ValidException {
 
         if (!employee.getDepartment().getId().toString().isEmpty()) {
@@ -30,6 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
+    @Transactional
     public void deleteEmployee(Integer employeeId) {
 
         if (employeeId != null) {
@@ -37,7 +39,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
     }
-
 
     public Employee getByIdEmployee(Integer id) {
         if (id == null) return null;
