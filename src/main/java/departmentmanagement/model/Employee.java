@@ -36,6 +36,9 @@ public class Employee extends BaseEntity{
     @Column(name = "salary")
     private Integer salary;
 
+    @Column(name = "id_department")
+    private Integer depId;
+
     @ManyToOne
     @JoinColumn(name = "id_department")
     private Department department;
@@ -88,4 +91,11 @@ public class Employee extends BaseEntity{
         this.department = department;
     }
 
+    public Integer getDepId() {
+        return depId;
+    }
+
+    public void setDepId(Integer depId) {
+        this.depId = depId;
+    }
 }

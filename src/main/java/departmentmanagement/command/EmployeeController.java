@@ -25,12 +25,11 @@ public class EmployeeController {
     }
 
     @PostMapping(value = "/createUpdateEmployee")
-    public ModelAndView createUpdateEmployee(Employee employee) {
+    public ModelAndView createUpdateEmployee(Employee employee,Integer id_department) {
         ModelAndView mv = new ModelAndView("employee/list");
-        Integer depId = employee.getDepartment().getId();
         try {
             employeeService.createOrUpdate(employee);
-            mv.addObject("employee", employeeService.getAllEmployeesDepartment(depId));
+            mv.addObject("employee", employeeService.getAllEmployeesDepartment(id_department));
         } catch (ValidException e) {
             mv.addObject("error", e.getMapError());
             mv.setViewName("employee/form");
@@ -42,10 +41,9 @@ public class EmployeeController {
 
     @GetMapping(value = "/createUpdateFormEmployee")
     public ModelAndView formCreateUpdateDepartment(@RequestParam Integer id) {
-        if (id == null) {
-            return new ModelAndView("employee/form", "employee", new Employee());
-        }
-        return new ModelAndView("employee/form", "employee", employeeService.getByIdEmployee(id));
+        ModelAndView mv = new ModelAndView("employee/form");
+        mv.addObject("employee",id != null ? employeeService.getByIdEmployee(id) : new Employee());
+        return mv;
     }
 
     @GetMapping(value = "/deleteEmployee")

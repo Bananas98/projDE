@@ -40,10 +40,9 @@ public class DepartmentController {
 
     @GetMapping(value = "/createUpdateFormDepartment")
     public ModelAndView formCreateUpdateDepartment(@RequestParam Integer id) {
-        if (id == null) {
-            return new ModelAndView("department/form", "department", new Department());
-        }
-        return new ModelAndView("department/form", "department", departmentService.getByIdDepartment(id));
+        ModelAndView mv = new ModelAndView("employee/form");
+        mv.addObject("department",id != null ? departmentService.getByIdDepartment(id) : new Department());
+        return mv;
     }
 
     @GetMapping(value = "/deleteDepartment")
