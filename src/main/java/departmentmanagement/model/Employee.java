@@ -1,6 +1,7 @@
 package departmentmanagement.model;
 
 
+//import departmentmanagement.validate.UniqueEmployeeEmail;
 import departmentmanagement.validate.UniqueEmployeeEmail;
 import net.sf.oval.constraint.*;
 
@@ -36,7 +37,7 @@ public class Employee extends BaseEntity{
     @Column(name = "salary")
     private Integer salary;
 
-    @Column(name = "id_department")
+    @Column(name = "id_department" ,insertable=false, updatable=false)
     private Integer depId;
 
     @ManyToOne

@@ -16,18 +16,15 @@
 
 
     <bean class="net.sf.oval.integration.spring.SpringInjector"/>
-
     <bean id="validator" class="net.sf.oval.Validator"/>
 
 
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="url"
-                  value="jdbc:mysql://localhost:3306/department_employee?serverTimezone=UTC"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/department_employee?serverTimezone=UTC"/>
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="username" value="root"/>
         <property name="password" value="root"/>
-
     </bean>
 
     <bean id="sessionFactory"
@@ -52,5 +49,4 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>

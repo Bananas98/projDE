@@ -1,12 +1,17 @@
 package departmentmanagement.command;
 
-import departmentmanagement.exception.ValidException;
+
+import departmentmanagement.model.Department;
 import departmentmanagement.model.Employee;
 import departmentmanagement.service.EmployeeService;
+import departmentmanagement.util.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class EmployeeController {
@@ -17,36 +22,35 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping(value = "/listEmployees")
-    public ModelAndView showDepartmentsEmployees(@RequestParam Integer id) {
-        ModelAndView modelAndView = new ModelAndView("employee/list", "employee", employeeService.getAllEmployeesDepartment(id));
-        modelAndView.addObject("id_department", id);
-        return modelAndView;
+    @RequestMapping(value = "/listEmployees")
+    public List<Employee> showDepartmentsEmployees(@RequestParam Integer id) {
+        return employeeService.getAllEmployeesDepartment(id);
     }
 
-    @PostMapping(value = "/createUpdateEmployee")
-    public ModelAndView createUpdateEmployee(Employee employee,Integer id_department) {
-        ModelAndView mv = new ModelAndView("employee/list");
-        try {
-            employeeService.createOrUpdate(employee);
-            mv.addObject("employee", employeeService.getAllEmployeesDepartment(id_department));
-        } catch (ValidException e) {
-            mv.addObject("error", e.getMapError());
-            mv.setViewName("employee/form");
-            mv.addObject("employee", employee);
-        }
-        return mv;
+    @RequestMapping(method = RequestMethod.POST, value = "/createUpdateEmployee")
+    public @ResponseBody JsonResponse createUpdateEmployee(@RequestBody Employee employee, @RequestBody Integer id_department) {
+        JsonResponse result = new JsonResponse();
+
+            employeeService.getAllEmployeesDepartment(id_department);
+            result.setStatus("SUCCESS");
+
+
+//        catch (ValidException e) {
+//            Map<String, String> map = e.getMapError();
+//            result.getError().putAll(map);
+//            result.setResult(employee);
+//            result.setStatus("FAIL");
+//        }
+        return result;
     }
 
 
-    @GetMapping(value = "/createUpdateFormEmployee")
-    public ModelAndView formCreateUpdateDepartment(@RequestParam Integer id) {
-        ModelAndView mv = new ModelAndView("employee/form");
-        mv.addObject("employee",id != null ? employeeService.getByIdEmployee(id) : new Employee());
-        return mv;
+    @RequestMapping(method = RequestMethod.POST, value = "/createUpdateFormEmployee")
+    public Employee formCreateUpdateEmployee(@RequestParam Integer id) {
+        return id != null ? employeeService.getByIdEmployee(id) : new Employee();
     }
 
-    @GetMapping(value = "/deleteEmployee")
+    @RequestMapping(method = RequestMethod.GET, value = "/deleteEmployee")
     public String deleteEmployee(@RequestParam Integer id, Integer depId) {
         employeeService.deleteEmployee(id);
         return "redirect:/listEmployees" + depId;

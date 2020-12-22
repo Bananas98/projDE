@@ -8,11 +8,14 @@ import departmentmanagement.service.EmployeeService;
 import departmentmanagement.validate.OvalValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
+@EnableTransactionManagement
 public class EmployeeServiceImpl implements EmployeeService {
 
 
