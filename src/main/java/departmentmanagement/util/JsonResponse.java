@@ -6,7 +6,7 @@ import java.util.Map;
 public class JsonResponse {
     private String status = null;
     private Object result = null;
-    private Map<String,String> error = null;
+    private Map<String,String> error;
     private Integer depId = null;
 
     public JsonResponse() {

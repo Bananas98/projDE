@@ -1,7 +1,6 @@
 package departmentmanagement.model;
 
 
-//import departmentmanagement.validate.UniqueEmployeeEmail;
 import departmentmanagement.validate.UniqueEmployeeEmail;
 import net.sf.oval.constraint.*;
 
