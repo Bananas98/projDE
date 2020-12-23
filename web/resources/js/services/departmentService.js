@@ -1,11 +1,11 @@
-var DepartmentService = function () {
+let DepartmentService = function () {
     this.entityType = "department";
     this.depValidation = this.setValidation();
     this.showEntity();
 };
 
 DepartmentService.prototype.showEntity = function () {
-    var thisObj = this;
+    let thisObj = this;
     $.ajax({
         type: "GET",
         contentType: "application/json",
@@ -13,19 +13,19 @@ DepartmentService.prototype.showEntity = function () {
         dataType: "json",
         timeout: 10000,
         success: function (data) {
-            var list = new ListDrawer(data, thisObj);
+            let list = new ListDrawer(data, thisObj);
             $('div.department').html(list);
         }
     });
 };
 
 DepartmentService.prototype.addEntity = function (department) {
-    var thisObj = this;
+    let thisObj = this;
     $.ajax({
         type: "GET",
         dataType: 'html',
         success: function () {
-            var list = new FormDrawer(department, thisObj);
+            let list = new FormDrawer(department, thisObj);
             $('div.department').html(list);
             $('form.form').validate(thisObj.setValidation());
 
@@ -34,8 +34,8 @@ DepartmentService.prototype.addEntity = function (department) {
 };
 
 DepartmentService.prototype.deleteEntity = function (department) {
-    var id = department.id.toString();
-    var thisObj = this;
+    let id = department.id.toString();
+    let thisObj = this;
     $.ajax({
         type: "POST",
         contentType: "application/json",
@@ -50,8 +50,8 @@ DepartmentService.prototype.deleteEntity = function (department) {
 
 
 DepartmentService.prototype.submitEntity = function () {
-    var thisObj = this;
-    var department = {};
+    let thisObj = this;
+    let department = {};
     department["id"] = $('#id').val();
     department["name"] = $('#name').val();
 
@@ -66,9 +66,9 @@ DepartmentService.prototype.submitEntity = function () {
             if (data.status == "SUCCESS") {
                 thisObj.showEntity();
             } else {
-                var department = data.result;
+                let department = data.result;
                 thisObj.errorMessage = data.error.name;
-                var list = new FormDrawer(department, thisObj);
+                let list = new FormDrawer(department, thisObj);
                 $('div.department').html(list);
                 thisObj.errorMessage = "";
             }
@@ -80,8 +80,8 @@ DepartmentService.prototype.submitEntity = function () {
 };
 
 DepartmentService.prototype.setValidation = function () {
-    var id = $('#id').val() === undefined || $('#id').val() === "" ? null : $('#id').val();
-    var url = "/checkName?id=" + id;
+    let id = $('#id').val() === undefined || $('#id').val() === "" ? null : $('#id').val();
+    let url = "/checkName?id=" + id;
     return {
         rules: {
             name: {

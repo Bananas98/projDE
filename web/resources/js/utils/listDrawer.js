@@ -1,39 +1,38 @@
-var ListDrawer = function(entityList, dataSource) {
+let ListDrawer = function (entityList, dataSource) {
     this.dataSource = dataSource;
     this.entityList = entityList;
     return this.getList();
 };
 
 ListDrawer.prototype.getList = function () {
-    var dataSource = this.dataSource;
-    var thisObj = this;
+    let dataSource = this.dataSource;
+    let thisObj = this;
 
-    var div = $('<div class="container">').
-    on('click', 'button', function(e) {
-        var element = $(e.target);
-        var entity = element.parents('tr').data(dataSource.entityType);
-        var action = e.target.id;
-        if("btn_del" === action) {
+    let div = $('<div class="container">').on('click', 'button', function (e) {
+        let element = $(e.target);
+        let entity = element.parents('tr').data(dataSource.entityType);
+        let action = e.target.id;
+        if ("btn_del" === action) {
             dataSource.deleteEntity(entity);
         } else if ("btn_info" === action) {
-            new EmployeeService(dataSource,entity);
+            new EmployeeService(dataSource, entity);
         } else if ("btn_edit" === action) {
             dataSource.addEntity(entity);
         } else if ("btn_add" === action && dataSource.entityType === 'department') {
             entity = new Department();
             dataSource.addEntity(entity);
-        } else if ("btn_add" === action && dataSource.entityType === 'employee'){
+        } else if ("btn_add" === action && dataSource.entityType === 'employee') {
             entity = new Employee();
             entity["departmentId"] = dataSource.departmentId;
             dataSource.addEntity(entity);
         }
     });
-    var list = $('<table class="table table-condensed">');
+    let list = $('<table class="table table-condensed">');
     div.append(list);
 
-    if(dataSource.entityType === 'department') {
-        var departmentHead = $('<tr><th><h2>Id</h2></th><th><h2>Department name</h2></th><th colspan="3"><h2>Options<h2/></th></tr>>');
-        var departmentList = _.template('<% _.each(data, function(e) {%> ' +
+    if (dataSource.entityType === 'department') {
+        let departmentHead = $('<tr><th><h2>Id</h2></th><th><h2>Department name</h2></th><th colspan="3"><h2>Options<h2/></th></tr>>');
+        let departmentList = _.template('<% _.each(data, function(e) {%> ' +
             '<tr data-department=<%= JSON.stringify(e) %>>' +
             '<td><h4><%= e.id %></h4></td> ' +
             '<td><h4><%= e.name %></h4></td>' +
@@ -45,14 +44,14 @@ ListDrawer.prototype.getList = function () {
         $(departmentList).appendTo(list);
         $('<button id = "btn_add" />').addClass("btn btn-primary btn-lg").text("+ Add department").appendTo(div);
     } else if (dataSource.entityType === 'employee') {
-        var employeeHead = $('<tr>' +
+        let employeeHead = $('<tr>' +
             '<th><h2>Id</h2></th>' +
             '<th><h2>Name</h2></th>' +
             '<th><h2>Date of Birthday</h2></th>' +
             '<th><h2>Email</h2></th>' +
             '<th><h2>Salary</h2></th>' +
             '<th colspan="2"><h2>Options<h2/></th></tr>>');
-        var employeeList = _.template('<% _.each(data, function(e) {%> ' +
+        let employeeList = _.template('<% _.each(data, function(e) {%> ' +
             '<tr data-employee=<%= JSON.stringify(e) %>>' +
             '<td><h4><%= e.id %></h4></td>' +
             '<td><h4><%= e.name %></h4></td>' +
@@ -70,8 +69,8 @@ ListDrawer.prototype.getList = function () {
     return div;
 };
 
-var Department = function() {
+let Department = function () {
 };
 
-var Employee = function() {
+let Employee = function () {
 };

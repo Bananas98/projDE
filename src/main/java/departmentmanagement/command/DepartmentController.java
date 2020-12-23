@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Map;
 
@@ -49,19 +50,21 @@ public class DepartmentController {
         return result;
     }
 
-    @RequestMapping(value = "/editDepartment", method = RequestMethod.POST)
-    public @ResponseBody Department showDepartmentEditForm(@RequestBody Integer id) {
+    @PostMapping(value = "/editDepartment")
+    public @ResponseBody
+    Department showDepartmentEditForm(@RequestBody Integer id) {
         return departmentService.getByIdDepartment(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/deleteDepartment")
-    public ResponseEntity <Department> deleteDepartment(@RequestBody Integer id) {
+    @PostMapping(value = "/deleteDepartment")
+    public ResponseEntity<Department> deleteDepartment(@RequestBody Integer id) {
         departmentService.deleteDepartment(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/checkName")
-    public @ResponseBody Boolean isConsistName(@RequestBody String name) {
+    public @ResponseBody
+    Boolean isConsistName(@RequestBody String name) {
         String convertName = JsonFormatter.getJsonValue(name);
         return departmentService.getByNameDepartment(convertName).getId() == null;
     }

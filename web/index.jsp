@@ -20,7 +20,6 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
-<%--    <link href="<c:url value="/resources/css/addDep.css"/>" rel="stylesheet" type="text/css">--%>
 </head>
 <body>
 <div class="department"></div>
