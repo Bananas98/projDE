@@ -3,12 +3,14 @@ package departmentmanagement.command;
 import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Department;
 import departmentmanagement.service.DepartmentService;
+import departmentmanagement.util.JsonFormatter;
 import departmentmanagement.util.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -28,12 +30,14 @@ public class DepartmentController {
     }
 
     @RequestMapping(value = "/listDepartment")
-    public @ResponseBody List<Department> showDepartments() {
+    public @ResponseBody
+    List<Department> showDepartments() {
         return departmentService.getAllDepartment();
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "/createUpdateDepartment")
-    public  JsonResponse createUpdateDepartment(@RequestBody Department department) {
+    @RequestMapping(value = "/addEditDepartment")
+    public @ResponseBody
+    JsonResponse createUpdateDepartment(@RequestBody Department department) {
         JsonResponse result = new JsonResponse();
         try {
             departmentService.createOrUpdateDepartment(department);
@@ -47,16 +51,27 @@ public class DepartmentController {
         return result;
     }
 
-//    @RequestMapping(method = RequestMethod.POST,value = "/createUpdateFormDepartment")
-//    public @ResponseBody Department formCreateUpdateDepartment(@RequestBody Integer id) {
-//        return  id != null ? departmentService.getByIdDepartment(id) : new Department();
-//    }
+    @RequestMapping(value = "/editDepartment", method = RequestMethod.POST)
+    public @ResponseBody Department showDepartmentEditForm(@RequestBody Integer id) {
+        return departmentService.getByIdDepartment(id);
+    }
 
-    @RequestMapping(method = RequestMethod.GET,value = "/deleteDepartment")
-    public ResponseEntity<Department> deleteDepartment(@RequestBody Integer id) {
+    @RequestMapping(method = RequestMethod.POST, value = "/deleteDepartment")
+    public ResponseEntity <Department> deleteDepartment(@RequestBody Integer id) {
         departmentService.deleteDepartment(id);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
+    @RequestMapping(value = "/checkName")
+    public @ResponseBody
+    Boolean isConsistName(@RequestBody String name, @RequestParam String depId) {
+        String convertName = JsonFormatter.getJsonValue(name);
+        Department department = new Department();
+        department.setName(convertName);
+        if (!depId.equals("null")) {
+            department.setId(Integer.parseInt(depId));
+        }
+        return true;// заглушка
     }
 
 }
