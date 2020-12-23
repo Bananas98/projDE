@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -63,15 +61,9 @@ public class DepartmentController {
     }
 
     @RequestMapping(value = "/checkName")
-    public @ResponseBody
-    Boolean isConsistName(@RequestBody String name, @RequestParam String depId) {
+    public @ResponseBody Boolean isConsistName(@RequestBody String name) {
         String convertName = JsonFormatter.getJsonValue(name);
-        Department department = new Department();
-        department.setName(convertName);
-        if (!depId.equals("null")) {
-            department.setId(Integer.parseInt(depId));
-        }
-        return true;// заглушка
+        return departmentService.getByNameDepartment(convertName).getId() == null;
     }
 
 }

@@ -1,14 +1,15 @@
 package departmentmanagement.command;
 
 
-import departmentmanagement.model.Department;
+import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Employee;
 import departmentmanagement.service.EmployeeService;
 import departmentmanagement.util.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Map;
@@ -22,37 +23,34 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @RequestMapping(value = "/listEmployees")
-    public List<Employee> showDepartmentsEmployees(@RequestParam Integer id) {
-        return employeeService.getAllEmployeesDepartment(id);
+    @RequestMapping(value = "/listEmployee")
+    public @ResponseBody JsonResponse showDepartmentsEmployees(@RequestParam Integer id) {
+        JsonResponse response = new JsonResponse();
+        response.setDepId(id);
+        employeeService.getAllEmployeesDepartment(id);
+        return response;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/createUpdateEmployee")
-    public @ResponseBody JsonResponse createUpdateEmployee(@RequestBody Employee employee, @RequestBody Integer id_department) {
+    @RequestMapping(method = RequestMethod.POST, value = "/addEditEmployee")
+    public @ResponseBody
+    JsonResponse createUpdateEmployee(@RequestBody Employee employee) {
         JsonResponse result = new JsonResponse();
-
-            employeeService.getAllEmployeesDepartment(id_department);
+        try {
+            employeeService.createOrUpdate(employee);
             result.setStatus("SUCCESS");
-
-
-//        catch (ValidException e) {
-//            Map<String, String> map = e.getMapError();
-//            result.getError().putAll(map);
-//            result.setResult(employee);
-//            result.setStatus("FAIL");
-//        }
+        } catch (ValidException e) {
+            Map<String, String> map = e.getMapError();
+            result.getError().putAll(map);
+            result.setResult(employee);
+            result.setStatus("FAIL");
+        }
         return result;
     }
 
 
-    @RequestMapping(method = RequestMethod.POST, value = "/createUpdateFormEmployee")
-    public Employee formCreateUpdateEmployee(@RequestParam Integer id) {
-        return id != null ? employeeService.getByIdEmployee(id) : new Employee();
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/deleteEmployee")
-    public String deleteEmployee(@RequestParam Integer id, Integer depId) {
+    @RequestMapping(method = RequestMethod.POST, value = "/deleteEmployee")
+    public ResponseEntity<Employee> deleteEmployee(@RequestParam Integer id, Integer depId) {
         employeeService.deleteEmployee(id);
-        return "redirect:/listEmployees" + depId;
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

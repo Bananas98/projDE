@@ -7,6 +7,7 @@ public class JsonResponse {
     private String status = null;
     private Object result = null;
     private Map<String,String> error = null;
+    private Integer depId = null;
 
     public JsonResponse() {
         this.error = new HashMap<>();
@@ -31,5 +32,13 @@ public class JsonResponse {
     }
     public void setResult(Object result) {
         this.result = result;
+    }
+
+    public Integer getDepId() {
+        return depId;
+    }
+
+    public void setDepId(Integer depId) {
+        this.depId = depId;
     }
 }

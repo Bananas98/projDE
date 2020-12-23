@@ -17,7 +17,7 @@ FormDrawer.prototype.addDepartmentTemplate = function () {
         },'button');
     div.append(form);
 
-    if(dataSource.entityType == "department") {
+    if(dataSource.entityType === "department") {
         var departmentHead = $('<h1><span class="label label-default"></span></h1>');
         var inputs = $('<input type="hidden" name="id" id = "id"/>')
             .val(entity.id);
@@ -43,38 +43,36 @@ FormDrawer.prototype.addDepartmentTemplate = function () {
         form.append(abbon);
         form.append(departmentSubmit);
         //form.append(errorSpan);
-    } else if(dataSource.entityType == "employee") {
+    } else if(dataSource.entityType === "employee") {
         var head = $('<h1><span class="label label-default"></span></h1>');
 
-        var id = $('<input type="hidden" name="id" id = "id"/>')
-            .val(entity.id);
-        var depId = $('<input type="hidden" name="depId" id = "depId"/>')
-            .val(entity.depId);
+        var id = $('<input type="hidden" name="id" id = "id"/>').val(entity.id);
 
-        var firstNameForm = $('<div/>').addClass("input-group input-group-lg");
-        var firstName = $('<span class="input-group-addon" id="sizing-addon2">First name:</span>');
-        $(firstName).appendTo(firstNameForm);
-        var inputFirstName = $('<input ' +
+        var departmentId = $('<input type="hidden" name="departmentId" id = "departmentId"/>').val(entity.departmentId);
+
+        var nameForm = $('<div/>').addClass("input-group input-group-lg");
+        var name = $('<span class="input-group-addon" id="sizing-addon2">Name:</span>');
+        $(name).appendTo(nameForm);
+        var inputName = $('<input ' +
             'type = "text" ' +
-            'id = "firstName" ' +
-            'name = "firstName"'+
-            'placeholder="First name"' +
+            'id = "name" ' +
+            'name = "name"'+
+            'placeholder="Name"' +
             'aria-describedby="sizing-addon2"' +
-            '/>').addClass("form-control").val(entity.firstName);
-        $(inputFirstName).appendTo(firstNameForm);
+            '/>').addClass("form-control").val(entity.name);
+        $(inputName).appendTo(inputName);
 
-        var secondNameForm = $('<div/>').addClass("input-group input-group-lg");
-        var secondName = $('<span class="input-group-addon" id="sizing-addon2">Second name:</span>');
-        $(secondName).appendTo(secondNameForm);
-        var inputSecondName = $('<input ' +
+        var dateForm = $('<div/>').addClass("input-group input-group-lg");
+        var date = $('<span class="input-group-addon" id="sizing-addon2">Date of Birthday:</span>');
+        $(date).appendTo(dateForm);
+        var inputDate = $('<input ' +
             'type = "text" ' +
-            'id = "secondName" ' +
-            'name = "secondName"'+
-            'placeholder="Second name"' +
+            'id = "dateOfBirthday" ' +
+            'name = "dateOfBirthday"'+
+            'placeholder="11-09-1998"' +
             'aria-describedby="sizing-addon2"' +
-            '/>').addClass("form-control").val(entity.secondName);
-        $(inputSecondName).appendTo(secondNameForm);
-
+            '/>').addClass("form-control").val(entity.dateOfBirthday);
+        $(inputDate).appendTo(dateForm);
 
         var emailForm = $('<div/>').addClass("input-group input-group-lg");
         var email = $('<span class="input-group-addon" id="sizing-addon2">Email:</span>');
@@ -83,22 +81,10 @@ FormDrawer.prototype.addDepartmentTemplate = function () {
             'type = "text" ' +
             'id = "email" ' +
             'name = "email"'+
-            'placeholder="igor.petrov@gmail.com"' +
+            'placeholder="david.nasirov@gmail.com"' +
             'aria-describedby="sizing-addon2"' +
             '/>').addClass("form-control").val(entity.email);
         $(inputEmail).appendTo(emailForm);
-
-        var ageForm = $('<div/>').addClass("input-group input-group-lg");
-        var age = $('<span class="input-group-addon" id="sizing-addon2">Age:</span>');
-        $(age).appendTo(ageForm);
-        var inputAge = $('<input ' +
-            'type = "text" ' +
-            'id = "age" ' +
-            'name = "age"'+
-            'placeholder="Employee age"' +
-            'aria-describedby="sizing-addon2"' +
-            '/>').addClass("form-control").val(entity.age);
-        $(inputAge).appendTo(ageForm);
 
         var salaryForm = $('<div/>').addClass("input-group input-group-lg");
         var salary = $('<span class="input-group-addon" id="sizing-addon2">Salary:</span>');
@@ -112,32 +98,17 @@ FormDrawer.prototype.addDepartmentTemplate = function () {
             '/>').addClass("form-control").val(entity.salary);
         $(inputSalary).appendTo(salaryForm);
 
-        var startDateForm = $('<div/>').addClass("input-group input-group-lg");
-        var startDate = $('<span class="input-group-addon" id="sizing-addon2">Start date:</span>');
-        $(startDate).appendTo(startDateForm);
-        var inputStartDate = $('<input ' +
-            'type = "text" ' +
-            'id = "startDate" ' +
-            'name = "startDate"'+
-            'placeholder="Second name"' +
-            'aria-describedby="sizing-addon2"' +
-            '/>').addClass("form-control").val(entity.startDate);
-        $(inputStartDate).appendTo(startDateForm);
-
         var submit = $('<button id="submitEmployee" type="button" class="btn btn-primary btn-lg">Submit</button>');
 
         form.append(head);
         form.append(id);
-        form.append(depId);
-        form.append(firstNameForm);
-        form.append(secondNameForm);
+        form.append(departmentId);
+        form.append(nameForm);
+        form.append(dateForm);
         form.append(emailForm);
-        form.append(ageForm);
         form.append(salaryForm);
-        form.append(startDateForm);
         form.append(submit);
     }
-
     return div;
 };
 

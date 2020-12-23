@@ -13,7 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
 
     <script src="<c:url value="/resources/js/index.js"/>"></script>
-<%--    <script src="<c:url value="/resources/js/services/employeeService.js"/>"></script>--%>
+    <script src="<c:url value="/resources/js/services/employeeService.js"/>"></script>
     <script src="<c:url value="/resources/js/services/departmentService.js"/>"></script>
     <script src="<c:url value="/resources/js/utils/listDrawer.js"/>"></script>
     <script src="<c:url value="/resources/js/utils/formDrawer.js"/>"></script>
