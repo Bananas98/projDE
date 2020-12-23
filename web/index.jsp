@@ -15,7 +15,7 @@
     <script src="<c:url value="/resources/js/index.js"/>"></script>
 <%--    <script src="<c:url value="/resources/js/services/employeeService.js"/>"></script>--%>
     <script src="<c:url value="/resources/js/services/departmentService.js"/>"></script>
-    <script src="<c:url value="/resources/js/utils/tableDrawer.js"/>"></script>
+    <script src="<c:url value="/resources/js/utils/listDrawer.js"/>"></script>
     <script src="<c:url value="/resources/js/utils/formDrawer.js"/>"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">

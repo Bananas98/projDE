@@ -1,10 +1,10 @@
-var TableDrawer = function(entityList,dataSource) {
+var ListDrawer = function(entityList, dataSource) {
     this.dataSource = dataSource;
     this.entityList = entityList;
     return this.getTable();
 };
 
-TableDrawer.prototype.getTable = function () {
+ListDrawer.prototype.getTable = function () {
     var dataSource = this.dataSource;
     var thisObj = this;
 
@@ -28,8 +28,8 @@ TableDrawer.prototype.getTable = function () {
             dataSource.addEntity(entity);
         }
     });
-    var table = $('<table class="table table-condensed">');
-    div.append(table);
+    var list = $('<table class="table table-condensed">');
+    div.append(list);
 
     if(dataSource.entityType == 'department') {
         var departmentHead = $('<tr><th><h2>Id</h2></th><th><h2>Department name</h2></th><th colspan="3"><h2>Options<h2/></th></tr>>');
@@ -41,8 +41,8 @@ TableDrawer.prototype.getTable = function () {
             '<td><button class = "btn btn-primary btn-md" id = "btn_edit">Edit department</button></td>' +
             '<td><button class = "btn btn-info btn-md" id = "btn_info">Employee list</button></td>' +
             '</tr> <% }); %>')({data: thisObj.entityList});
-        $(departmentHead).appendTo(table);
-        $(departmentList).appendTo(table);
+        $(departmentHead).appendTo(list);
+        $(departmentList).appendTo(list);
         $('<button id = "btn_add" />').addClass("btn btn-primary btn-lg").text("+ Add department").appendTo(div);
     } else if (dataSource.entityType == 'employee') {
         var employeeHead = $('<tr>' +
@@ -66,8 +66,8 @@ TableDrawer.prototype.getTable = function () {
             '<td><button class = "btn btn-danger btn-md" id = "btn_del">Delete employee</button></td>' +
             '<td><button class = "btn btn-primary btn-md" id = "btn_edit">Edit employee</button></td>' +
             '</tr> <% }); %>')({data: thisObj.entityList});
-        $(employeeHead).appendTo(table);
-        $(employeeList).appendTo(table);
+        $(employeeHead).appendTo(list);
+        $(employeeList).appendTo(list);
         $('<button id = "btn_add"/>').addClass("btn btn-primary btn-lg").text("+ Add Employee").appendTo(div);
     }
 

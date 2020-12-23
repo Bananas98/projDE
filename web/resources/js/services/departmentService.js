@@ -13,8 +13,8 @@ DepartmentService.prototype.showEntity = function () {
         dataType: "json",
         timeout: 10000,
         success: function (data) {
-            var table = new TableDrawer(data,thisObj);
-            $('div.department').html(table);
+            var list = new ListDrawer(data,thisObj);
+            $('div.department').html(list);
         }
     });
 };
@@ -25,8 +25,8 @@ DepartmentService.prototype.addEntity = function(department) {
         type : "GET",
         dataType: 'html',
         success : function () {
-            var table = new FormDrawer(department,thisObj);
-            $('div.department').html(table);
+            var list = new FormDrawer(department,thisObj);
+            $('div.department').html(list);
             $('form.form').validate(thisObj.setRules());
 
         }
@@ -68,8 +68,8 @@ DepartmentService.prototype.submitEntity = function() {
             } else {
                 var department = data.result;
                 thisObj.errorMessage = data.error.name;
-                var table = new FormDrawer(department,thisObj);
-                $('div.department').html(table);
+                var list = new FormDrawer(department,thisObj);
+                $('div.department').html(list);
                 thisObj.errorMessage = "";
             }
         },
