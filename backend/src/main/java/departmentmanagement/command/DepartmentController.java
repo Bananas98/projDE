@@ -1,17 +1,13 @@
 package departmentmanagement.command;
 
-import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Department;
 import departmentmanagement.service.DepartmentService;
-import departmentmanagement.util.JsonFormatter;
-import departmentmanagement.util.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 
 @RestController
@@ -23,50 +19,35 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @RequestMapping("/")
-    public String index() {
-        return "index";
-    }
 
-    @RequestMapping(value = "/listDepartment")
-    public @ResponseBody
-    List<Department> showDepartments() {
+    @GetMapping("/departments")
+    @ResponseBody
+    public List<Department> showDepartments() {
         return departmentService.getAllDepartment();
     }
 
-    @RequestMapping(value = "/addEditDepartment")
-    public @ResponseBody
-    JsonResponse createUpdateDepartment(@RequestBody Department department) {
-        JsonResponse result = new JsonResponse();
-        try {
-            departmentService.createOrUpdateDepartment(department);
-            result.setStatus("SUCCESS");
-        } catch (ValidException e) {
-            Map<String, String> map = e.getMapError();
-            result.getError().putAll(map);
-            result.setResult(department);
-            result.setStatus("FAIL");
-        }
-        return result;
+    @PostMapping("/departments")
+    public void createUpdateDepartment(@RequestBody  Department department) {
+        departmentService.createOrUpdateDepartment(department);
     }
 
-    @PostMapping(value = "/editDepartment")
-    public @ResponseBody
-    Department showDepartmentEditForm(@RequestBody Integer id) {
+    @GetMapping("/departments/{id}")
+    @ResponseBody
+    public Department showDepartmentEditForm(@RequestBody @PathVariable Integer id) {
         return departmentService.getByIdDepartment(id);
     }
 
-    @PostMapping(value = "/deleteDepartment")
-    public ResponseEntity<Department> deleteDepartment(@RequestBody Integer id) {
+    @DeleteMapping("/departments/{id}")
+    public ResponseEntity<Department> deleteDepartment(@RequestBody @PathVariable Integer id) {
         departmentService.deleteDepartment(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/checkName")
-    public @ResponseBody
-    Boolean isConsistName(@RequestBody String name) {
-        String convertName = JsonFormatter.getJsonValue(name);
-        return departmentService.getByNameDepartment(convertName).getId() == null;
-    }
+//    @RequestMapping(value = "/checkName")
+//    public @ResponseBody
+//    Boolean isConsistName(@RequestBody String name) {
+//        String convertName = JsonFormatter.getJsonValue(name);
+//        return departmentService.getByNameDepartment(convertName).getId() == null;
+//    }
 
 }

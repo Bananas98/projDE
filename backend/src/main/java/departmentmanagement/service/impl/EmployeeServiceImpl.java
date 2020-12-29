@@ -2,6 +2,7 @@ package departmentmanagement.service.impl;
 
 
 import departmentmanagement.dao.hibernate.HibernateEmployeeImpl;
+import departmentmanagement.exception.EntityNotFoundException;
 import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Employee;
 import departmentmanagement.service.EmployeeService;
@@ -26,16 +27,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     private HibernateEmployeeImpl employeeDAO;
 
     @Transactional
-    public void createOrUpdate(Employee employee) throws ValidException {
-        if (!employee.getDepartment().getId().toString().isEmpty()) {
-            ovalValidator.validate(employee);
-            employeeDAO.createOrUpdate(employee);
+    public void createOrUpdate(Employee employee) {
+            //throws ValidException {
+        if (employee.getDepartment().getId().toString().isEmpty()) {
+           // ovalValidator.validate(employee);
+            throw new EntityNotFoundException();
         }
+        employeeDAO.createOrUpdate(employee);
     }
 
     @Transactional
     public void deleteEmployee(Integer employeeId) {
-
         if (employeeId != null) {
             employeeDAO.delete(employeeId);
         }

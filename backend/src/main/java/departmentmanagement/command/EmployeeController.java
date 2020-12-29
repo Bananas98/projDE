@@ -1,20 +1,16 @@
 package departmentmanagement.command;
 
 
-import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Employee;
 import departmentmanagement.service.EmployeeService;
-import departmentmanagement.util.JsonFormatter;
-import departmentmanagement.util.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
 
-@Controller
+@RestController
 public class EmployeeController {
     private final EmployeeService employeeService;
 
@@ -23,43 +19,28 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @RequestMapping(value = "/listEmployee")
-    public @ResponseBody
-    JsonResponse showDepartmentsEmployees(@RequestBody Integer id) {
-        JsonResponse response = new JsonResponse();
-        response.setDepId(id);
-        employeeService.getAllEmployeesDepartment(id);
-        return response;
+    @RequestMapping(value = "/employees/{idDepartment}")
+    public List<Employee> showDepartmentsEmployees(@RequestBody @PathVariable Integer idDepartment) {
+        return employeeService.getAllEmployeesDepartment(idDepartment);
     }
 
-    @PostMapping(value = "/addEditEmployee")
-    public @ResponseBody
-    JsonResponse createUpdateEmployee(@RequestBody Employee employee) {
-        JsonResponse result = new JsonResponse();
-        try {
-            employeeService.createOrUpdate(employee);
-            result.setStatus("SUCCESS");
-        } catch (ValidException e) {
-            Map<String, String> map = e.getMapError();
-            result.getError().putAll(map);
-            result.setResult(employee);
-            result.setStatus("FAIL");
-        }
-        return result;
+    @PostMapping(value = "/employees")
+    public void createUpdateEmployee(@RequestBody Employee employee) {
+        employeeService.createOrUpdate(employee);
     }
 
 
-    @PostMapping(value = "/deleteEmployee")
-    public ResponseEntity<Employee> deleteEmployee(@RequestParam Integer id) {
+    @DeleteMapping(value = "/employees/{id}")
+    public ResponseEntity<Employee> deleteEmployee(@RequestParam @PathVariable Integer id) {
         employeeService.deleteEmployee(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/checkEmail")
-    public @ResponseBody
-    Boolean isConsistName(@RequestBody String email) {
-        String convertEmail = JsonFormatter.getJsonValue(email);
-        return employeeService.getByEmailEmployee(convertEmail).getId() == null;
-    }
+//    @RequestMapping(value = "/checkEmail")
+//    public @ResponseBody
+//    Boolean isConsistName(@RequestBody String email) {
+//        String convertEmail = JsonFormatter.getJsonValue(email);
+//        return employeeService.getByEmailEmployee(convertEmail).getId() == null;
+//    }
 
 }

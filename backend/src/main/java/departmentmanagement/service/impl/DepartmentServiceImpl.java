@@ -1,6 +1,7 @@
 package departmentmanagement.service.impl;
 
 import departmentmanagement.dao.hibernate.HibernateDepartmentImpl;
+import departmentmanagement.exception.EntityNotFoundException;
 import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Department;
 import departmentmanagement.service.DepartmentService;
@@ -34,8 +35,12 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentDAO.findByName(name);
     }
 
-    public void createOrUpdateDepartment(Department department) throws ValidException {
-        ovalValidator.validate(department);
+    public void createOrUpdateDepartment(Department department){
+//        throws ValidException {
+//        ovalValidator.validate(department);
+        if (department == null){
+            throw new EntityNotFoundException();
+        }
         departmentDAO.createOrUpdate(department);
 
     }
