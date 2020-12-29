@@ -5,7 +5,10 @@ import departmentmanagement.validate.UniqueDepartmentName;
 import net.sf.oval.constraint.CheckWith;
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.constraint.Size;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "department", schema = "department_employee")

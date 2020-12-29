@@ -2,11 +2,8 @@ package departmentmanagement.validate;
 
 import departmentmanagement.dao.hibernate.HibernateEmployeeImpl;
 import departmentmanagement.model.Employee;
-import departmentmanagement.service.EmployeeService;
-import departmentmanagement.service.impl.EmployeeServiceImpl;
 import net.sf.oval.constraint.CheckWithCheck;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 
