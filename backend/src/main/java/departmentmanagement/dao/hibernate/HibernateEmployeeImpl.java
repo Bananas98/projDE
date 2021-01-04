@@ -12,13 +12,16 @@ import java.util.List;
 @Repository
 public class HibernateEmployeeImpl implements Dao<Employee> {
 
+    protected final SessionFactory sessionFactory;
+
     @Autowired
-    protected SessionFactory sessionFactory;
+    public HibernateEmployeeImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public Employee getById(Integer id) {
         return sessionFactory.getCurrentSession().get(Employee.class, id);
-
     }
 
     @Override
@@ -29,8 +32,9 @@ public class HibernateEmployeeImpl implements Dao<Employee> {
 
 
     @Override
-    public void createOrUpdate(Employee employee) {
+    public Employee createOrUpdate(Employee employee) {
         sessionFactory.getCurrentSession().saveOrUpdate(employee);
+        return employee;
     }
 
     public List<Employee> getAll(Integer departmentId) {

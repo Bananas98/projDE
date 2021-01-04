@@ -1,25 +1,24 @@
 import * as $ from 'jquery';
+import {ComponentList} from "../component/componentList";
+import {ComponentForm} from "../component/componentForm";
 
 export class DepartmentService {
 
-
-    // DepartmentService = function () {
-    //     this.entityType = "department";
-    //     this.depValidation = this.setValidation();
-    //     this.showEntity();
-    // };
-
+    constructor() {
+        this.entityType = "department";
+        this.depRules = this.setValidation();
+        this.showEntity();
+    }
 
     showEntity = function () {
         const thisObj = this;
         $.ajax({
             type: "GET",
             contentType: "application/json",
-            url: "/departments",
             dataType: "json",
             timeout: 10000,
             success: function (data) {
-                const list = new ListDrawer(data, thisObj);
+                const list = new ComponentList(data, thisObj);
                 $('div.department').html(list);
             }
         });
@@ -32,7 +31,7 @@ export class DepartmentService {
             type: "POST",
             dataType: 'html',
             success: function () {
-                const list = new FormDrawer(department, thisObj);
+                const list = new ComponentForm(department, thisObj);
                 $('div.department').html(list);
                 $('form.form').validate(thisObj.setValidation());
 
@@ -46,7 +45,6 @@ export class DepartmentService {
         $.ajax({
             type: "DELETE",
             contentType: "application/json",
-            url: "/departments",
             data: JSON.stringify(id),
             dataType: 'html',
             success: function () {
@@ -66,7 +64,6 @@ export class DepartmentService {
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: "/addEditDepartment",
             data: JSON.stringify(department),
             dataType: 'json',
             timeout: 100000,
@@ -76,7 +73,7 @@ export class DepartmentService {
                 } else {
                     const department = data.result;
                     thisObj.errorMessage = data.error.name;
-                    const list = new FormDrawer(department, thisObj);
+                    const list = new ComponentForm(department, thisObj);
                     $('div.department').html(list);
                     thisObj.errorMessage = "";
                 }
@@ -88,8 +85,8 @@ export class DepartmentService {
     };
 
     setValidation = function () {
-        const id = $('#id').val() === undefined || $('#id').val() === "" ? null : $('#id').val();
-        const url = "/checkName?id=" + id;
+        // const id = $('#id').val() === undefined || $('#id').val() === "" ? null : $('#id').val();
+        // const url = "/checkName?id=" + id;
         return {
             rules: {
                 name: {
@@ -98,7 +95,7 @@ export class DepartmentService {
                     remote: {
                         contentType: "application/json",
                         type: "POST",
-                        url: url,
+                        // url: url,
                         dataType: 'json',
                         timeout: 100000
                     }

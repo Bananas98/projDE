@@ -1,13 +1,15 @@
 import * as $ from 'jquery';
+import {ComponentForm} from "../component/componentForm";
+import {ComponentList} from "../component/componentList";
 
 export class EmployeeService {
-   // function (departmentService, department) {
-   //      this.department = department;
-   //      this.entityType = "employee";
-   //      this.emplRules = this.setRules();
-   //      this.showEntity();
-   //  };
 
+    constructor(departmentService,department) {
+        this.department = department;
+        this.entityType = "employee";
+        this.emplRules = this.setValidation();
+        this.showEntity();
+    }
 
 
     showEntity = function () {
@@ -24,7 +26,7 @@ export class EmployeeService {
             success: function (data) {
                 const employeeList = data.result;
                 thisObj.departmentId = data.departmentId;
-                const table = new ListDrawer(employeeList, thisObj);
+                const table = new ComponentList(employeeList, thisObj);
                 $('div.department').html(table);
             }
         });
@@ -37,13 +39,12 @@ export class EmployeeService {
             type: "POST",
             dataType: 'html',
             success: function () {
-                const form = new FormDrawer(employee, thisObj);
+                const form = new ComponentForm(employee, thisObj);
                 $('div.department').html(form);
-                $('form.form').validate(thisObj.emplRules);
+                $('form.form').validate(thisObj.setValidation());
             }
         });
     };
-
 
 
     deleteEntity = function (employee) {
@@ -62,7 +63,7 @@ export class EmployeeService {
     };
 
 
- submitEntity = function () {
+    submitEntity = function () {
         const thisObj = this;
 
         const employee = {};
@@ -76,7 +77,6 @@ export class EmployeeService {
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: "/addEditEmployee",
             data: JSON.stringify(employee),
             dataType: 'json',
             timeout: 100000,
@@ -95,9 +95,9 @@ export class EmployeeService {
     };
 
 
-    setRules = function () {
-        const emplId = $('#id').val() == undefined || $('#id').val() == "" ? null : $('#id').val();
-        const url = "/checkEmail?emplId=" + emplId;
+    setValidation = function () {
+        // const emplId = $('#id').val() == undefined || $('#id').val() == "" ? null : $('#id').val();
+        // const url = "/checkEmail?emplId=" + emplId;
         return {
             rules: {
                 name: {
@@ -112,7 +112,7 @@ export class EmployeeService {
                     remote: {
                         contentType: "application/json",
                         type: "POST",
-                        url: url,
+                        // url: url,
                         dataType: 'json',
                         timeout: 100000
                     }

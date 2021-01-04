@@ -10,8 +10,7 @@ import java.util.List;
 public interface EmployeeService {
     List<Employee> getAllEmployeesDepartment(Integer idDepartment) ;
 
-    void createOrUpdate(Employee employee);
-            //throws  ValidException;
+    Employee createOrUpdate(Employee employee) throws ValidException;
 
     void deleteEmployee(Integer id) ;
 

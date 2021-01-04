@@ -2,7 +2,6 @@ package departmentmanagement.service.impl;
 
 
 import departmentmanagement.dao.hibernate.HibernateEmployeeImpl;
-import departmentmanagement.exception.EntityNotFoundException;
 import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Employee;
 import departmentmanagement.service.EmployeeService;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -19,21 +19,22 @@ import java.util.List;
 @EnableTransactionManagement
 public class EmployeeServiceImpl implements EmployeeService {
 
+    private final OvalValidator ovalValidator;
+
+    private final HibernateEmployeeImpl employeeDAO;
 
     @Autowired
-    private OvalValidator ovalValidator;
-
-    @Autowired
-    private HibernateEmployeeImpl employeeDAO;
+    public EmployeeServiceImpl(OvalValidator ovalValidator, HibernateEmployeeImpl employeeDAO) {
+        this.ovalValidator = ovalValidator;
+        this.employeeDAO = employeeDAO;
+    }
 
     @Transactional
-    public void createOrUpdate(Employee employee) {
-            //throws ValidException {
+    public Employee createOrUpdate(Employee employee) throws ValidException {
         if (employee.getDepartment().getId().toString().isEmpty()) {
-           // ovalValidator.validate(employee);
-            throw new EntityNotFoundException();
+           ovalValidator.validate(employee);
         }
-        employeeDAO.createOrUpdate(employee);
+        return employeeDAO.createOrUpdate(employee);
     }
 
     @Transactional

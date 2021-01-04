@@ -1,10 +1,12 @@
-export class ComponentList {
+import {Routes} from "../routes";
 
-    function (entity, dataSource) {
-        this.dataSource = dataSource;
-        this.entity = entity;
+export class ComponentForm {
+    constructor(department, thisObj) {
+        this.dataSource = department;
+        this.entity = thisObj;
         return this.addDepartmentTemplate();
-    };
+    }
+
 
 
     addDepartmentTemplate = function () {
@@ -12,38 +14,32 @@ export class ComponentList {
         const entity = this.entity;
 
         const div = $('<div class="container-center"/>');
-        const form = $('<form/>').addClass("form")
-            .on({
-                click: function () {
-                    dataSource.submitEntity();
-                }
-            }, 'button');
+        const form =  Routes.prototype.getForm(dataSource);
         div.append(form);
 
         if (dataSource.entityType === "department") {
             const departmentHead = $('<h1><span class="label label-default"></span></h1>');
             const inputs = $('<input type="hidden" name="id" id = "id"/>')
                 .val(entity.id);
-            const abbon = $('<div id="nameForm"/>').addClass("input-group input-group-lg");
+            const addon = $('<div id="nameForm"/>').addClass("input-group input-group-lg");
             const label = $('<span class="input-group-addon" id="sizing-addon2">Name:</span>');
             const inputName = $('<input ' +
                 'type = "text" ' +
                 'id = "name" ' +
                 'name = "name" ' +
-                'placeholder="Department name"' +
-                'aria-describedby="sizing-addon2"' +
+                ' placeholder="Department name"' +
+                ' aria-describedby="sizing-addon2"' +
                 '/>').val(entity.name).addClass("form-control");
 
             const departmentSubmit = $('<button id="submitDepartment type="button" class="btn btn-primary btn-lg">Submit</button>');
-            //let errorSpan = $('<p/><span style="color: crimson">' + dataSource.errorMessage + '</span>').addClass("error");
 
-            $(label).appendTo(abbon);
-            $(inputName).appendTo(abbon);
+            $(label).appendTo(addon);
+            $(inputName).appendTo(addon);
             form.append(departmentHead);
             form.append(inputs);
-            form.append(abbon);
+            form.append(addon);
             form.append(departmentSubmit);
-            //form.append(errorSpan);
+
         } else if (dataSource.entityType === "employee") {
             const head = $('<h1><span class="label label-default"></span></h1>');
 
@@ -58,8 +54,8 @@ export class ComponentList {
                 'type = "text" ' +
                 'id = "name" ' +
                 'name = "name"' +
-                'placeholder="Name"' +
-                'aria-describedby="sizing-addon2"' +
+                ' placeholder="Name"' +
+                ' aria-describedby="sizing-addon2"' +
                 '/>').addClass("form-control").val(entity.name);
             $(inputName).appendTo(inputName);
 
@@ -70,8 +66,8 @@ export class ComponentList {
                 'type = "text" ' +
                 'id = "dateOfBirthday" ' +
                 'name = "dateOfBirthday"' +
-                'placeholder="11-09-1998"' +
-                'aria-describedby="sizing-addon2"' +
+                ' placeholder="11-09-1998"' +
+                ' aria-describedby="sizing-addon2"' +
                 '/>').addClass("form-control").val(entity.dateOfBirthday);
             $(inputDate).appendTo(dateForm);
 
@@ -82,8 +78,8 @@ export class ComponentList {
                 'type = "text" ' +
                 'id = "email" ' +
                 'name = "email"' +
-                'placeholder="david.nasirov@gmail.com"' +
-                'aria-describedby="sizing-addon2"' +
+                ' placeholder="david.nasirov@gmail.com"' +
+                ' aria-describedby="sizing-addon2"' +
                 '/>').addClass("form-control").val(entity.email);
             $(inputEmail).appendTo(emailForm);
 
@@ -94,8 +90,8 @@ export class ComponentList {
                 'type = "text" ' +
                 'id = "salary" ' +
                 'name = "salary"' +
-                'placeholder="Employee salary"' +
-                'aria-describedby="sizing-addon2"' +
+                ' placeholder="Employee salary"' +
+                ' aria-describedby="sizing-addon2"' +
                 '/>').addClass("form-control").val(entity.salary);
             $(inputSalary).appendTo(salaryForm);
 

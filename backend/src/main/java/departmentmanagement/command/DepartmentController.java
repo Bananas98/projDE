@@ -1,16 +1,16 @@
 package departmentmanagement.command;
 
+import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Department;
 import departmentmanagement.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
 @RestController
+@RequestMapping("/departments")
 public class DepartmentController {
     private final DepartmentService departmentService;
 
@@ -20,34 +20,27 @@ public class DepartmentController {
     }
 
 
-    @GetMapping("/departments")
+    @GetMapping
     @ResponseBody
     public List<Department> showDepartments() {
         return departmentService.getAllDepartment();
     }
 
-    @PostMapping("/departments")
-    public void createUpdateDepartment(@RequestBody  Department department) {
-        departmentService.createOrUpdateDepartment(department);
+    @PostMapping
+    public Department createUpdateDepartment(@RequestBody  Department department) throws ValidException {
+        return departmentService.createOrUpdateDepartment(department);
     }
 
-    @GetMapping("/departments/{id}")
+    @GetMapping
     @ResponseBody
-    public Department showDepartmentEditForm(@RequestBody @PathVariable Integer id) {
+    public Department showDepartmentEditForm(@RequestBody Integer id) {
         return departmentService.getByIdDepartment(id);
     }
 
-    @DeleteMapping("/departments/{id}")
-    public ResponseEntity<Department> deleteDepartment(@RequestBody @PathVariable Integer id) {
+    @DeleteMapping
+    public void deleteDepartment(@RequestBody Integer id) {
         departmentService.deleteDepartment(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "/checkName")
-//    public @ResponseBody
-//    Boolean isConsistName(@RequestBody String name) {
-//        String convertName = JsonFormatter.getJsonValue(name);
-//        return departmentService.getByNameDepartment(convertName).getId() == null;
-//    }
 
 }

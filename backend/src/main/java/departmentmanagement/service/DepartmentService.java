@@ -9,8 +9,7 @@ import java.util.List;
 public interface DepartmentService {
     List<Department> getAllDepartment() ;
 
-    void createOrUpdateDepartment(Department department);
-            //throws  ValidException;
+    Department createOrUpdateDepartment(Department department) throws ValidException;
 
     void deleteDepartment(Integer id) ;
 

@@ -1,38 +1,19 @@
-import {EmployeeService} from "../services/employeeService";
+import {Routes} from "../routes";
 import {tokTypes as _} from "acorn";
 
-export class ComponentListDrawer {
-
-    function (entityList, dataSource) {
-        this.dataSource = dataSource;
-        this.entityList = entityList;
+export class ComponentList {
+    constructor(data, thisObj) {
+        this.dataSource = data;
+        this.entityList = thisObj;
         return this.getList();
-    };
+    }
 
 
     getList = function () {
         const dataSource = this.dataSource;
         const thisObj = this;
 
-        const div = $('<div class="container">').on('click', 'button', function (e) {
-            const element = $(e.target);
-            let entity = element.parents('tr').data(dataSource.entityType);
-            const action = e.target.id;
-            if ("btn_del" === action) {
-                dataSource.deleteEntity(entity);
-            } else if ("btn_info" === action) {
-                new EmployeeService(dataSource, entity);
-            } else if ("btn_edit" === action) {
-                dataSource.addEntity(entity);
-            } else if ("btn_add" === action && dataSource.entityType === 'department') {
-                entity = new Department();//
-                dataSource.addEntity(entity);
-            } else if ("btn_add" === action && dataSource.entityType === 'employee') {
-                entity = new Employee();
-                entity["departmentId"] = dataSource.departmentId;
-                dataSource.addEntity(entity);
-            }
-        });
+        const div = Routes.prototype.getAction(dataSource);
         const list = $('<table class="table table-condensed">');
         div.append(list);
 

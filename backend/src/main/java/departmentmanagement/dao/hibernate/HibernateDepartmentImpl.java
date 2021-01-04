@@ -13,8 +13,12 @@ import java.util.List;
 @Repository
 public class HibernateDepartmentImpl implements Dao<Department> {
 
+    protected final SessionFactory sessionFactory;
+
     @Autowired
-    protected SessionFactory sessionFactory;
+    public HibernateDepartmentImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public Department getById(Integer id) {
@@ -41,7 +45,8 @@ public class HibernateDepartmentImpl implements Dao<Department> {
     }
 
     @Override
-    public void createOrUpdate(Department department) {
+    public Department createOrUpdate(Department department) {
         sessionFactory.getCurrentSession().saveOrUpdate(department);
+        return department;
     }
 }
