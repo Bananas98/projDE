@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/employees")
 public class EmployeeController {
     private final EmployeeService employeeService;
 
@@ -19,21 +18,20 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping
+    @GetMapping("/employees")
     @ResponseBody
     public List<Employee> showDepartmentsEmployees(@RequestParam Integer id) {
         return employeeService.getAllEmployeesDepartment(id);
     }
 
-    @PostMapping
+    @PostMapping("/employee")
     @ResponseBody
     public Employee createUpdateEmployee(@RequestBody Employee employee) throws ValidException {
         return employeeService.createOrUpdate(employee);
     }
 
-    //update mapping
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("employees/{id}")
     public void deleteEmployee(@PathVariable Integer id) {
         employeeService.deleteEmployee(id);
     }

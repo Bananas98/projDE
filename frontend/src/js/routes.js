@@ -20,22 +20,18 @@ export const routes = [
     {
         "component": listDepartment,
         "path": `#departments`,
-        "type": `GET`
     },
     {
         "component": listEmployee,
         "path": `#employees`,
-        "type": `GET`
     },
     {
         "component": formDepartment,
-        "path": `#departments`,
-        "type": `POST`
+        "path": `#department`,
     },
     {
         "component": formEmployee,
-        "path": `#employees`,
-        "type": `POST`
+        "path": `#employee`,
     }
 ];
 
