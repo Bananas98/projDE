@@ -1,4 +1,4 @@
-package departmentmanagement.command;
+package departmentmanagement.controllers;
 
 
 import departmentmanagement.exception.ValidException;
@@ -20,18 +20,21 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public List<Employee> showDepartmentsEmployees(@RequestBody Integer idDepartment) {
-        return employeeService.getAllEmployeesDepartment(idDepartment);
+    @ResponseBody
+    public List<Employee> showDepartmentsEmployees(@RequestParam Integer id) {
+        return employeeService.getAllEmployeesDepartment(id);
     }
 
     @PostMapping
+    @ResponseBody
     public Employee createUpdateEmployee(@RequestBody Employee employee) throws ValidException {
         return employeeService.createOrUpdate(employee);
     }
 
+    //update mapping
 
-    @DeleteMapping
-    public void deleteEmployee(@RequestParam Integer id) {
+    @DeleteMapping("/{id}")
+    public void deleteEmployee(@PathVariable Integer id) {
         employeeService.deleteEmployee(id);
     }
 

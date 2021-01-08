@@ -1,4 +1,4 @@
-package departmentmanagement.command;
+package departmentmanagement.controllers;
 
 import departmentmanagement.exception.ValidException;
 import departmentmanagement.model.Department;
@@ -27,18 +27,26 @@ public class DepartmentController {
     }
 
     @PostMapping
-    public Department createUpdateDepartment(@RequestBody  Department department) throws ValidException {
+    @ResponseBody
+    public Department createDepartment(@RequestBody  Department department) throws ValidException {
         return departmentService.createOrUpdateDepartment(department);
     }
 
-    @GetMapping
+    @PostMapping("/{id}")
     @ResponseBody
-    public Department showDepartmentEditForm(@RequestBody Integer id) {
+    public Department updateDepartment(@PathVariable Integer id, @RequestBody Department department) throws ValidException {
+        department.setId(id);
+        return departmentService.createOrUpdateDepartment(department);
+    }
+
+    @GetMapping("/{id}")
+    @ResponseBody
+    public Department getDepartment(@PathVariable Integer id) {
         return departmentService.getByIdDepartment(id);
     }
 
-    @DeleteMapping
-    public void deleteDepartment(@RequestBody Integer id) {
+    @DeleteMapping("/{id}")
+    public void deleteDepartment(@PathVariable Integer id) {
         departmentService.deleteDepartment(id);
     }
 

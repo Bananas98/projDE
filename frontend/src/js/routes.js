@@ -1,44 +1,42 @@
-import {EmployeeService} from "./services/employeeService";
-import * as $ from 'jquery';
-
+import {Starter} from "./utils/starter";
+import {listDepartment} from "src/js/component/listDepartment";
+import {listEmployee} from "src/js/component/listEmployee";
+import {formDepartment} from "src/js/component/formDepartment";
+import {formEmployee} from "src/js/component/formEmployee";
 export class Routes {
+    routes = new Starter({"routes": routes});
 
-    getAction(dataSource) {
-        $('<div class="container">').on('click', 'button', function (e) {
-            const element = $(e.target);
-            let entity = element.parents('tr').data(dataSource.entityType);
-            const action = e.target.id;
-            if ("btn_del" === action) {
-                dataSource.deleteEntity(entity);
-            } else if ("btn_info" === action) {
-                new EmployeeService(dataSource, entity);
-            } else if ("btn_edit" === action) {
-                dataSource.addEntity(entity);
-            } else if ("btn_add" === action && dataSource.entityType === 'department') {
-                entity = new Department();//
-                dataSource.addEntity(entity);
-            } else if ("btn_add" === action && dataSource.entityType === 'employee') {
-                entity = new Employee();
-                entity["departmentId"] = dataSource.departmentId;
-                dataSource.addEntity(entity);
-            }
-        });
-    }
-
-    getForm(dataSource){
-        return $('<form/>').addClass("form").on({
-            click: function () {
-                dataSource.submitEntity();
-            }
-        }, 'button');
+    getUrl () {
+        const url = window.location.hash;
+        if (url === `#` || url === ``) {
+            window.location.hash = `departments`;
+        }
+        return url.split(`?`)[0];
     }
 
 }
 
+export const routes = [
+    {
+        "component": listDepartment,
+        "path": `#departments`,
+        "type": `GET`
+    },
+    {
+        "component": listEmployee,
+        "path": `#employees`,
+        "type": `GET`
+    },
+    {
+        "component": formDepartment,
+        "path": `#departments`,
+        "type": `POST`
+    },
+    {
+        "component": formEmployee,
+        "path": `#employees`,
+        "type": `POST`
+    }
+];
 
-
-const Department = function () {
-};
-
-const Employee = function () {
-};
+export const appModule = new Starter({"routes": routes});

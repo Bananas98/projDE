@@ -1,6 +1,6 @@
 const path = require('path');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -10,19 +10,43 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname,'dist')
     },
+    devtool:'eval',
     devServer: {
         historyApiFallback: true,
         proxy: {
             '/api': 'http://localhost:8080'
         },
-        port: 8080,
+        port: 9991,
         open: true
     },
+    module: {
+
+        loaders: [{
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loaders: ['babel-loader',"eslint-loader"]
+
+        },
+            { test:/bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, loader: 'imports?jQuery=jquery' }
+        ],
+
+    },
     plugins: [
-        new HTMLWebpackPlugin({
-            title: 'Development page',
-            template: './index.html'
+        new HtmlWebpackPlugin({
+            title:'Index',
+            template:'./index.html'
         }),
-        new CleanWebpackPlugin()
-    ]
+
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.$': 'jquery',
+            'window.jQuery': 'jquery',
+        }),
+    ],
+    externals: {
+        jquery: 'jQuery',
+    }
 };
