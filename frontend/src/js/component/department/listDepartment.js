@@ -8,7 +8,7 @@ class ListDepartment extends Component {
     render() {
         $(`.app`).empty();
         const panelInfo = $(`<div>`).addClass(`panel panel-info`),
-            panelHeader = $(`<div>`).addClass(`panel-heading`).text(`Секас`),
+            panelHeader = $(`<div>`).addClass(`panel-heading`).text(`List Department`),
             promiseArray = Service.getEntityList(`departments`),
             tabl = $(`<table>`),
             tbody = $(`<tbody>`);

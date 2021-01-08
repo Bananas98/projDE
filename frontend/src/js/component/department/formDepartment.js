@@ -1,6 +1,7 @@
 import Component from "src/js/component/Component";
 import Service from "src/js/services/service.js";
 import Builder from "src/js/component/builder";
+import validator from "src/js/validation/validator";
 
 class FormDepartment extends Component {
 
@@ -27,10 +28,7 @@ class FormDepartment extends Component {
         panelInfo.append(form);
         div.append(panelInfo);
         $(`.content`).append(div);
-        Service.insertEntity(
-            `/departments`,
-            Service.toJsonString(form), `department`
-        );
+        validator.validationDepartmentFunction();
     }
 
 }

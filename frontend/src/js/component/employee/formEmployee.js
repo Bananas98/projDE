@@ -1,5 +1,6 @@
 import Builder from "src/js/component/builder";
 import Service from "src/js/services/service";
+import validator from "src/js/validation/validator";
 
 class FormEmployee extends Component {
     render() {
@@ -33,12 +34,8 @@ class FormEmployee extends Component {
         panelInfo.append(form);
         div.append(panelInfo);
         $(`.content`).append(div);
-        const url = `/employees`;
+        validator.validationEmployeeFunction();
 
-        Service.insertEntity(
-            url,
-            Service.toJsonString(form), `employee`
-        );
     }
 }
 

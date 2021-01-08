@@ -1,8 +1,8 @@
 import {Starter} from "./utils/starter";
-import {listDepartment} from "src/js/component/listDepartment";
-import {listEmployee} from "src/js/component/listEmployee";
-import {formDepartment} from "src/js/component/formDepartment";
-import {formEmployee} from "src/js/component/formEmployee";
+import {listDepartment} from "src/js/component/department/listDepartment";
+import {listEmployee} from "src/js/component/employee/listEmployee";
+import {formDepartment} from "src/js/component/department/formDepartment";
+import {formEmployee} from "src/js/component/employee/formEmployee";
 export class Routes {
     routes = new Starter({"routes": routes});
 
