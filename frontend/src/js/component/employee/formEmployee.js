@@ -1,6 +1,6 @@
 import Builder from "src/js/component/builder";
-import Service from "src/js/services/service";
 import validator from "src/js/validation/validator";
+import Service from "../../services/service";
 
 class FormEmployee extends Component {
     render() {

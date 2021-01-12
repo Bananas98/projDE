@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import Service from "src/js/services/service";
-require(`jquery-validation`);
+import Service from "../services/service";
+import validate from "jquery-validation";
 
 class Validator {
 
@@ -10,7 +10,7 @@ class Validator {
             "rules": {
                 "name": {
                     "maxlength": 16,
-                    "minlength": 2,
+                    "minlength": 2,//в инпуте валедировать через класс
                     "required": true
                 }
             },

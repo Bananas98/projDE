@@ -1,7 +1,7 @@
 import Component from "src/js/component/Component";
-import Service from "src/js/services/service.js";
 import Builder from "src/js/component/builder";
 import validator from "src/js/validation/validator";
+import Service from "../../services/service";
 
 class FormDepartment extends Component {
 

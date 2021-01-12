@@ -10,6 +10,7 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("/departments")
 public class DepartmentController {
     private final DepartmentService departmentService;
 
@@ -19,32 +20,22 @@ public class DepartmentController {
     }
 
 
-    @GetMapping("/departments")
-    @ResponseBody
+    @GetMapping
     public List<Department> showDepartments() {
         return departmentService.getAllDepartment();
     }
 
-    @PostMapping("/department")
-    @ResponseBody
-    public Department createDepartment(@RequestBody  Department department) throws ValidException {
-        return departmentService.createOrUpdateDepartment(department);
-    }
-
-    @PostMapping("departments/{id}")
-    @ResponseBody
-    public Department updateDepartment(@PathVariable Integer id, @RequestBody Department department) throws ValidException {
-        department.setId(id);
-        return departmentService.createOrUpdateDepartment(department);
-    }
-
-    @GetMapping("departments/{id}")
-    @ResponseBody
+    @GetMapping("/{id}")
     public Department getDepartment(@PathVariable Integer id) {
         return departmentService.getByIdDepartment(id);
     }
 
-    @DeleteMapping("departments/{id}")
+    @PostMapping
+    public Department createDepartment(@RequestBody  Department department) throws ValidException {
+        return departmentService.createOrUpdateDepartment(department);
+    }
+
+    @DeleteMapping("/{id}")
     public void deleteDepartment(@PathVariable Integer id) {
         departmentService.deleteDepartment(id);
     }

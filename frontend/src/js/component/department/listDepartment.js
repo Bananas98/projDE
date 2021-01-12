@@ -1,6 +1,6 @@
 import Component from "src/js/component/Component";
-import Service from "src/js/services/service";
 import Builder from "src/js/component/builder";
+import Service from "../../services/service";
 
 class ListDepartment extends Component {
 
@@ -10,19 +10,18 @@ class ListDepartment extends Component {
         const panelInfo = $(`<div>`).addClass(`panel panel-info`),
             panelHeader = $(`<div>`).addClass(`panel-heading`).text(`List Department`),
             promiseArray = Service.getEntityList(`departments`),
-            tabl = $(`<table>`),
+            table = $(`<table>`),
             tbody = $(`<tbody>`);
 
-        tabl.addClass(`table`);
+        table.addClass(`table`);
         panelInfo.append(panelHeader);
         promiseArray.then((out) => {
-            for (let i = 0; i < out.length; i++) {
-                const row = Builder.printDepartmentRow(out[i]);
-                tbody.append(row);
-            }
+           out.each(item => {
+               tbody.append(Builder.printDepartmentRow(item));
+            });
         });
-        tabl.append(tbody);
-        panelInfo.append(tabl);
+        table.append(tbody);
+        panelInfo.append(table);
         $(`.content`).append(panelInfo);
     }
 

@@ -19,14 +19,27 @@ module.exports = {
         port: 9991,
         open: true
     },
+    resolve: {
+        extensions: ['.js'],
+        alias: {
+            rootDirectory: path.resolve(__dirname, './src'),
+        },
+    },
     module: {
 
         loaders: [{
             test: /\.js$/,
             exclude: /node_modules/,
             loaders: ['babel-loader',"eslint-loader"]
-
         },
+            { test: /vendor\/.+\.(jsx|js)$/,
+                loader: 'imports?jQuery=jquery,$=jquery,this=>window'
+            },
+            {
+                test: require.resolve('jquery-validation'),
+                loader: 'imports-loader',
+                query: 'define=>false,$=jquery',
+            },
             { test:/bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, loader: 'imports?jQuery=jquery' }
         ],
 
