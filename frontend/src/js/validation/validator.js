@@ -2,68 +2,26 @@ import $ from 'jquery';
 import Service from "../services/service";
 import validate from "jquery-validation";
 
-class Validator {
 
-    validationDepartmentFunction () {
+export function validationFunction () {
 
-        $(`#department-form`).validate({
-            "rules": {
-                "name": {
-                    "maxlength": 16,
-                    "minlength": 2,//в инпуте валедировать через класс
-                    "required": true
-                }
-            },
-            "submitHandler": (form, event) => {
-                event.preventDefault();
-                Service.insertEntity(
-                    `/departments`,
-                    Service.toJsonString(form), `department`
-                );
-            }
-        });
-    }
+    $.validator.setDefaults({
+        errorClass: "warning"
+    });
 
+    $.validator.addMethod("nameRequired", $.validator.methods.required, "Name cannot be empty");
+    $.validator.addClassRules("`department-name", {nameRequired: true});
 
-    validationEmployeeFunction () {
+    $.validator.addClassRules("employee-name", {nameRequired: true});
+    $.validator.addClassRules("dateOfBirthday", {required: true});
+    $.validator.addClassRules("salary", {
+        min: 0,
+        required: true,
+        number: true
+    });
+    $.validator.addClassRules("email", {
+        required: true,
+        email: true
+    })
 
-        $(`#employee-form`).validate({
-            "rules": {
-                "dateOfBirthday": {
-                    "date": true,
-                    "dateISO": true,
-                    "required": true
-                },
-                "email": {
-                    "email": true,
-                    "required": true
-                },
-                "name": {
-                    "maxlength": 20,
-                    "minlength": 2,
-                    "required": true
-                },
-                "salary": {
-                    "number": true,
-                    "required": true
-                }
-
-
-            },
-            submitHandler (form, event) {
-
-                event.preventDefault();
-                const url = `/employees`;
-
-                Service.insertEntity(
-                    url,
-                    Service.toJsonString(form), `employee`
-                );
-            }
-        });
-    }
 }
-
-const validator = new Validator();
-
-export default validator;

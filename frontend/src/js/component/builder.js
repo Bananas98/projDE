@@ -2,10 +2,16 @@ import Service from "src/js/services/service";
 
 export default class Builder {
 
-    static inputCreator(id, name, placeholder, type, promise) {
+    static inputCreator (id, name, placeholder, type, promise) {
 
-        const nameDiv = $(`<div>`).addClass(`lg-form`),
-            nameInput = $(`<input>`).attr(`id`, id).addClass(`form-control`).attr(`name`, name).attr(`placeholder`, placeholder).attr(`type`, type);
+        const nameDiv = $(`<div>`).
+                addClass(`lg-form`),
+            nameInput = $(`<input>`).
+                attr(`id`, id).
+                addClass(`form-control`).
+                attr(`name`, name).
+                attr(`placeholder`, placeholder).
+                attr(`type`, type);
 
         promise.then((out) => {
             nameInput.val(out[name]);
@@ -15,17 +21,22 @@ export default class Builder {
 
     }
 
-    static hiddenFieldBuilder() {
-        const idDiv = $(`<div>`).addClass(`lg-form`),
-            idInput = $(`<input>`).attr(`type`, `hidden`).attr(`name`, `id`).addClass(`form-control`);
+    static hiddenFieldBuilder () {
+        const idDiv = $(`<div>`).
+                addClass(`lg-form`),
+            idInput = $(`<input>`).
+                attr(`type`, `hidden`).
+                attr(`name`, `id`).
+                addClass(`form-control`);
         const idDepartment = window.location.hash.split(`=`)[1];
         idInput.val(idDepartment);
         idDiv.append(idInput);
         return idDiv;
     }
 
-    static employeeListButton(id) {
-        const button = $(`<button>`).addClass(`btn btn-primary`),
+    static employeeListButton (id) {
+        const button = $(`<button>`).
+                addClass(`btn btn-primary`),
             td = $(`<td>`);
         button.text(`Employee list`);
         button.click(`click`, () => {
@@ -35,10 +46,11 @@ export default class Builder {
         return td;
     }
 
-    static editDepartmentButton(id, type) {
+    static editDepartmentButton (id, type) {
 
         const td = $(`<td>`),
-            button = $(`<button>`).addClass(`btn btn-primary`);
+            button = $(`<button>`).
+                addClass(`btn btn-primary`);
         button.text(`Edit`);
         button.click(() => {
             if (type === `department`) {
@@ -52,24 +64,27 @@ export default class Builder {
 
     }
 
-    static deleteEntityButton(id, url, type) {
+    static deleteEntityButton (id, url, type) {
 
         const td = $(`<td>`);
-        const button = $(`<button>`).addClass(`btn btn-primary`);
+        const button = $(`<button>`).
+            addClass(`btn btn-primary`);
 
         button.text(`Delete`);
         button.on(`click`, () => {
             Service.deleteEntity(url, id);
-            $(`#${type}${id}`).remove();
+            $(`#${type}${id}`).
+                remove();
         });
         td.append(button);
         return td;
 
     }
 
-    static printDepartmentRow(entity) {
+    static printDepartmentRow (entity) {
 
-        const row = $(`<tr>`).attr(`id`, `department${entity.id}`);
+        const row = $(`<tr>`).
+            attr(`id`, `department${entity.id}`);
 
         row.append(`<td>${entity.name}</td>`);
         row.append(`<td>${entity.id}</td>`);
@@ -81,9 +96,10 @@ export default class Builder {
 
     }
 
-    static printEmployeeRow(entity) {
+    static printEmployeeRow (entity) {
 
-        const row = $(`<tr>`).attr(`id`, `employee${entity.id}`);
+        const row = $(`<tr>`).
+            attr(`id`, `employee${entity.id}`);
 
         row.append(`<td>${entity.name}</td>`);
         row.append(`<td>${entity.id}</td>`);

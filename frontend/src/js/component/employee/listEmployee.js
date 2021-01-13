@@ -5,10 +5,14 @@ import Builder from "src/js/component/builder";
 class EmployeeList extends Component {
 
 
-    render() {
-        $(`.app`).empty();
-        const panelInfo = $(`<div>`).addClass(`panel panel-info`),
-            panelHeader = $(`<div>`).addClass(`panel-heading`).text(`Employees`),
+    render () {
+        $(`.app`).
+            empty();
+        const panelInfo = $(`<div>`).
+                addClass(`panel panel-info`),
+            panelHeader = $(`<div>`).
+                addClass(`panel-heading`).
+                text(`Employees`),
             promiseArray = Service.getEntityList(window.location.hash.split(`#`)[1]),
             table = $(`<table>`),
             tbody = $(`<tbody>`);
@@ -22,7 +26,8 @@ class EmployeeList extends Component {
         });
         table.append(tbody);
         panelInfo.append(table);
-        $(`.content`).append(panelInfo);
+        $(`.content`).
+            append(panelInfo);
     }
 
 }

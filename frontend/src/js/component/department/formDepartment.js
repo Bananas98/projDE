@@ -1,34 +1,68 @@
 import Component from "src/js/component/Component";
 import Builder from "src/js/component/builder";
-import validator from "src/js/validation/validator";
 import Service from "../../services/service";
+import {
+    validationDepartmentFunction,
+    validationFunction
+} from "../../validation/validator";
 
 class FormDepartment extends Component {
 
-    render() {
+    render () {
 
-        $(`.app`).empty();
-        const panelInfo = $(`<div>`).addClass(`panel panel-info`),
-            div = $(`<div>`).addClass(`form-class col-lg-5`),
-            panelHeading = $(`<div>`).addClass(`panel-heading`).text(`Department List`),
-            form = $(`<form>`).attr(`id`, `department-form`),
-            nameDiv = $(`<div>`).addClass(`lg-form`),
-            nameInput = $(`<input>`).attr(`id`, `department-name`).addClass(`form-control`).attr(`name`, `name`).attr(`placeholder`, `Name`),
+        $(`.app`).
+            empty();
+        const panelInfo = $(`<div>`).
+                addClass(`panel panel-info`),
+            div = $(`<div>`).
+                addClass(`form-class col-lg-5`),
+            panelHeading = $(`<div>`).
+                addClass(`panel-heading`).
+                text(`Department List`),
+            forms = $(`<form>`).
+                attr(`id`, `department-form`),
+            nameDiv = $(`<div>`).
+                addClass(`lg-form`),
+            nameInput = $(`<input>`).
+                attr(`id`, `department-name`).
+                addClass(`form-control`).
+                attr(`name`, `name`).
+                attr(`placeholder`, `Name`),
             idDiv = Builder.hiddenFieldBuilder(),
-            submit = $(`<button>`).attr(`type`, `submit`).addClass(`btn btn-primary`).text(`Save`);
+            submit = $(`<button>`).
+                attr(`type`, `submit`).
+                addClass(`btn btn-primary`).
+                text(`Save`);
         const id = window.location.hash.split(`=`)[1];
 
-        Service.getEntityList(`departments?id=${id}`).then((out) => {
-            nameInput.val(out.name);
-        });
+        Service.getEntityList(`departments?id=${id}`).
+            then((out) => {
+                nameInput.val(out.name);
+            });
 
         nameDiv.append(nameInput);
-        form.append(idDiv).append(nameDiv).append(submit);
-        panelInfo.append(panelHeading).append(form);
-        panelInfo.append(form);
+        forms.append(idDiv).
+            append(nameDiv).
+            append(submit);
+        panelInfo.append(panelHeading).
+            append(forms);
+        panelInfo.append(forms);
         div.append(panelInfo);
-        $(`.content`).append(div);
-        validator.validationDepartmentFunction();
+        $(`.content`).
+            append(div);
+
+        validationFunction();
+
+        $(`#department-form`).
+            validate({
+                submitHandler: (form, event) => {
+                    event.preventDefault();
+                    Service.insertEntity(
+                        `/departments`,
+                        Service.toJsonString(form), `department`
+                    );
+                }
+            })
     }
 
 }
