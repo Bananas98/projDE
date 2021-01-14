@@ -14,7 +14,7 @@ export default class DepartmentService extends Service{
     }
 
 
-    static insertDepartment (url, object, type) {
+    static insertDepartment (url, object) {
         fetch(url, {
             "body": object,
             "headers": {
