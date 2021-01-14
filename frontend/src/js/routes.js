@@ -15,7 +15,9 @@ export class Router {
         if (url === `#` || url === ``) {
             window.location.hash = `departments`;
         }
-        return url.split(`?`)[0];
+        if (url.split(`?`)[0] !== undefined){
+            return url.split(`?`)[0];
+        }
     }
 
     renderRoute () {

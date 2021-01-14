@@ -112,4 +112,17 @@ export default class Builder {
         return row;
 
     }
+
+    static createMessageAlert() {
+
+        const div = document.createElement(`div`),
+            message = document.createElement(`h2`);
+
+        div.className = `alert alert-success`;
+        message.innerHTML = `Object has been added to department list!`;
+
+        div.appendChild(message);
+
+        return div;
+    }
 }

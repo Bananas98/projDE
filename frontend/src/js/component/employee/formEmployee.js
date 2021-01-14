@@ -1,6 +1,7 @@
 import Builder from "src/js/component/builder";
 import validator, {validationFunction} from "src/js/validation/validator";
 import Service from "../../services/service";
+import EmployeeService from "../../services/emplooyeeService";
 
 class FormEmployee extends Component {
     render () {
@@ -8,7 +9,7 @@ class FormEmployee extends Component {
         $(`.app`).
             empty();
         const id = window.location.hash.split(`=`)[1];
-        const promise = Service.getEntityList(`employees?id=${id}`);
+        const promise = Service.getEmployeeList(`employees?id=${id}`);
         const panelInfo = $(`<div>`).
                 addClass(`panel panel-info`),
             div = $(`<div>`).
@@ -57,7 +58,7 @@ class FormEmployee extends Component {
                 submitHandler (form, event) {
                     event.preventDefault();
                     const url = `/employees`;
-                    Service.insertEntity(url, Service.toJsonString(form), `employee`);
+                    EmployeeService.insertEmployee(url, Service.toJsonString(form));
                 }
             })
     }

@@ -13,7 +13,7 @@ class EmployeeList extends Component {
             panelHeader = $(`<div>`).
                 addClass(`panel-heading`).
                 text(`Employees`),
-            promiseArray = Service.getEntityList(window.location.hash.split(`#`)[1]),
+            promiseArray = Service.getEmployeeList(window.location.hash.split(`#`)[1]),
             table = $(`<table>`),
             tbody = $(`<tbody>`);
 

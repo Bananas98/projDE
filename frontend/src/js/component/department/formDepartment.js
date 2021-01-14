@@ -2,9 +2,9 @@ import Component from "src/js/component/Component";
 import Builder from "src/js/component/builder";
 import Service from "../../services/service";
 import {
-    validationDepartmentFunction,
     validationFunction
 } from "../../validation/validator";
+import DepartmentService from "../../services/departmentService";
 
 class FormDepartment extends Component {
 
@@ -35,7 +35,7 @@ class FormDepartment extends Component {
                 text(`Save`);
         const id = window.location.hash.split(`=`)[1];
 
-        Service.getEntityList(`departments?id=${id}`).
+        Service.getDepartmentList(`departments?id=${id}`).
             then((out) => {
                 nameInput.val(out.name);
             });
@@ -57,9 +57,9 @@ class FormDepartment extends Component {
             validate({
                 submitHandler: (form, event) => {
                     event.preventDefault();
-                    Service.insertEntity(
+                    DepartmentService.insertDepartment(
                         `/departments`,
-                        Service.toJsonString(form), `department`
+                        Service.toJsonString(form)
                     );
                 }
             })

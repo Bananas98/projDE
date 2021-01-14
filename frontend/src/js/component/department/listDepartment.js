@@ -13,7 +13,7 @@ class ListDepartment extends Component {
             panelHeader = $(`<div>`).
                 addClass(`panel-heading`).
                 text(`List Department`),
-            promiseArray = Service.getEntityList(`departments`),
+            promiseArray = Service.getDepartmentList(`departments`),
             table = $(`<table>`),
             tbody = $(`<tbody>`);
 
