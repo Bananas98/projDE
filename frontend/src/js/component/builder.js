@@ -72,9 +72,8 @@ export default class Builder {
 
         button.text(`Delete`);
         button.on(`click`, () => {
-            Service.deleteEntity(url, id);
-            $(`#${type}${id}`).
-                remove();
+            Service.deleteEntity(url, id).then().catch();
+            $(`#${type}${id}`).remove();
         });
         td.append(button);
         return td;

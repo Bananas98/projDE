@@ -1,6 +1,6 @@
 import Component from "src/js/component/Component";
-import Service from "src/js/services/service";
 import Builder from "src/js/component/builder";
+import EmployeeService from "../../services/emplooyeeService";
 
 class EmployeeList extends Component {
 
@@ -8,12 +8,13 @@ class EmployeeList extends Component {
     render () {
         $(`.app`).
             empty();
-        const panelInfo = $(`<div>`).
-                addClass(`panel panel-info`),
-            panelHeader = $(`<div>`).
-                addClass(`panel-heading`).
-                text(`Employees`),
-            promiseArray = Service.getEmployeeList(window.location.hash.split(`#`)[1]),
+        const panelInfo = $(`<div>`).addClass(`panel panel-info`),
+            panelHeader = $(`<div>`).addClass(`panel-heading`).text(`Employees`),
+
+            promiseArray = EmployeeService.getEmployeeList(window.location.hash.split(`#`).length?[1]:undefined).
+                then((res) => res.json()).
+                then((out) => out).
+                catch(),
             table = $(`<table>`),
             tbody = $(`<tbody>`);
 

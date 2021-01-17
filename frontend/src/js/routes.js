@@ -1,5 +1,6 @@
 
 export class Router {
+    dep =`departments`;
 
     start(routes) {
         routes.initRoutes();
@@ -13,9 +14,10 @@ export class Router {
     getUrl () {
         const url = window.location.hash;
         if (url === `#` || url === ``) {
-            window.location.hash = `departments`;
+            window.location.hash = this.dep;
         }
-        if (url.split(`?`)[0]){
+        let string = url.split('?');
+        if (string.length){
             return url.split(`?`)[0];
         }
     }

@@ -8,14 +8,16 @@ class ListDepartment extends Component {
     render () {
         $(`.app`).
             empty();
-        const panelInfo = $(`<div>`).
-                addClass(`panel panel-info`),
-            panelHeader = $(`<div>`).
-                addClass(`panel-heading`).
+        const panelInfo = $(`<div>`).addClass(`panel panel-info`),
+            panelHeader = $(`<div>`).addClass(`panel-heading`).
                 text(`List Department`),
-            promiseArray = Service.getDepartmentList(`departments`),
-            table = $(`<table>`),
-            tbody = $(`<tbody>`);
+            promiseArray = Service.getDepartmentList(`departments`).
+                then((res) => res.json()).
+                then((out) => out).
+                catch(() => {
+                    Builder.createMessageAlert()
+                }),
+            table = $(`<table>`), tbody = $(`<tbody>`);
 
         table.addClass(`table`);
         panelInfo.append(panelHeader);
@@ -26,8 +28,7 @@ class ListDepartment extends Component {
         });
         table.append(tbody);
         panelInfo.append(table);
-        $(`.content`).
-            append(panelInfo);
+        $(`.content`).append(panelInfo);
     }
 
 }

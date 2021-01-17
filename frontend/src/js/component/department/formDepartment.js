@@ -1,15 +1,14 @@
 import Component from "src/js/component/Component";
 import Builder from "src/js/component/builder";
-import Service from "../../services/service";
 import {
     validationFunction
 } from "../../validation/validator";
+
 import DepartmentService from "../../services/departmentService";
 
 class FormDepartment extends Component {
 
     render () {
-
         $(`.app`).
             empty();
         const panelInfo = $(`<div>`).
@@ -33,13 +32,19 @@ class FormDepartment extends Component {
                 attr(`type`, `submit`).
                 addClass(`btn btn-primary`).
                 text(`Save`);
-        const id = window.location.hash.split(`=`)[1];
 
-        Service.getDepartmentList(`departments?id=${id}`).
+        let id;
+        if (window.location.hash.split(`=`).length) {
+            id = window.location.hash.split(`=`)[1]
+        }
+        DepartmentService.getDepartmentList(`departments?id=${id}`).
+            then((res) => res.json()).
             then((out) => {
                 nameInput.val(out.name);
+            }).
+            catch(() => {
+                Builder.createMessageAlert()
             });
-
         nameDiv.append(nameInput);
         forms.append(idDiv).
             append(nameDiv).
@@ -48,6 +53,7 @@ class FormDepartment extends Component {
             append(forms);
         panelInfo.append(forms);
         div.append(panelInfo);
+
         $(`.content`).
             append(div);
 
@@ -59,12 +65,18 @@ class FormDepartment extends Component {
                     event.preventDefault();
                     DepartmentService.insertDepartment(
                         `/departments`,
-                        Service.toJsonString(form)
-                    );
+                        JSON.stringify(form)
+                    ).
+                        then((res) => res.json()).
+                        then((out) => {
+                            window.location.hash = `#departments`;
+                        }).
+                        catch(() => {
+                            Builder.createMessageAlert()
+                        })
                 }
             })
     }
-
 }
 
 export const formDepartment = new FormDepartment();
